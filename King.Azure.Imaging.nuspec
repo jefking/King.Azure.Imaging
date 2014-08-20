@@ -24,6 +24,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="King.Azure\bin\Release\King.Azure.dll" target="lib\net451\King.Azure.dll" />
+    <file src="King.Azure.Imaging\bin\Release\King.Azure.Imaging.dll" target="lib\net451\King.Azure.Imaging.dll" />
   </files>
 </package>
