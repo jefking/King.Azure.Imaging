@@ -12,6 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FCBFEF
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{D0B7DDCB-6F08-4EDE-9676-5C4D9E7DEA25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "King.Azure.Imaging.Unit.Test", "King.Azure.Imaging.Unit.Test\King.Azure.Imaging.Unit.Test.csproj", "{C0E6FD07-60D9-4EBF-BC0A-35B59B571611}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "King.Azure.Imaging.Integration.Test", "King.Azure.Imaging.Integration.Test\King.Azure.Imaging.Integration.Test.csproj", "{A7881C78-CEF9-4EDA-88A4-90FB824D53B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,8 +28,20 @@ Global
 		{B46D9E63-EF4B-4FA7-83E0-BABF2249D6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B46D9E63-EF4B-4FA7-83E0-BABF2249D6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B46D9E63-EF4B-4FA7-83E0-BABF2249D6EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0E6FD07-60D9-4EBF-BC0A-35B59B571611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E6FD07-60D9-4EBF-BC0A-35B59B571611}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E6FD07-60D9-4EBF-BC0A-35B59B571611}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E6FD07-60D9-4EBF-BC0A-35B59B571611}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7881C78-CEF9-4EDA-88A4-90FB824D53B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7881C78-CEF9-4EDA-88A4-90FB824D53B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7881C78-CEF9-4EDA-88A4-90FB824D53B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7881C78-CEF9-4EDA-88A4-90FB824D53B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C0E6FD07-60D9-4EBF-BC0A-35B59B571611} = {D0B7DDCB-6F08-4EDE-9676-5C4D9E7DEA25}
+		{A7881C78-CEF9-4EDA-88A4-90FB824D53B3} = {D0B7DDCB-6F08-4EDE-9676-5C4D9E7DEA25}
 	EndGlobalSection
 EndGlobal
