@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>King.Azure.Imaging</id>
+    <version>1.0.0</version>
+    <title>King.Azure.Imaging</title>
+    <authors>Jef King</authors>
+    <owners>Jef King</owners>
+    <licenseUrl>https://github.com/jefking/King.Azure.Imaging/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/jefking/King.Azure.Imaging</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/jefking/King.Azure.Imaging/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Get your image on.</description>
+    <summary>Simplified Azure Imaging Framework.</summary>
+    <releaseNotes>ALPHA Release</releaseNotes>
+    <copyright>Jef King</copyright>
+    <language>en-US</language>
+    <tags>Azure Image Jpg Png CDN</tags>
+    <dependencies>
+      <dependency id="King.Azure" version="1.0.4" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" targetFramework="net451" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="King.Azure\bin\Release\King.Azure.dll" target="lib\net451\King.Azure.dll" />
+  </files>
+</package>
