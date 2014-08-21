@@ -28,5 +28,13 @@
         {
             Assert.AreEqual("X-File-Type", Upload.ContentTypeHeader);
         }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task LoadRequestNull()
+        {
+            var u = new Upload();
+            await u.Load(null);
+        }
     }
 }

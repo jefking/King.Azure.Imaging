@@ -5,13 +5,31 @@
     using System.Threading.Tasks;
     using System.Web;
 
+    /// <summary>
+    /// Upload
+    /// </summary>
     public class Upload
     {
+        #region Members
+        /// <summary>
+        /// File Name Header
+        /// </summary>
         public const string FileNameHeader = "X-File-Name";
-        public const string ContentTypeHeader = "X-File-Type";
 
-        public async Task<RawData> Something(HttpRequest request)
+        /// <summary>
+        /// Content Type Header
+        /// </summary>
+        public const string ContentTypeHeader = "X-File-Type";
+        #endregion
+
+        #region Methods
+        public async Task<RawData> Load(HttpRequest request)
         {
+            if (null == request)
+            {
+                throw new ArgumentNullException("request");
+            }
+
             var raw = new RawData()
             {
                 Identifier = Guid.NewGuid(),
@@ -35,5 +53,6 @@
 
             return raw;
         }
+        #endregion
     }
 }
