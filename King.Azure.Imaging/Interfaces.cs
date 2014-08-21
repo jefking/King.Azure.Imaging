@@ -1,0 +1,3 @@
+﻿namespace King.Azure.Imaging
+{
+}
