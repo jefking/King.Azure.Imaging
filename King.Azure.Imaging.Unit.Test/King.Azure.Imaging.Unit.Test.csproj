@@ -85,7 +85,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Models\RawDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\UploadTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
