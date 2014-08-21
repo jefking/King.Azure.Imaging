@@ -16,5 +16,17 @@
         {
             new Upload();
         }
+
+        [Test]
+        public void FileNameHeader()
+        {
+            Assert.AreEqual("X-File-Name", Upload.FileNameHeader);
+        }
+
+        [Test]
+        public void ContentTypeHeader()
+        {
+            Assert.AreEqual("X-File-Type", Upload.ContentTypeHeader);
+        }
     }
 }

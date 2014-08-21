@@ -7,6 +7,9 @@
 
     public class Upload
     {
+        public const string FileNameHeader = "X-File-Name";
+        public const string ContentTypeHeader = "X-File-Type";
+
         public async Task<RawData> Something(HttpRequest request)
         {
             var raw = new RawData()
@@ -26,8 +29,8 @@
             {
                 raw.Contents = new byte[request.ContentLength];
                 await request.InputStream.ReadAsync(raw.Contents, 0, request.ContentLength);
-                raw.FileName = request.Headers["X-File-Name"];
-                raw.ContentType = request.Headers["X-File-Type"];
+                raw.FileName = request.Headers[FileNameHeader];
+                raw.ContentType = request.Headers[ContentTypeHeader];
             }
 
             return raw;
