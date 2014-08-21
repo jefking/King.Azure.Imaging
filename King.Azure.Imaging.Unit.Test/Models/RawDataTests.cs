@@ -8,6 +8,12 @@
     public class RawDataTests
     {
         [Test]
+        public void Constructor()
+        {
+            new RawData();
+        }
+
+        [Test]
         public void Contents()
         {
             var random = new Random();

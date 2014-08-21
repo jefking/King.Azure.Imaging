@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Unit.Test.Web
 {
+    using King.Azure.Imaging.Web;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
@@ -10,5 +11,10 @@
     [TestFixture]
     public class UploadTests
     {
+        [Test]
+        public void Constructor()
+        {
+            new Upload();
+        }
     }
 }
