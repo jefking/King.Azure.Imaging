@@ -17,7 +17,8 @@
     <language>en-US</language>
     <tags>Azure Image Jpg Png CDN</tags>
     <dependencies>
-      <dependency id="King.Azure" version="1.0.4" />
+      <dependency id="King.Azure" />
+      <dependency id="ImageResizer" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System" targetFramework="net451" />
