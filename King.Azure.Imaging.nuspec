@@ -15,7 +15,7 @@
     <releaseNotes>Using ImageResizer as imaging component: ALPHA Release</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
-    <tags>Azure Image Jpg Png CDN</tags>
+    <tags>King.Azure.Imaging Azure Image Jpg Png CDN image resize crop rotate jpeg jpg gif png server-safe-imaging imaging Cloud Blob</tags>
     <dependencies>
       <dependency id="King.Azure" />
       <dependency id="ImageResizer" />
