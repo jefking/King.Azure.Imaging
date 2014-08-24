@@ -1,16 +1,19 @@
 ﻿namespace King.Azure.Imaging
 {
     using System;
-    using System.Collections.Generic;
     using System.Drawing.Imaging;
     using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class Resizer
     {
-        public byte[] Large(byte[] data, ImageFormat format)
+        #region Methods
+        /// <summary>
+        /// Large
+        /// </summary>
+        /// <param name="data">Data</param>
+        /// <param name="format">Format</param>
+        /// <returns>Bytes</returns>
+        public virtual byte[] Large(byte[] data, ImageFormat format)
         {
             if (null == data)
             {
@@ -24,5 +27,6 @@
                 return images.ResizeByWidth(stream, format, 960).Data;
             }
         }
+        #endregion
     }
 }

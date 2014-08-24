@@ -19,7 +19,7 @@
         /// <param name="format">Image Format</param>
         /// <param name="maxSize">Max Size</param>
         /// <returns>Image Bytes</returns>
-        public byte[] ResizeSquare(Stream stream, ImageFormat format, int maxSize)
+        public virtual byte[] ResizeSquare(Stream stream, ImageFormat format, int maxSize)
         {
             if (null == stream)
             {
@@ -61,7 +61,7 @@
         /// <param name="savingFormat">Format - see helper functions for options</param>
         /// <param name="message">An output message in case of an error.</param>
         /// <returns>Image Data</returns>
-        public ImageData ResizeByWidth(Stream stream, ImageFormat format, int maxWidth)
+        public virtual ImageData ResizeByWidth(Stream stream, ImageFormat format, int maxWidth)
         {
             if (null == stream)
             {
@@ -110,7 +110,7 @@
         /// <param name="size">Size</param>
         /// <param name="dimensions">Dimensions</param>
         /// <returns>Image Bytes</returns>
-        public byte[] Crop(Image image, ImageFormat format, Size size, RectangleF dimensions)
+        public virtual byte[] Crop(Image image, ImageFormat format, Size size, RectangleF dimensions)
         {
             if (null == image)
             {
