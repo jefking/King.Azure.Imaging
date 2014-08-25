@@ -23,7 +23,7 @@
         #endregion
 
         #region Methods
-        public async Task<RawData> Load(HttpRequest request)
+        public async Task<RawData> Load(HttpRequestMessage request)
         {
             if (null == request)
             {
