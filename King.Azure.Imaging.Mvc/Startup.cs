@@ -8,7 +8,6 @@ namespace King.Azure.Imaging.Mvc
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
         }
     }
 }
