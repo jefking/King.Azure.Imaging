@@ -67,7 +67,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Models\ImageData.cs" />
     <Compile Include="Models\RawData.cs" />
