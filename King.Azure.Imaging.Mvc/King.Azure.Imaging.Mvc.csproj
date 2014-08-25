@@ -230,7 +230,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\King.Azure.Imaging\King.Azure.Imaging.csproj">
+      <Project>{b46d9e63-ef4b-4fa7-83e0-babf2249d6eb}</Project>
+      <Name>King.Azure.Imaging</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
