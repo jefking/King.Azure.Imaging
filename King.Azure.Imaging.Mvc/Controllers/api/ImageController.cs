@@ -8,6 +8,8 @@
     using System.Threading.Tasks;
     using System.Web.Http;
     using King.Mapper;
+    using Microsoft.WindowsAzure.Storage.Queue;
+    using Newtonsoft.Json;
 
     public class ImageController : ApiController
     {
@@ -25,12 +27,17 @@
         /// <summary>
         /// Blob Container
         /// </summary>
-        private readonly Container container = new Container("name", "connection string");
+        private readonly IContainer container = new Container("name", "connection string");
 
         /// <summary>
         /// Table
         /// </summary>
-        private readonly TableStorage table = new TableStorage("name", "connection string");
+        private readonly ITableStorage table = new TableStorage("name", "connection string");
+
+        /// <summary>
+        /// Storage Queue
+        /// </summary>
+        private readonly StorageQueue queue = new StorageQueue("name", "connection string");
         #endregion
 
         public async Task UploadImage()
@@ -49,7 +56,8 @@
             entity.RowKey = data.Identifier.ToString();
             await table.InsertOrReplace(entity);
 
-            //Queue for additional processing.
+            var toQueue = data.Map<ImageQueued>();
+            await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
 
             await container.Save(data.Identifier.ToString(), data.Contents, data.ContentType);
         }

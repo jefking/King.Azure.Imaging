@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Azure.1.0.8\lib\net451\King.Azure.dll</HintPath>
     </Reference>
+    <Reference Include="King.Mapper">
+      <HintPath>..\packages\King.Mapper.1.7.7\lib\net451\King.Mapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.Edm.5.6.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -64,17 +67,20 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ImageEntity.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Models\ImageData.cs" />
+    <Compile Include="Models\ImageQueued.cs" />
     <Compile Include="Models\RawData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
