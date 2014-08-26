@@ -1,11 +1,13 @@
 ﻿namespace King.Azure.Imaging.Mvc.Controllers.api
 {
     using King.Azure.Data;
+    using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using King.Mapper;
 
     public class ImageController : ApiController
     {
@@ -24,6 +26,11 @@
         /// Blob Container
         /// </summary>
         private readonly Container container = new Container("name", "connection string");
+
+        /// <summary>
+        /// Table
+        /// </summary>
+        private readonly TableStorage table = new TableStorage("name", "connection string");
         #endregion
 
         public async Task UploadImage()
@@ -37,8 +44,11 @@
             };
             data.FileSize = data.Contents.Length;
 
-            //Store meta data to table?
-            //Store meta data to blob.
+            var entity = data.Map<ImageEntity>();
+            entity.PartitionKey = "original";
+            entity.RowKey = data.Identifier.ToString();
+            await table.InsertOrReplace(entity);
+
             //Queue for additional processing.
 
             await container.Save(data.Identifier.ToString(), data.Contents, data.ContentType);
