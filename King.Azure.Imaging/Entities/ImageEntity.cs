@@ -4,6 +4,7 @@
 
     public class ImageEntity : TableEntity
     {
+        #region Properties
         /// <summary>
         /// Content Type
         /// </summary>
@@ -18,5 +19,6 @@
         /// File Size
         /// </summary>
         public int FileSize { get; set; }
+        #endregion
     }
 }
