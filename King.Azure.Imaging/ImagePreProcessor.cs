@@ -42,11 +42,15 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="connectionString">Connection String</param>
         public ImagePreprocessor(string connectionString)
         {
-            this.container = new Container("", connectionString);
-            this.table = new TableStorage("", connectionString);
-            this.queue = new StorageQueue("", connectionString);
+            this.container = new Container(StorageElements.Container, connectionString);
+            this.table = new TableStorage(StorageElements.Table, connectionString);
+            this.queue = new StorageQueue(StorageElements.Queue, connectionString);
         }
         #endregion
 
