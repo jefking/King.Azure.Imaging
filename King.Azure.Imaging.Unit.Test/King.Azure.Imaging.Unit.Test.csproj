@@ -98,6 +98,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ImagePreprocessorTests.cs" />
     <Compile Include="Models\RawDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
