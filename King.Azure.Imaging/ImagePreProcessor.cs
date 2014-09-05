@@ -3,16 +3,16 @@
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
+    using King.Mapper;
+    using Microsoft.WindowsAzure.Storage.Queue;
     using Newtonsoft.Json;
     using System;
-    using King.Mapper;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.WindowsAzure.Storage.Queue;
 
-    public class ImagePreProcessor : IImagePreProcessor
+    /// <summary>
+    /// Image Preprocessor
+    /// </summary>
+    public class ImagePreprocessor : IImagePreprocessor
     {
         #region Members
         /// <summary>
@@ -42,7 +42,7 @@
         #endregion
 
         #region Methods
-        public ImagePreProcessor(string connectionString)
+        public ImagePreprocessor(string connectionString)
         {
             this.container = new Container("", connectionString);
             this.table = new TableStorage("", connectionString);
