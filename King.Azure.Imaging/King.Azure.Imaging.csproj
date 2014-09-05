@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ImageEntity.cs" />
+    <Compile Include="ImagePreProcessor.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Models\ImageData.cs" />
     <Compile Include="Models\ImageQueued.cs" />

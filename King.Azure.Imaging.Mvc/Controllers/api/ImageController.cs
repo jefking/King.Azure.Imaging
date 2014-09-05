@@ -11,55 +11,26 @@
     using Microsoft.WindowsAzure.Storage.Queue;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Image Controller
+    /// </summary>
     public class ImageController : ApiController
     {
         #region Members
         /// <summary>
-        /// File Name Header
+        /// Image Preprocessor
         /// </summary>
-        public const string FileNameHeader = "X-File-Name";
-
-        /// <summary>
-        /// Content Type Header
-        /// </summary>
-        public const string ContentTypeHeader = "X-File-Type";
-
-        /// <summary>
-        /// Blob Container
-        /// </summary>
-        private readonly IContainer container = new Container("name", "connection string");
-
-        /// <summary>
-        /// Table
-        /// </summary>
-        private readonly ITableStorage table = new TableStorage("name", "connection string");
-
-        /// <summary>
-        /// Storage Queue
-        /// </summary>
-        private readonly StorageQueue queue = new StorageQueue("name", "connection string");
+        private readonly IImagePreProcessor preprocessor = new ImagePreProcessor("connection string");
         #endregion
 
+        #region Methods
         public async Task UploadImage()
         {
-            var data = new RawData()
-            {
-                Contents = await Request.Content.ReadAsByteArrayAsync(),
-                Identifier = Guid.NewGuid(),
-                ContentType = Request.Headers.GetValues(ContentTypeHeader).FirstOrDefault(),
-                FileName = Request.Headers.GetValues(FileNameHeader).FirstOrDefault(),
-            };
-            data.FileSize = data.Contents.Length;
-
-            var entity = data.Map<ImageEntity>();
-            entity.PartitionKey = "original";
-            entity.RowKey = data.Identifier.ToString();
-            await table.InsertOrReplace(entity);
-
-            var toQueue = data.Map<ImageQueued>();
-            await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
-
-            await container.Save(data.Identifier.ToString(), data.Contents, data.ContentType);
+            var bytes = await Request.Content.ReadAsByteArrayAsync();
+            var contentType = Request.Headers.GetValues(ImagePreProcessor.ContentTypeHeader).FirstOrDefault();
+            var fileName = Request.Headers.GetValues(ImagePreProcessor.FileNameHeader).FirstOrDefault();
+            await this.preprocessor.Process(bytes, contentType, fileName);
         }
+        #endregion
     }
 }

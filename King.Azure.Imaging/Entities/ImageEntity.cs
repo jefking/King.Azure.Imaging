@@ -2,6 +2,9 @@
 {
     using Microsoft.WindowsAzure.Storage.Table;
 
+    /// <summary>
+    /// Image Entity
+    /// </summary>
     public class ImageEntity : TableEntity
     {
         #region Properties
