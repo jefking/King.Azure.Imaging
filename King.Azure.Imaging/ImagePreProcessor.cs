@@ -5,10 +5,12 @@
     using King.Azure.Imaging.Models;
     using Newtonsoft.Json;
     using System;
+    using King.Mapper;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.WindowsAzure.Storage.Queue;
 
     public class ImagePreProcessor : IImagePreProcessor
     {
