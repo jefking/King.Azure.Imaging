@@ -2,9 +2,6 @@
 {
     using King.Azure.Data;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -46,11 +43,11 @@
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-
+                throw new ArgumentException("connectionString");
             }
             if (null == elements)
             {
-
+                throw new ArgumentNullException("elements");
             }
 
             this.container = new Container(elements.Container, connectionString);
@@ -59,11 +56,17 @@
         }
         #endregion
 
-        public async Task Init()
+        #region Methods
+        /// <summary>
+        /// Setup Environment
+        /// </summary>
+        /// <returns>Task</returns>
+        public async Task Create()
         {
             await this.container.CreateIfNotExists();
             await this.table.CreateIfNotExists();
             await this.queue.CreateIfNotExists();
         }
+        #endregion
     }
 }

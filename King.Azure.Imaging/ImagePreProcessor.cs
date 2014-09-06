@@ -58,11 +58,11 @@
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-
+                throw new ArgumentException("connectionString");
             }
             if (null == elements)
             {
-
+                throw new ArgumentNullException("elements");
             }
 
             this.container = new Container(elements.Container, connectionString);

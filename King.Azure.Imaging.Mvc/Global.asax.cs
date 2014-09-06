@@ -16,7 +16,7 @@
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             var init = new StorageInitializer("UseDevelopmentStorage=true");
-            init.Init().Wait();
+            init.Create().Wait();
         }
     }
 }
