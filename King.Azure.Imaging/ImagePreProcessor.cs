@@ -94,8 +94,8 @@
             };
 
             var entity = data.Map<ImageEntity>();
-            entity.PartitionKey = "original";
-            entity.RowKey = data.Identifier.ToString();
+            entity.PartitionKey = data.Identifier.ToString();
+            entity.RowKey = "original";
             await table.InsertOrReplace(entity);
 
             var toQueue = data.Map<ImageQueued>();
