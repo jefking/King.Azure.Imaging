@@ -81,14 +81,17 @@
         /// <returns>Task</returns>
         public async Task Process(byte[] content, string contentType, string fileName)
         {
+            var id = Guid.NewGuid();
+            var extension = fileName.Substring(fileName.LastIndexOf('.'));
             var data = new RawData()
             {
                 Contents = content,
-                Identifier = Guid.NewGuid(),
+                Identifier = id,
                 ContentType = contentType,
-                FileName = fileName,
+                OriginalFileName = fileName,
+                FileSize = content.Length,
+                FileName = string.Format("{0}_original{1}", id, extension),
             };
-            data.FileSize = data.Contents.Length;
 
             var entity = data.Map<ImageEntity>();
             entity.PartitionKey = "original";
@@ -98,7 +101,7 @@
             var toQueue = data.Map<ImageQueued>();
             await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
 
-            await container.Save(data.Identifier.ToString(), data.Contents, data.ContentType);
+            await container.Save(data.FileName, data.Contents, data.ContentType);
         }
         #endregion
     }

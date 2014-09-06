@@ -36,6 +36,15 @@
         }
 
         /// <summary>
+        /// Original File Name
+        /// </summary>
+        public string OriginalFileName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// File Size
         /// </summary>
         public int FileSize
