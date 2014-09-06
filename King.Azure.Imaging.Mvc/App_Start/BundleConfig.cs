@@ -32,6 +32,7 @@ namespace King.Azure.Imaging.Mvc
                       "~/Content/jquery.fileupload.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/upload").Include(
+                      "~/Scripts/jquery.ui.widget.js",
                       "~/Scripts/jquery.fileupload-jquery-ui.js",
                       "~/Scripts/jquery.fileupload-process.js",
                       "~/Scripts/jquery.iframe-transport.js",
