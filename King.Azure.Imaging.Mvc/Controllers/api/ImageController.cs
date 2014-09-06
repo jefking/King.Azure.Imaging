@@ -13,11 +13,11 @@
         /// <summary>
         /// Image Preprocessor
         /// </summary>
-        private readonly IImagePreprocessor preprocessor = new ImagePreprocessor("connection string");
+        private readonly IImagePreprocessor preprocessor = new ImagePreprocessor("UseDevelopmentStorage=true");
         #endregion
 
         #region Methods
-        public async Task UploadImage()
+        public async Task Upload()
         {
             var bytes = await Request.Content.ReadAsByteArrayAsync();
             var contentType = Request.Headers.GetValues(ImagePreprocessor.ContentTypeHeader).FirstOrDefault();
