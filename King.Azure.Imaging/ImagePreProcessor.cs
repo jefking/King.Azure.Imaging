@@ -7,6 +7,7 @@
     using Microsoft.WindowsAzure.Storage.Queue;
     using Newtonsoft.Json;
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -81,6 +82,19 @@
         /// <returns>Task</returns>
         public async Task Process(byte[] content, string contentType, string fileName)
         {
+            if (null == content || !content.Any())
+            {
+                throw new ArgumentNullException();
+            }
+            if (string.IsNullOrWhiteSpace(contentType))
+            {
+                throw new ArgumentException("contentType");
+            }
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException("fileName");
+            }
+
             var id = Guid.NewGuid();
             var extension = fileName.Substring(fileName.LastIndexOf('.'));
             var data = new RawData()
