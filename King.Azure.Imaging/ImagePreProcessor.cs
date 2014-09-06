@@ -72,6 +72,13 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Preprocess uploaded image
+        /// </summary>
+        /// <param name="content">Content</param>
+        /// <param name="contentType">Content Type</param>
+        /// <param name="fileName">File Name</param>
+        /// <returns>Task</returns>
         public async Task Process(byte[] content, string contentType, string fileName)
         {
             var data = new RawData()
