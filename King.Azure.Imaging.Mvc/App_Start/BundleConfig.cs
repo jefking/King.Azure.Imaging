@@ -24,11 +24,22 @@ namespace King.Azure.Imaging.Mvc
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
-
-            bundles.Add(new StyleBundle("~/Content/upload").Include(
+                      "~/Content/site.css",
+                      "~/Content/style.css",
                       "~/Content/jquery.fileupload-ui.css",
+                      "~/Content/jquery.fileupload-noscript.css",
+                      "~/Content/jquery.fileupload-ui-noscript.css",
                       "~/Content/jquery.fileupload.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/upload").Include(
+                      "~/Scripts/jquery.fileupload-jquery-ui.js",
+                      "~/Scripts/jquery.fileupload-process.js",
+                      "~/Scripts/jquery.iframe-transport.js",
+                      "~/Scripts/jquery.fileupload-validate.js",
+                      "~/Scripts/jquery.fileupload-ui.js",
+                      "~/Scripts/main.js",
+                      "~/Scripts/app.js",
+                      "~/Scripts/jquery.fileupload-image.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
