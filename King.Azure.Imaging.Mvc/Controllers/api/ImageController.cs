@@ -20,8 +20,8 @@
         public async Task Upload()
         {
             var bytes = await Request.Content.ReadAsByteArrayAsync();
-            var contentType = Request.Headers.GetValues(ImagePreprocessor.ContentTypeHeader).FirstOrDefault();
-            var fileName = Request.Headers.GetValues(ImagePreprocessor.FileNameHeader).FirstOrDefault();
+            var contentType = "image";//Request.Headers.GetValues(ImagePreprocessor.ContentTypeHeader).FirstOrDefault();
+            var fileName = "file.jpg";// Request.Headers.GetValues(ImagePreprocessor.FileNameHeader).FirstOrDefault();
             await this.preprocessor.Process(bytes, contentType, fileName);
         }
         #endregion

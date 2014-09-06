@@ -6,9 +6,9 @@
     public struct StorageElements
     {
         #region Members
-        public const string Container = "";
-        public const string Queue = "";
-        public const string Table = "";
+        public const string Container = "images";
+        public const string Queue = "imaging";
+        public const string Table = "imaging";
         #endregion
     }
 }
