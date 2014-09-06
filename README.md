@@ -1,3 +1,1 @@
-King.Azure.Imaging
-
-PRE-ALPHA
+# ALPHA
