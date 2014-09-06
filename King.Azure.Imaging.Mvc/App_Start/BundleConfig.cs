@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace King.Azure.Imaging.Mvc
 {
@@ -26,6 +25,10 @@ namespace King.Azure.Imaging.Mvc
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/upload").Include(
+                      "~/Content/jquery.fileupload-ui.css",
+                      "~/Content/jquery.fileupload.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

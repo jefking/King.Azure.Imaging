@@ -21,10 +21,9 @@
         public async Task Post()
         {
             var request = HttpContext.Current.Request;
-            var files = request.Files;
-            if (null != files)
+            if (null != request.Files)
             {
-                foreach (string index in files)
+                foreach (string index in request.Files)
                 {
                     var file = request.Files[index];
                     var contentType = file.ContentType;
