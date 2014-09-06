@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>King.Azure.Imaging</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <title>King.Azure.Imaging</title>
     <authors>Jef King</authors>
     <owners>Jef King</owners>
@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Get your image on.</description>
     <summary>Simplified Azure Imaging Framework.</summary>
-    <releaseNotes>Using ImageResizer as imaging component: ALPHA Release</releaseNotes>
+    <releaseNotes>Upload working, Blob/Table/Queue: ALPHA Release</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
     <tags>King.Azure.Imaging Azure Image Jpg Png CDN image resize crop rotate jpeg jpg gif png server-safe-imaging imaging Cloud Blob</tags>

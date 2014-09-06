@@ -3,12 +3,30 @@
     /// <summary>
     /// Storage Elements
     /// </summary>
-    public struct StorageElements
+    public class StorageElements : IStorageElements
     {
-        #region Members
-        public const string Container = "images";
-        public const string Queue = "imaging";
-        public const string Table = "imaging";
+        #region Properties
+        public string Container
+        {
+            get
+            {
+                return "images";
+            }
+        }
+        public string Queue
+        {
+            get
+            {
+                return "imaging";
+            }
+        }
+        public string Table
+        {
+            get
+            {
+                return "imaging";
+            }
+        }
         #endregion
     }
 }

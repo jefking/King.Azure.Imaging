@@ -35,10 +35,27 @@
         /// </summary>
         /// <param name="connectionString">Connection String</param>
         public StorageInitializer(string connectionString)
+            :this(connectionString, new StorageElements())
         {
-            this.container = new Container(StorageElements.Container, connectionString);
-            this.table = new TableStorage(StorageElements.Table, connectionString);
-            this.queue = new StorageQueue(StorageElements.Queue, connectionString);
+        }
+
+        /// <summary>
+        /// Mockable Constructor
+        /// </summary>
+        public StorageInitializer(string connectionString, IStorageElements elements)
+        {
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+
+            }
+            if (null == elements)
+            {
+
+            }
+
+            this.container = new Container(elements.Container, connectionString);
+            this.table = new TableStorage(elements.Table, connectionString);
+            this.queue = new StorageQueue(elements.Queue, connectionString);
         }
         #endregion
 

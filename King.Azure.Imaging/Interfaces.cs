@@ -8,4 +8,20 @@
         Task Process(byte[] content, string contentType, string fileName);
         #endregion
     }
+
+    public interface IStorageElements
+    {
+        string Container
+        {
+            get;
+        }
+        string Queue
+        {
+            get;
+        }
+        string Table
+        {
+            get;
+        }
+    }
 }
