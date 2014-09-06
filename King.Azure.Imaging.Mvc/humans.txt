@@ -1,0 +1,5 @@
+﻿King.Azure.Imaging - Customizable Image Uploading Demo
+
+Jef King
+GitHub: jefking
+twitter: JefKingABC
