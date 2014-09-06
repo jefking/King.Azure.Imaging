@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/jefking/King.Azure.Imaging</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/jefking/King.Azure.Imaging/master/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Get your image on.</description>
+    <description>Image uploading and processing made easy.</description>
     <summary>Simplified Azure Imaging Framework.</summary>
     <releaseNotes>Upload working, Blob/Table/Queue: ALPHA Release</releaseNotes>
     <copyright>Jef King</copyright>
