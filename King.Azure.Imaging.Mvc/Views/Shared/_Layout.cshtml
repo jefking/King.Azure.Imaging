@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>King.Azure.Imaging - Customizable Image Uploading Demo</title>
     @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,21 +30,14 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/upload")
-        @RenderSection("scripts", required: false)
-        <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-        <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
-        <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-        <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-
+    @RenderSection("scripts", required: false)
     <script>
         /*jslint unparam: true, regexp: true */
         /*global window, $ */
         $(function () {
             'use strict';
             // Change this to the location of your server-side upload handler:
-            var url = window.location.hostname === 'blueimp.github.io' ?
-                        '//jquery-file-upload.appspot.com/' : 'server/php/',
+            var url =  'api/image/upload',
                 uploadButton = $('<button/>')
                     .addClass('btn btn-primary')
                     .prop('disabled', true)

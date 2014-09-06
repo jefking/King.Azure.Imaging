@@ -1,7 +1,7 @@
-﻿using System.Web.Optimization;
-
-namespace King.Azure.Imaging.Mvc
+﻿namespace King.Azure.Imaging.Mvc
 {
+    using System.Web.Optimization;
+
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
@@ -19,28 +19,21 @@ namespace King.Azure.Imaging.Mvc
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/jquery.ui.widget.js",
+                      "~/Scripts/load-image.min.js",
+                      "~/Scripts/canvas-to-blob.min.js",
+
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/jquery.iframe-transport.js",
+                      "~/Scripts/jquery.fileupload.js",
+                      "~/Scripts/jquery.fileupload-process.js",
+                      "~/Scripts/jquery.fileupload-image.js",
+                      "~/Scripts/jquery.fileupload-validate.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/style.css",
-                      "~/Content/jquery.fileupload-ui.css",
-                      "~/Content/jquery.fileupload-noscript.css",
-                      "~/Content/jquery.fileupload-ui-noscript.css",
                       "~/Content/jquery.fileupload.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/upload").Include(
-                      "~/Scripts/jquery.ui.widget.js",
-                      "~/Scripts/jquery.fileupload-jquery-ui.js",
-                      "~/Scripts/jquery.fileupload-process.js",
-                      "~/Scripts/jquery.iframe-transport.js",
-                      "~/Scripts/jquery.fileupload-validate.js",
-                      "~/Scripts/jquery.fileupload-ui.js",
-                      "~/Scripts/main.js",
-                      "~/Scripts/app.js",
-                      "~/Scripts/jquery.fileupload-image.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
