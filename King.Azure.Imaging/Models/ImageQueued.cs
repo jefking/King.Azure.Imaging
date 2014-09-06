@@ -11,7 +11,11 @@
         /// <summary>
         /// Identifier
         /// </summary>
-        public Guid Identifier { get; set; }
+        public Guid Identifier
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

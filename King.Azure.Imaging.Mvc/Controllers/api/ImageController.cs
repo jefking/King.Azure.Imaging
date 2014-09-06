@@ -1,7 +1,7 @@
 ﻿namespace King.Azure.Imaging.Mvc.Controllers.api
 {
-    using System.Linq;
     using System.Threading.Tasks;
+    using System.Web;
     using System.Web.Http;
 
     /// <summary>
@@ -17,12 +17,23 @@
         #endregion
 
         #region Methods
-        public async Task Upload()
+        [HttpPost]
+        public async Task Post()
         {
-            var bytes = await Request.Content.ReadAsByteArrayAsync();
-            var contentType = "image";//Request.Headers.GetValues(ImagePreprocessor.ContentTypeHeader).FirstOrDefault();
-            var fileName = "file.jpg";// Request.Headers.GetValues(ImagePreprocessor.FileNameHeader).FirstOrDefault();
-            await this.preprocessor.Process(bytes, contentType, fileName);
+            var request = HttpContext.Current.Request;
+            var files = request.Files;
+            if (null != files)
+            {
+                foreach (string index in files)
+                {
+                    var file = request.Files[index];
+                    var contentType = file.ContentType;
+                    var fileName = file.FileName;
+                    var bytes = new byte[file.ContentLength];
+                    await file.InputStream.ReadAsync(bytes, 0, bytes.Length);
+                    await this.preprocessor.Process(bytes, contentType, fileName);
+                }
+            }
         }
         #endregion
     }
