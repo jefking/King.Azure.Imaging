@@ -84,7 +84,7 @@
         {
             if (null == content || !content.Any())
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("content");
             }
             if (string.IsNullOrWhiteSpace(contentType))
             {
