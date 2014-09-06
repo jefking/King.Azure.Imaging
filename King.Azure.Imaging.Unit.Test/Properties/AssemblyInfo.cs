@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("King.Azure.Imaging.Unit.Test")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("King Azure Imaging Unit Tests")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("King.Azure.Imaging.Unit.Test")]

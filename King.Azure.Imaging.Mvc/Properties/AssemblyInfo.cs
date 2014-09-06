@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("King.Azure.Imaging.Mvc")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("King Azure Imaging MVC Demo")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("King.Azure.Imaging.Mvc")]
