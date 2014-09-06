@@ -11,27 +11,47 @@
         /// <summary>
         /// Image Contents
         /// </summary>
-        public byte[] Contents { get; set; }
+        public byte[] Contents
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Content Type
         /// </summary>
-        public string ContentType { get; set; }
+        public string ContentType
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// File Name
         /// </summary>
-        public string FileName { get; set; }
+        public string FileName
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// File Size
         /// </summary>
-        public int FileSize { get; set; }
+        public int FileSize
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Identifier
         /// </summary>
-        public Guid Identifier { get; set; }
+        public Guid Identifier
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }
