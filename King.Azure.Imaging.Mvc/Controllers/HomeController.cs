@@ -10,8 +10,12 @@
     /// </summary>
     public class HomeController : Controller
     {
+        #region Members
+        /// <summary>
+        /// Storage Elements
+        /// </summary>
         private static readonly IStorageElements elements = new StorageElements();
-        private readonly ITableStorage table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+        #endregion
 
         #region Methods
         public ActionResult Index()
@@ -21,8 +25,9 @@
 
         public ActionResult Images()
         {
+            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
             var data = from t in table.QueryByRow<ImageEntity>("thumb")
-                   select t.FileName;
+                   select t.RelativePath;
 
             return View(data);
         }

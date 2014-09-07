@@ -119,6 +119,7 @@
             var entity = data.Map<ImageEntity>();
             entity.PartitionKey = data.Identifier.ToString();
             entity.RowKey = Original;
+            entity.RelativePath = string.Format("{0}/{1}", this.container.Name, entity.FileName);
             await table.InsertOrReplace(entity);
 
             var toQueue = data.Map<ImageQueued>();

@@ -97,6 +97,7 @@
                         FileName = filename,
                         ContentType = mimeType,
                         FileSize = resized.LongLength,
+                        RelativePath = string.Format("{0}/{1}", this.container.Name, filename),
                     };
 
                     await this.table.InsertOrReplace(entity);

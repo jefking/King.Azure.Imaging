@@ -26,6 +26,18 @@
         }
 
         [Test]
+        public void RelativePath()
+        {
+            var expected = Guid.NewGuid().ToString();
+            var data = new ImageEntity()
+            {
+                RelativePath = expected
+            };
+
+            Assert.AreEqual(expected, data.RelativePath);
+        }
+
+        [Test]
         public void FileName()
         {
             var expected = Guid.NewGuid().ToString();

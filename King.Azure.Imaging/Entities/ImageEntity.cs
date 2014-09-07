@@ -27,6 +27,15 @@
         }
 
         /// <summary>
+        /// Relative Path
+        /// </summary>
+        public string RelativePath
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// File Size
         /// </summary>
         public long FileSize
