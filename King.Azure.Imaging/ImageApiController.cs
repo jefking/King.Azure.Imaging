@@ -30,12 +30,23 @@
         private readonly IContainer container = null;
         #endregion
 
-        #region Constructors
+        #region Constructors]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connectionString"></param>
         public ImageApiController(string connectionString)
             : this(connectionString, new ImagePreprocessor(connectionString), new StorageElements())
         {
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="preprocessor"></param>
+        /// <param name="elements"></param>
         public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements)
         {
             this.container = new Container(elements.Container, connectionString);
