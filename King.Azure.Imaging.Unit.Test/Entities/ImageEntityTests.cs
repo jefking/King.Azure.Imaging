@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace King.Azure.Imaging.Unit.Test.Entities
+﻿namespace King.Azure.Imaging.Unit.Test.Entities
 {
-    class ImageEntityTests
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    [TestFixture]
+    public class ImageEntityTests
     {
     }
 }
