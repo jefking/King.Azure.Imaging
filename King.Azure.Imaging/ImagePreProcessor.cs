@@ -37,7 +37,7 @@
         private readonly IStorageQueue queue = null;
         #endregion
 
-        #region Methods
+        #region Constructors
         /// <summary>
         /// Constructor
         /// </summary>
