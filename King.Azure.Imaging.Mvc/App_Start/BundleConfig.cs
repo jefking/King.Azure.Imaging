@@ -22,13 +22,11 @@
                       "~/Scripts/jquery.ui.widget.js",
                       "~/Scripts/load-image.min.js",
                       "~/Scripts/canvas-to-blob.min.js",
-
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/jquery.iframe-transport.js",
                       "~/Scripts/jquery.fileupload.js",
                       "~/Scripts/jquery.fileupload-process.js",
-                      "~/Scripts/jquery.fileupload-image.js",
-                      "~/Scripts/jquery.fileupload-validate.js"));
+                      "~/Scripts/jquery.fileupload-image.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
