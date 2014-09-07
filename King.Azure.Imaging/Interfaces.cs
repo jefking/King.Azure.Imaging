@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     #region IImagePreprocessor
@@ -54,4 +55,12 @@
         #endregion
     }
     #endregion
+
+    public interface IVersions
+    {
+        IDictionary<string, string> Images
+        {
+            get;
+        }
+    }
 }

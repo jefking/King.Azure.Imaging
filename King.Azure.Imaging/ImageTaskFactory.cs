@@ -13,26 +13,35 @@
     public class ImageTaskFactory : ITaskFactory<object>
     {
         #region Methods
+        /// <summary>
+        /// Connection String
+        /// </summary>
         private readonly string connectionString = null;
+
+        /// <summary>
+        /// Storage Elements
+        /// </summary>
         private readonly IStorageElements elements = null;
+
+        /// <summary>
+        /// Versions
+        /// </summary>
+        private readonly IVersions versions = null;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="connectionString">Connection String</param>
         public ImageTaskFactory(string connectionString)
-            :this(connectionString, new StorageElements())
+            :this(connectionString, new StorageElements(), new Versions())
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        /// <param name="connectionString"></param>
-        /// <param name="elements"></param>
-        public ImageTaskFactory(string connectionString, IStorageElements elements)
+        public ImageTaskFactory(string connectionString, IStorageElements elements, IVersions versions)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
@@ -42,6 +51,10 @@
             {
                 throw new ArgumentNullException("elements");
             }
+            if (null == versions)
+            {
+                throw new ArgumentNullException("versions");
+            }
 
             this.connectionString = connectionString;
             this.elements = elements;
@@ -49,6 +62,11 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Load Tasks
+        /// </summary>
+        /// <param name="passthrough">passthrough</param>
+        /// <returns>Runnable Tasks</returns>
         public IEnumerable<IRunnable> Tasks(object passthrough)
         {
             var tasks = new List<IRunnable>();
@@ -63,21 +81,9 @@
             tasks.Add(new InitializeStorageTask(new StorageQueue(elements.Queue, connectionString)));
 
             //Image Processing Task
-            tasks.Add(new BackoffRunner(new StorageDequeue<ImageQueued>(elements.Queue, connectionString, new ImagingProcessor(container, table, this.Versions()))));
+            tasks.Add(new BackoffRunner(new StorageDequeue<ImageQueued>(elements.Queue, connectionString, new ImagingProcessor(container, table, this.versions.Images))));
 
             return tasks;
-        }
-
-        public IDictionary<string, string> Versions()
-        {
-            var versions = new Dictionary<string, string>();
-            
-            //Define the versions to generate
-            versions.Add("Thumb", "width=100&height=100&crop=auto&format=jpg");
-            versions.Add("Medium", "maxwidth=400&maxheight=400&format=jpg");
-            versions.Add("Large", "maxwidth=1900&maxheight=1900&format=jpg");
-            
-            return versions;
         }
         #endregion
     }
