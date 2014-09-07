@@ -53,6 +53,10 @@
     <Reference Include="King.Mapper">
       <HintPath>..\packages\King.Mapper.1.7.7\lib\net451\King.Mapper.dll</HintPath>
     </Reference>
+    <Reference Include="King.Service, Version=1.4.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\King.Service.1.6.10\lib\net451\King.Service.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

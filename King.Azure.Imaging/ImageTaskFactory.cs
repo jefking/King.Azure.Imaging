@@ -73,7 +73,7 @@
             var tasks = new List<IRunnable>();
 
             //Blob Container
-            var container = new Container(elements.Container, connectionString);
+            var container = new Container(elements.Container, connectionString, true);
             var table = new TableStorage(elements.Table, connectionString);
 
             //Initialization Tasks
