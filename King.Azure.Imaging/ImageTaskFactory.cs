@@ -58,6 +58,7 @@
 
             this.connectionString = connectionString;
             this.elements = elements;
+            this.versions = versions;
         }
         #endregion
 
