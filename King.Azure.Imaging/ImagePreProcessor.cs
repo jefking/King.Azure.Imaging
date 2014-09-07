@@ -51,19 +51,31 @@
         /// Mockable Constructor
         /// </summary>
         public ImagePreprocessor(string connectionString, IStorageElements elements)
+            :this(new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString))
         {
-            if (string.IsNullOrWhiteSpace(connectionString))
+        }
+
+        /// <summary>
+        /// Mockable Constructor
+        /// </summary>
+        public ImagePreprocessor(IContainer container, ITableStorage table, IStorageQueue queue)
+        {
+            if (null == container)
             {
-                throw new ArgumentException("connectionString");
+                throw new ArgumentNullException("container");
             }
-            if (null == elements)
+            if (null == table)
             {
-                throw new ArgumentNullException("elements");
+                throw new ArgumentNullException("table");
+            }
+            if (null == queue)
+            {
+                throw new ArgumentNullException("queue");
             }
 
-            this.container = new Container(elements.Container, connectionString);
-            this.table = new TableStorage(elements.Table, connectionString);
-            this.queue = new StorageQueue(elements.Queue, connectionString);
+            this.container = container;
+            this.table = table;
+            this.queue = queue;
         }
         #endregion
 
@@ -91,7 +103,7 @@
             }
 
             var id = Guid.NewGuid();
-            var extension = fileName.Substring(fileName.LastIndexOf('.'));
+            var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.')) : ".jpg";
             var data = new RawData()
             {
                 Contents = content,
@@ -102,6 +114,8 @@
                 FileName = string.Format("{0}_{1}{2}", id, Original, extension),
             };
 
+            await container.Save(data.FileName, data.Contents, data.ContentType);
+
             var entity = data.Map<ImageEntity>();
             entity.PartitionKey = data.Identifier.ToString();
             entity.RowKey = Original;
@@ -111,8 +125,6 @@
             toQueue.FileNameFormat = string.Format("{0}_{1}{2}", id, "{0}", extension);
 
             await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
-
-            await container.Save(data.FileName, data.Contents, data.ContentType);
         }
         #endregion
     }
