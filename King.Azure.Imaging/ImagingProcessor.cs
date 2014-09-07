@@ -17,6 +17,7 @@
         #region Members
         private readonly IDictionary<string, string> versions;
         private readonly IContainer container;
+        private readonly ITableStorage table;
         #endregion
 
         #region Constructors
@@ -31,6 +32,7 @@
         public async Task<bool> Process(ImageQueued data)
         {
             var result = false;
+
             try
             {
                 var bytes = await container.Get(data.FileName);
@@ -47,8 +49,9 @@
                             await container.Save(filename, output.ToArray(), job.ResultMimeType);
                         }
                     }
-                    result = true;
                 }
+
+                result = true;
             }
             catch (Exception ex)
             {
