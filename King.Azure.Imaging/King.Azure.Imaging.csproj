@@ -85,7 +85,6 @@
     <Compile Include="ImageTaskFactory.cs" />
     <Compile Include="ImagingProcessor.cs" />
     <Compile Include="Interfaces.cs" />
-    <Compile Include="Models\ImageData.cs" />
     <Compile Include="Models\ImageQueued.cs" />
     <Compile Include="Models\RawData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
