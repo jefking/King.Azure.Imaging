@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Entities\ImageEntityTests.cs" />
     <Compile Include="ImagePreprocessorTests.cs" />
+    <Compile Include="ImageStreamerTests.cs" />
     <Compile Include="ImageTaskFactoryTests.cs" />
     <Compile Include="ImagingProcessorTests.cs" />
     <Compile Include="Models\ImageQueuedTests.cs" />

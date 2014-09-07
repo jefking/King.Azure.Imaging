@@ -24,6 +24,11 @@
         /// <param name="container">Container</param>
         public ImageStreamer(IContainer container)
         {
+            if (null == container)
+            {
+                throw new ArgumentNullException("container");
+            }
+
             this.container = container;
         }
         #endregion
