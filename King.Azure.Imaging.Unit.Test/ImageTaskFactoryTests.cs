@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
     using King.Service;
+    using King.Service.Data;
     using NSubstitute;
     using NUnit.Framework;
     using System;
@@ -45,6 +46,83 @@
         {
             var elements = Substitute.For<IStorageElements>();
             new ImageTaskFactory(Guid.NewGuid().ToString(), elements, null);
+        }
+
+        [Test]
+        public void TasksNull()
+        {
+            var connectionString = "UseDevelopmentStorage=true";
+            var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+            elements.Table.Returns(Guid.NewGuid().ToString());
+            elements.Queue.Returns(Guid.NewGuid().ToString());
+
+            var versions = Substitute.For<IVersions>();
+
+            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var tasks = factory.Tasks(null);
+
+            Assert.IsNotNull(tasks);
+        }
+
+        [Test]
+        public void Tasks()
+        {
+            var connectionString = "UseDevelopmentStorage=true";
+            var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+            elements.Table.Returns(Guid.NewGuid().ToString());
+            elements.Queue.Returns(Guid.NewGuid().ToString());
+            var versions = Substitute.For<IVersions>();
+
+            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var tasks = factory.Tasks(null);
+
+            Assert.IsNotNull(tasks);
+            Assert.AreEqual(4, tasks.Count());
+        }
+
+        [Test]
+        public void HasBackoffRunner()
+        {
+            var connectionString = "UseDevelopmentStorage=true";
+            var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+            elements.Table.Returns(Guid.NewGuid().ToString());
+            elements.Queue.Returns(Guid.NewGuid().ToString());
+            var versions = Substitute.For<IVersions>();
+
+            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var tasks = factory.Tasks(null);
+
+            Assert.IsNotNull(tasks);
+            var task = (from t in tasks
+                        where t.GetType() == typeof(BackoffRunner)
+                        select t).FirstOrDefault();
+
+            Assert.IsNotNull(task);
+        }
+
+        [Test]
+        public void InitializeStorageTask()
+        {
+            var connectionString = "UseDevelopmentStorage=true";
+            var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+            elements.Table.Returns(Guid.NewGuid().ToString());
+            elements.Queue.Returns(Guid.NewGuid().ToString());
+            var versions = Substitute.For<IVersions>();
+
+            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var tasks = factory.Tasks(null);
+
+            Assert.IsNotNull(tasks);
+            var inits = from t in tasks
+                        where t.GetType() == typeof(InitializeStorageTask)
+                        select t;
+
+            Assert.IsNotNull(inits);
+            Assert.AreEqual(3, inits.Count());
         }
     }
 }

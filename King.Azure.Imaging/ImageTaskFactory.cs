@@ -34,7 +34,7 @@
         /// Constructor
         /// </summary>
         public ImageTaskFactory(string connectionString)
-            :this(connectionString, new StorageElements(), new Versions())
+            : this(connectionString, new StorageElements(), new Versions())
         {
         }
 
