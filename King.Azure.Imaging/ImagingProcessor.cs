@@ -60,6 +60,11 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Process Image Queued
+        /// </summary>
+        /// <param name="data">Data</param>
+        /// <returns>Successful</returns>
         public async Task<bool> Process(ImageQueued data)
         {
             var result = false;
@@ -70,28 +75,30 @@
                 var bytes = await container.Get(original);
                 foreach (var key in this.versions.Keys)
                 {
+                    byte[] resized;
+                    string mimeType;
+                    var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
                     using (var input = new MemoryStream(bytes))
                     {
                         using (var output = new MemoryStream())
                         {
                             var job = new ImageJob(input, output, new Instructions(versions[key]));
                             job.Build();
-
-                            var resized = output.ToArray();
-                            var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
-                            await this.container.Save(filename, resized, job.ResultMimeType);
-                            var entity = new ImageEntity()
-                            {
-                                PartitionKey = data.Identifier.ToString(),
-                                RowKey = key.ToLowerInvariant(),
-                                FileName = filename,
-                                ContentType = job.ResultMimeType,
-                                FileSize = resized.LongLength,
-                            };
-
-                            await this.table.InsertOrReplace(entity);
+                            resized = output.ToArray();
+                            mimeType = job.ResultMimeType;
                         }
                     }
+                    await this.container.Save(filename, resized, mimeType);
+                    var entity = new ImageEntity()
+                    {
+                        PartitionKey = data.Identifier.ToString(),
+                        RowKey = key.ToLowerInvariant(),
+                        FileName = filename,
+                        ContentType = mimeType,
+                        FileSize = resized.LongLength,
+                    };
+
+                    await this.table.InsertOrReplace(entity);
                 }
 
                 result = true;
