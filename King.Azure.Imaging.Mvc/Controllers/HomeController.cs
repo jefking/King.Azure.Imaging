@@ -40,6 +40,24 @@
 
             return View(data);
         }
+
+        public ActionResult Large()
+        {
+            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var data = from t in table.QueryByRow<ImageEntity>("large")
+                       select t;
+
+            return View(data);
+        }
+
+        public ActionResult Medium()
+        {
+            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var data = from t in table.QueryByRow<ImageEntity>("medium")
+                       select t;
+
+            return View(data);
+        }
         #endregion
     }
 }
