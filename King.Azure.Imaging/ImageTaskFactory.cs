@@ -72,9 +72,9 @@
             var versions = new Dictionary<string, string>();
             
             //Define the versions to generate
-            versions.Add("_thumb", "width=100&height=100&crop=auto&format=jpg");
-            versions.Add("_medium", "maxwidth=400&maxheight=400&format=jpg");
-            versions.Add("_large", "maxwidth=1900&maxheight=1900&format=jpg");
+            versions.Add("Thumb", "width=100&height=100&crop=auto&format=jpg");
+            versions.Add("Medium", "maxwidth=400&maxheight=400&format=jpg");
+            versions.Add("Large", "maxwidth=1900&maxheight=1900&format=jpg");
             
             return versions;
         }

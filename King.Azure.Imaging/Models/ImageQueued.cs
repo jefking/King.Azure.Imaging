@@ -9,9 +9,9 @@
     {
         #region Properties
         /// <summary>
-        /// File Name
+        /// File Name Format
         /// </summary>
-        public string FileName
+        public string FileNameFormat
         {
             get;
             set;

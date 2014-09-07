@@ -15,12 +15,28 @@
     public class ImagingProcessor : IProcessor<ImageQueued>
     {
         #region Members
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IDictionary<string, string> versions;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IContainer container;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly ITableStorage table;
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="versions"></param>
         public ImagingProcessor(IContainer container, IDictionary<string, string> versions)
         {
             this.container = container;
@@ -32,10 +48,11 @@
         public async Task<bool> Process(ImageQueued data)
         {
             var result = false;
+            var fileName = string.Format(data.FileNameFormat, ImagePreprocessor.Original);
 
             try
             {
-                var bytes = await container.Get(data.FileName);
+                var bytes = await container.Get(fileName);
                 foreach (var key in this.versions.Keys)
                 {
                     using (var input = new MemoryStream(bytes))
@@ -45,7 +62,7 @@
                             var job = new ImageJob(input, output, new Instructions(versions[key]));
                             job.Build();
 
-                            var filename = data.FileName.Replace("_original", key);
+                            var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
                             await container.Save(filename, output.ToArray(), job.ResultMimeType);
                         }
                     }

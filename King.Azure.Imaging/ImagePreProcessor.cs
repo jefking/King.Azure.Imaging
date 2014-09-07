@@ -17,14 +17,9 @@
     {
         #region Members
         /// <summary>
-        /// File Name Header
+        /// Original
         /// </summary>
-        public const string FileNameHeader = "X-File-Name";
-
-        /// <summary>
-        /// Content Type Header
-        /// </summary>
-        public const string ContentTypeHeader = "X-File-Type";
+        public const string Original = "original";
 
         /// <summary>
         /// Blob Container
@@ -104,15 +99,19 @@
                 ContentType = contentType,
                 OriginalFileName = fileName,
                 FileSize = content.Length,
-                FileName = string.Format("{0}_original{1}", id, extension),
+                FileName = string.Format("{0}_{1}{2}", id, Original, extension),
             };
 
             var entity = data.Map<ImageEntity>();
             entity.PartitionKey = data.Identifier.ToString();
-            entity.RowKey = "original";
+            entity.RowKey = Original;
             await table.InsertOrReplace(entity);
 
-            var toQueue = data.Map<ImageQueued>();
+            var toQueue = new ImageQueued()
+            {
+                FileNameFormat = string.Format("{0}_{1}{2}", id, "{0}", extension),
+            };
+
             await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
 
             await container.Save(data.FileName, data.Contents, data.ContentType);
