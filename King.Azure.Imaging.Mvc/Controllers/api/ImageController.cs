@@ -5,6 +5,7 @@
     using System.IO;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Http;
@@ -51,7 +52,7 @@
         }
 
         [HttpGet]
-        public async Task<System.Web.Mvc.FileStreamResult> Get(string file)
+        public async Task<HttpResponseMessage> Get(string file)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -66,7 +67,10 @@
 
             var properties = await container.Properties(file);
 
-            return new System.Web.Mvc.FileStreamResult(ms, properties.ContentType);
+            var response = new HttpResponseMessage();
+            response.Content = new StreamContent(ms); // this file stream will be closed by lower layers of web api for you once the response is completed.
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(properties.ContentType);
+            return response;
         }
         #endregion
     }
