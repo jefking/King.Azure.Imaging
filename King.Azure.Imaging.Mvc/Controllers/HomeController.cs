@@ -27,7 +27,7 @@
         {
             var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
             var data = from t in table.QueryByRow<ImageEntity>("thumb")
-                   select t.RelativePath;
+                   select t;
 
             return View(data);
         }
