@@ -2,6 +2,7 @@
 {
     using ImageResizer;
     using King.Azure.Data;
+    using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using System;
     using System.Collections.Generic;
@@ -62,8 +63,19 @@
                             var job = new ImageJob(input, output, new Instructions(versions[key]));
                             job.Build();
 
+                            var resized = output.ToArray();
                             var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
-                            await container.Save(filename, output.ToArray(), job.ResultMimeType);
+                            await this.container.Save(filename, resized, job.ResultMimeType);
+                            var entity = new ImageEntity()
+                            {
+                                PartitionKey = data.Identifier.ToString(),
+                                RowKey = key,
+                                FileName = fileName,
+                                ContentType = job.ResultMimeType,
+                                FileSize = resized.LongLength,
+                            };
+
+                            await this.table.InsertOrReplace(entity);
                         }
                     }
                 }

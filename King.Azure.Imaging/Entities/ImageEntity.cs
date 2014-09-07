@@ -11,17 +11,29 @@
         /// <summary>
         /// Content Type
         /// </summary>
-        public string ContentType { get; set; }
+        public string ContentType
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// File Name
         /// </summary>
-        public string FileName { get; set; }
+        public string FileName
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// File Size
         /// </summary>
-        public int FileSize { get; set; }
+        public long FileSize
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

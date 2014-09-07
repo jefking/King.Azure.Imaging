@@ -16,6 +16,15 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Identifier
+        /// </summary>
+        public Guid Identifier
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

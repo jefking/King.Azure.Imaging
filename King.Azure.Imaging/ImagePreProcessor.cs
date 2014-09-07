@@ -98,7 +98,7 @@
                 Identifier = id,
                 ContentType = contentType,
                 OriginalFileName = fileName,
-                FileSize = content.Length,
+                FileSize = content.LongLength,
                 FileName = string.Format("{0}_{1}{2}", id, Original, extension),
             };
 

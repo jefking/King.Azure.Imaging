@@ -47,7 +47,7 @@
         /// <summary>
         /// File Size
         /// </summary>
-        public int FileSize
+        public long FileSize
         {
             get;
             set;
