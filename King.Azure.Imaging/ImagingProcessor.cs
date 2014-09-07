@@ -38,9 +38,10 @@
         /// </summary>
         /// <param name="container"></param>
         /// <param name="versions"></param>
-        public ImagingProcessor(IContainer container, IDictionary<string, string> versions)
+        public ImagingProcessor(IContainer container, ITableStorage table, IDictionary<string, string> versions)
         {
             this.container = container;
+            this.table = table;
             this.versions = versions;
         }
         #endregion
@@ -49,11 +50,11 @@
         public async Task<bool> Process(ImageQueued data)
         {
             var result = false;
-            var fileName = string.Format(data.FileNameFormat, ImagePreprocessor.Original);
+            var original = string.Format(data.FileNameFormat, ImagePreprocessor.Original);
 
             try
             {
-                var bytes = await container.Get(fileName);
+                var bytes = await container.Get(original);
                 foreach (var key in this.versions.Keys)
                 {
                     using (var input = new MemoryStream(bytes))
@@ -69,8 +70,8 @@
                             var entity = new ImageEntity()
                             {
                                 PartitionKey = data.Identifier.ToString(),
-                                RowKey = key,
-                                FileName = fileName,
+                                RowKey = key.ToLowerInvariant(),
+                                FileName = filename,
                                 ContentType = job.ResultMimeType,
                                 FileSize = resized.LongLength,
                             };

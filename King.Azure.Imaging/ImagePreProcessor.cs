@@ -107,10 +107,8 @@
             entity.RowKey = Original;
             await table.InsertOrReplace(entity);
 
-            var toQueue = new ImageQueued()
-            {
-                FileNameFormat = string.Format("{0}_{1}{2}", id, "{0}", extension),
-            };
+            var toQueue = data.Map<ImageQueued>();
+            toQueue.FileNameFormat = string.Format("{0}_{1}{2}", id, "{0}", extension);
 
             await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
 
