@@ -23,11 +23,20 @@
             return View();
         }
 
-        public ActionResult Images()
+        public ActionResult Thumbs()
         {
             var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
             var data = from t in table.QueryByRow<ImageEntity>("thumb")
-                   select t;
+                       select t;
+
+            return View(data);
+        }
+
+        public ActionResult Originals()
+        {
+            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var data = from t in table.QueryByRow<ImageEntity>("original")
+                       select t;
 
             return View(data);
         }

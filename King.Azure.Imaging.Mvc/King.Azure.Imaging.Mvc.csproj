@@ -242,7 +242,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Images.cshtml" />
+    <Content Include="Views\Home\Thumbs.cshtml" />
+    <Content Include="Views\Home\Originals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\King.Azure.Imaging\King.Azure.Imaging.csproj">
