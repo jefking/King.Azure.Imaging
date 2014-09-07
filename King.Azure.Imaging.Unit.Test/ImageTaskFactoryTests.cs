@@ -32,7 +32,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorStorageElementsNull()
         {
             var versions = Substitute.For<IVersions>();
@@ -40,7 +40,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorVersionsNull()
         {
             var elements = Substitute.For<IStorageElements>();
