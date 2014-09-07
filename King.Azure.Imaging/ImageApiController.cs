@@ -46,7 +46,7 @@
 
         #region Methods
         [HttpPost]
-        public async Task Post()
+        public virtual async Task Post()
         {
             var request = HttpContext.Current.Request;
             if (null != request.Files)
@@ -64,7 +64,7 @@
         }
 
         [HttpGet]
-        public async Task<HttpResponseMessage> Get(string file)
+        public virtual async Task<HttpResponseMessage> Get(string file)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
