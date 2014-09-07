@@ -6,18 +6,22 @@
     using System.Web.Optimization;
     using System.Web.Routing;
 
+    /// <summary>
+    /// MVC Application
+    /// </summary>
     public class MvcApplication : System.Web.HttpApplication
     {
         #region Members
+        /// <summary>
+        /// Role Task Manager
+        /// </summary>
+        /// <remarks>
+        /// Can be moved to a Worker Role (Azure)
+        /// </remarks>
         private readonly RoleTaskManager manager = new RoleTaskManager(new ImageTaskFactory("UseDevelopmentStorage=true"));
         #endregion
 
         #region Methods
-        public void Application_Init()
-        {
-            this.manager.OnStart();
-        }
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -26,6 +30,7 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            this.manager.OnStart();
             this.manager.Run();
         }
 

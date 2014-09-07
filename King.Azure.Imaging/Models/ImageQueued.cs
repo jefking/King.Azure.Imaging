@@ -9,9 +9,9 @@
     {
         #region Properties
         /// <summary>
-        /// Identifier
+        /// File Name
         /// </summary>
-        public Guid Identifier
+        public string FileName
         {
             get;
             set;
