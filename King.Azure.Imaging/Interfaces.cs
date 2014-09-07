@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Threading.Tasks;
 
     #region IImagePreprocessor
@@ -59,6 +60,15 @@
     public interface IVersions
     {
         IDictionary<string, string> Images
+        {
+            get;
+        }
+    }
+
+    public interface IImageStreamer
+    {
+        Task<Stream> Get(string file);
+        string ContentType
         {
             get;
         }

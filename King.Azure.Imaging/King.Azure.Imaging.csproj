@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Entities\ImageEntity.cs" />
     <Compile Include="ImagePreprocessor.cs" />
+    <Compile Include="ImageStreamer.cs" />
     <Compile Include="ImageTaskFactory.cs" />
     <Compile Include="ImagingProcessor.cs" />
     <Compile Include="Interfaces.cs" />

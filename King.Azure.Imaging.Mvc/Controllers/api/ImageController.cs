@@ -56,20 +56,14 @@
         {
             if (string.IsNullOrWhiteSpace(file))
             {
-                throw new ArgumentException("fileName");
+                throw new ArgumentException("file");
             }
 
-            var container = new Container(elements.Container, connectionString);
-            var bytes = await container.Get(file);
-            var ms = new MemoryStream();
-            await ms.WriteAsync(bytes, 0, bytes.Length);
-            ms.Position = 0;
-
-            var properties = await container.Properties(file);
-
+            var streamer = new ImageStreamer(new Container(elements.Container, connectionString));
+            var ms = await streamer.Get(file);
             var response = new HttpResponseMessage();
-            response.Content = new StreamContent(ms); // this file stream will be closed by lower layers of web api for you once the response is completed.
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(properties.ContentType);
+            response.Content = new StreamContent(ms);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.ContentType);
             return response;
         }
         #endregion
