@@ -88,6 +88,7 @@
                             mimeType = job.ResultMimeType;
                         }
                     }
+
                     await this.container.Save(filename, resized, mimeType);
                     var entity = new ImageEntity()
                     {
