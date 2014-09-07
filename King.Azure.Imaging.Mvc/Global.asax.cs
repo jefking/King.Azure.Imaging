@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Mvc
 {
+    using King.Service;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
@@ -7,6 +8,16 @@
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        #region Members
+        private readonly RoleTaskManager manager = new RoleTaskManager(new ImageTaskFactory("UseDevelopmentStorage=true"));
+        #endregion
+
+        #region Methods
+        public void Application_Init()
+        {
+            this.manager.OnStart();
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -15,8 +26,13 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var init = new StorageInitializer("UseDevelopmentStorage=true");
-            init.Create().Wait();
+            this.manager.Run();
         }
+
+        protected void Application_End()
+        {
+            this.manager.OnStop();
+        }
+        #endregion
     }
 }

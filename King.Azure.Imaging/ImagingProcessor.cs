@@ -2,19 +2,19 @@
 {
     using King.Azure.Data;
     using King.Azure.Imaging.Models;
-    using King.Service.Data;
     using System.Threading.Tasks;
 
     /// <summary>
     /// Imaging Task
     /// </summary>
-    public class ImagingTask : Dequeue<ImageQueued>
+    public class ImagingProcessor : IProcessor<ImageQueued>
     {
         #region Methods
-        protected override async Task Process(IQueued<ImageQueued> message)
+        public Task<bool> Process(ImageQueued data)
         {
-            await base.Process(message);
+            throw new System.NotImplementedException();
         }
         #endregion
+
     }
 }

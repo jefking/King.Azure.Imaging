@@ -82,14 +82,14 @@
   <ItemGroup>
     <Compile Include="Entities\ImageEntity.cs" />
     <Compile Include="ImagePreprocessor.cs" />
-    <Compile Include="ImagingTask.cs" />
+    <Compile Include="ImageTaskFactory.cs" />
+    <Compile Include="ImagingProcessor.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Models\ImageData.cs" />
     <Compile Include="Models\ImageQueued.cs" />
     <Compile Include="Models\RawData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageElements.cs" />
-    <Compile Include="StorageInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
