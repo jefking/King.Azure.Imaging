@@ -41,6 +41,18 @@
         }
 
         [Test]
+        public void OriginalFileName()
+        {
+            var expected = Guid.NewGuid().ToString();
+            var data = new RawData()
+            {
+                OriginalFileName = expected
+            };
+
+            Assert.AreEqual(expected, data.OriginalFileName);
+        }
+
+        [Test]
         public void FileName()
         {
             var expected = Guid.NewGuid().ToString();

@@ -1,15 +1,40 @@
-﻿
-namespace King.Azure.Imaging.Unit.Test.Models
+﻿namespace King.Azure.Imaging.Unit.Test.Models
 {
+    using King.Azure.Imaging.Models;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     [TestFixture]
     public class ImageQueuedTests
     {
+        [Test]
+        public void Constructor()
+        {
+            new ImageQueued();
+        }
+
+        [Test]
+        public void Identifier()
+        {
+            var expected = Guid.NewGuid();
+            var data = new ImageQueued()
+            {
+                Identifier = expected
+            };
+
+            Assert.AreEqual(expected, data.Identifier);
+        }
+
+        [Test]
+        public void FileNameFormat()
+        {
+            var expected = Guid.NewGuid().ToString();
+            var data = new ImageQueued()
+            {
+                FileNameFormat = expected
+            };
+
+            Assert.AreEqual(expected, data.FileNameFormat);
+        }
     }
 }
