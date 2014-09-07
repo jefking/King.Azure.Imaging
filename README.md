@@ -1,4 +1,4 @@
-# ALPHA
+# BETA
 
 Image uploading and processing made easy
 + Upload images to blob storage

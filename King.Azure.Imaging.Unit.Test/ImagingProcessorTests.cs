@@ -22,6 +22,14 @@
         }
 
         [Test]
+        public void IsIProcessor()
+        {
+            var container = Substitute.For<IContainer>();
+            var table = Substitute.For<ITableStorage>();
+            Assert.IsNotNull(new ImagingProcessor(container, table, new Dictionary<string, string>()) as IProcessor<ImageQueued>);
+        }
+
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorContainerNull()
         {
@@ -35,6 +43,15 @@
         {
             var container = Substitute.For<IContainer>();
             new ImagingProcessor(container, null, new Dictionary<string, string>());
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorVersionsNull()
+        {
+            var container = Substitute.For<IContainer>();
+            var table = Substitute.For<ITableStorage>();
+            new ImagingProcessor(container, table, null);
         }
 
         [Test]
