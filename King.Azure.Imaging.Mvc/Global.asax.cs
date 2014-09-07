@@ -1,6 +1,8 @@
 ﻿namespace King.Azure.Imaging.Mvc
 {
     using King.Service;
+    using System.Configuration;
+    using System.Diagnostics;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
@@ -30,6 +32,16 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            var emulator = ConfigurationManager.AppSettings["AzureEmulator"];
+
+            using (var process = new Process())
+            {
+                process.StartInfo = CreateProcessStartInfo(emulator, "start");
+                process.Start();
+
+                process.WaitForExit();
+            }
+
             this.manager.OnStart();
             this.manager.Run();
         }
@@ -37,6 +49,18 @@
         protected void Application_End()
         {
             this.manager.OnStop();
+        }
+
+        private static ProcessStartInfo CreateProcessStartInfo(string fileName, string arguments)
+        {
+            return new ProcessStartInfo(fileName, arguments)
+            {
+                UseShellExecute = false,
+                ErrorDialog = false,
+                CreateNoWindow = true,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+            };
         }
         #endregion
     }
