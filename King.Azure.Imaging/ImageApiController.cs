@@ -17,17 +17,17 @@
         /// <summary>
         /// Image Preprocessor
         /// </summary>
-        private readonly IImagePreprocessor preprocessor = null;
+        protected readonly IImagePreprocessor preprocessor = null;
 
         /// <summary>
         /// Storage Elements
         /// </summary>
-        private readonly IStorageElements elements = null;
+        protected readonly IStorageElements elements = null;
 
         /// <summary>
         /// Container
         /// </summary>
-        private readonly IContainer container = null;
+        protected readonly IContainer container = null;
         #endregion
 
         #region Constructors]

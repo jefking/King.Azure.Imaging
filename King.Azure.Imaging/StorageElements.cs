@@ -9,7 +9,7 @@
         /// <summary>
         /// Container to store images
         /// </summary>
-        public string Container
+        public virtual string Container
         {
             get
             {
@@ -20,7 +20,7 @@
         /// <summary>
         /// Queue to save tasks to
         /// </summary>
-        public string Queue
+        public virtual string Queue
         {
             get
             {
@@ -31,7 +31,7 @@
         /// <summary>
         /// Table for storing image meta-data
         /// </summary>
-        public string Table
+        public virtual string Table
         {
             get
             {

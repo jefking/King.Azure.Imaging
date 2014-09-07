@@ -16,17 +16,17 @@
         /// <summary>
         /// Connection String
         /// </summary>
-        private readonly string connectionString = null;
+        protected readonly string connectionString = null;
 
         /// <summary>
         /// Storage Elements
         /// </summary>
-        private readonly IStorageElements elements = null;
+        protected readonly IStorageElements elements = null;
 
         /// <summary>
         /// Versions
         /// </summary>
-        private readonly IVersions versions = null;
+        protected readonly IVersions versions = null;
         #endregion
 
         #region Constructors
@@ -68,7 +68,7 @@
         /// </summary>
         /// <param name="passthrough">passthrough</param>
         /// <returns>Runnable Tasks</returns>
-        public IEnumerable<IRunnable> Tasks(object passthrough)
+        public virtual IEnumerable<IRunnable> Tasks(object passthrough)
         {
             var tasks = new List<IRunnable>();
 

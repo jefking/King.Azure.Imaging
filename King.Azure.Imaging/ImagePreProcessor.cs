@@ -24,17 +24,17 @@
         /// <summary>
         /// Blob Container
         /// </summary>
-        private readonly IContainer container = null;
+        protected readonly IContainer container = null;
 
         /// <summary>
         /// Table
         /// </summary>
-        private readonly ITableStorage table = null;
+        protected readonly ITableStorage table = null;
 
         /// <summary>
         /// Storage Queue
         /// </summary>
-        private readonly IStorageQueue queue = null;
+        protected readonly IStorageQueue queue = null;
         #endregion
 
         #region Constructors
@@ -87,7 +87,7 @@
         /// <param name="contentType">Content Type</param>
         /// <param name="fileName">File Name</param>
         /// <returns>Task</returns>
-        public async Task Process(byte[] content, string contentType, string fileName)
+        public virtual async Task Process(byte[] content, string contentType, string fileName)
         {
             if (null == content || !content.Any())
             {

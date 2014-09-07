@@ -19,17 +19,17 @@
         /// <summary>
         /// Versions
         /// </summary>
-        private readonly IDictionary<string, string> versions;
+        protected readonly IDictionary<string, string> versions;
 
         /// <summary>
         /// Container
         /// </summary>
-        private readonly IContainer container;
+        protected readonly IContainer container;
 
         /// <summary>
         /// Table
         /// </summary>
-        private readonly ITableStorage table;
+        protected readonly ITableStorage table;
         #endregion
 
         #region Constructors
@@ -65,7 +65,7 @@
         /// </summary>
         /// <param name="data">Data</param>
         /// <returns>Successful</returns>
-        public async Task<bool> Process(ImageQueued data)
+        public virtual async Task<bool> Process(ImageQueued data)
         {
             var result = false;
             var original = string.Format(data.FileNameFormat, ImagePreprocessor.Original);

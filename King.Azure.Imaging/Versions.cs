@@ -11,7 +11,7 @@
         /// <summary>
         /// Versions
         /// </summary>
-        private readonly IDictionary<string, string> versions = new Dictionary<string, string>(3);
+        protected readonly IDictionary<string, string> versions = new Dictionary<string, string>(3);
         #endregion
 
         #region Constructors
@@ -30,7 +30,7 @@
         /// <summary>
         /// Image Versions
         /// </summary>
-        public IDictionary<string, string> Images
+        public virtual IDictionary<string, string> Images
         {
             get
             {

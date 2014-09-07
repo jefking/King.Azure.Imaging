@@ -14,7 +14,7 @@
         /// <summary>
         /// Container
         /// </summary>
-        private readonly IContainer container = null;
+        protected readonly IContainer container = null;
         #endregion
 
         #region Constructors
@@ -39,7 +39,7 @@
         /// </summary>
         /// <param name="file">File</param>
         /// <returns>Stream</returns>
-        public async Task<Stream> Get(string file)
+        public virtual async Task<Stream> Get(string file)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -62,7 +62,7 @@
         /// <summary>
         /// Content Type
         /// </summary>
-        public string ContentType
+        public virtual string ContentType
         {
             private set;
             get;
