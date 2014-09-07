@@ -101,9 +101,15 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Entities\ImageEntityTests.cs" />
     <Compile Include="ImagePreprocessorTests.cs" />
+    <Compile Include="ImageTaskFactoryTests.cs" />
+    <Compile Include="ImagingProcessorTests.cs" />
+    <Compile Include="Models\ImageQueuedTests.cs" />
     <Compile Include="Models\RawDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StorageElementsTests.cs" />
+    <Compile Include="VersionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
@@ -118,6 +124,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
