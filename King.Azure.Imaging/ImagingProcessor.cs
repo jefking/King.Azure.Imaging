@@ -17,29 +17,42 @@
     {
         #region Members
         /// <summary>
-        /// 
+        /// Versions
         /// </summary>
         private readonly IDictionary<string, string> versions;
 
         /// <summary>
-        /// 
+        /// Container
         /// </summary>
         private readonly IContainer container;
 
         /// <summary>
-        /// 
+        /// Table
         /// </summary>
         private readonly ITableStorage table;
         #endregion
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="container"></param>
         /// <param name="versions"></param>
         public ImagingProcessor(IContainer container, ITableStorage table, IDictionary<string, string> versions)
         {
+            if (null == container)
+            {
+                throw new ArgumentNullException("container");
+            }
+            if (null == table)
+            {
+                throw new ArgumentNullException("table");
+            }
+            if (null == versions)
+            {
+                throw new ArgumentNullException("versions");
+            }
+
             this.container = container;
             this.table = table;
             this.versions = versions;

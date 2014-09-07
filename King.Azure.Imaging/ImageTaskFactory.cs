@@ -62,7 +62,7 @@
             tasks.Add(new InitializeStorageTask(table));
             tasks.Add(new InitializeStorageTask(new StorageQueue(elements.Queue, connectionString)));
 
-            //Dequeuing Task
+            //Image Processing Task
             tasks.Add(new BackoffRunner(new StorageDequeue<ImageQueued>(elements.Queue, connectionString, new ImagingProcessor(container, table, this.Versions()))));
 
             return tasks;
