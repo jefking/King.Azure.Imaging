@@ -65,5 +65,26 @@
 
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }
+
+        [Test]
+        public async Task ProcessThrows()
+        {
+            var data = new ImageQueued()
+            {
+                Identifier = Guid.NewGuid(),
+                FileNameFormat = "good_{0}_file",
+            };
+            var versions = new Dictionary<string, string>();
+            versions.Add("temp", "width=100&height=100&crop=auto&format=jpg");
+            var container = Substitute.For<IContainer>();
+            container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(t => { throw new ArgumentException(); });
+
+            var table = Substitute.For<ITableStorage>();
+
+            var ip = new ImagingProcessor(container, table, versions);
+            var result = await ip.Process(data);
+
+            Assert.IsFalse(result);
+        }
     }
 }
