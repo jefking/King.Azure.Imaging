@@ -15,6 +15,11 @@
         /// Storage Elements
         /// </summary>
         private static readonly IStorageElements elements = new StorageElements();
+
+        /// <summary>
+        /// Connection String
+        /// </summary>
+        private const string connectionString = "UseDevelopmentStorage=true";
         #endregion
 
         #region Methods
@@ -25,7 +30,7 @@
 
         public ActionResult Thumbs()
         {
-            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var table = new TableStorage(elements.Table, connectionString);
             var data = from t in table.QueryByRow<ImageEntity>("thumb")
                        select t;
 
@@ -34,7 +39,7 @@
 
         public ActionResult Originals()
         {
-            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var table = new TableStorage(elements.Table, connectionString);
             var data = from t in table.QueryByRow<ImageEntity>("original")
                        select t;
 
@@ -43,7 +48,7 @@
 
         public ActionResult Large()
         {
-            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var table = new TableStorage(elements.Table, connectionString);
             var data = from t in table.QueryByRow<ImageEntity>("large")
                        select t;
 
@@ -52,7 +57,7 @@
 
         public ActionResult Medium()
         {
-            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var table = new TableStorage(elements.Table, connectionString);
             var data = from t in table.QueryByRow<ImageEntity>("medium")
                        select t;
 
@@ -61,7 +66,7 @@
 
         public ActionResult Dynamic()
         {
-            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var table = new TableStorage(elements.Table, connectionString);
             var data = from t in table.QueryByRow<ImageEntity>("original")
                        select t;
 

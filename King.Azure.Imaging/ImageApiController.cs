@@ -51,6 +51,19 @@
         /// <param name="elements"></param>
         public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements)
         {
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new ArgumentException("connectionString");
+            }
+            if (null == preprocessor)
+            {
+                throw new ArgumentException("preprocessor");
+            }
+            if (null == elements)
+            {
+                throw new ArgumentException("elements");
+            }
+
             this.container = new Container(elements.Container, connectionString);
             this.preprocessor = preprocessor;
             this.elements = elements;
