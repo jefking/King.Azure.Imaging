@@ -58,6 +58,15 @@
 
             return View(data);
         }
+
+        public ActionResult Dynamic()
+        {
+            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true");
+            var data = from t in table.QueryByRow<ImageEntity>("original")
+                       select t;
+
+            return View(data);
+        }
         #endregion
     }
 }

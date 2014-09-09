@@ -246,6 +246,7 @@
     <Content Include="Views\Home\Originals.cshtml" />
     <Content Include="Views\Home\Medium.cshtml" />
     <Content Include="Views\Home\Large.cshtml" />
+    <Content Include="Views\Home\Dynamic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\King.Azure.Imaging\King.Azure.Imaging.csproj">

@@ -1,7 +1,9 @@
 ﻿namespace King.Azure.Imaging
 {
+    using ImageResizer;
     using King.Azure.Data;
     using System;
+    using System.IO;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
@@ -30,7 +32,7 @@
         protected readonly IContainer container = null;
         #endregion
 
-        #region Constructors]
+        #region Constructors
         /// <summary>
         /// 
         /// </summary>
@@ -87,6 +89,28 @@
             var response = new HttpResponseMessage();
             response.Content = new StreamContent(ms);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.ContentType);
+            return response;
+        }
+
+        [HttpGet]
+        public virtual async Task<HttpResponseMessage> Get(string file, int width, int height, string format)
+        {
+            var instructionSet = string.Format("width={0}&height={1}&format={2}", width, height, format);
+            //var instructionSet = "width=100&height=100&crop=auto&format=jpg";
+            var streamer = new ImageStreamer(this.container);
+
+            var response = new HttpResponseMessage();
+            using (var input = await streamer.Get(file))
+            {
+                var resize = new MemoryStream();
+                var job = new ImageJob(input, resize, new Instructions(instructionSet));
+                job.Build();
+
+                var output = new MemoryStream(resize.ToArray());
+                response.Content = new StreamContent(output);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(job.ResultMimeType);
+            }
+
             return response;
         }
         #endregion
