@@ -34,7 +34,7 @@
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Default Constructor
         /// </summary>
         /// <param name="connectionString"></param>
         public ImageApiController(string connectionString)
@@ -44,7 +44,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Mockable Constructor
         /// </summary>
         /// <param name="connectionString"></param>
         /// <param name="preprocessor"></param>
