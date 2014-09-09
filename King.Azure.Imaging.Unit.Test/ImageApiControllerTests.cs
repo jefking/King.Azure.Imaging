@@ -3,9 +3,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
 
@@ -39,7 +36,6 @@
         [ExpectedException(typeof(ArgumentException))]
         public void ConstructorImagePreprocessorNull()
         {
-            var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             new ImageApiController(connectionString, null, elements);
         }
@@ -50,6 +46,56 @@
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             new ImageApiController(connectionString, preprocessor, null);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task GetFileNull()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            var elements = Substitute.For<IStorageElements>();
+            var api = new ImageApiController(connectionString, preprocessor, elements);
+            await api.Get(null);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task ResizeFileNull()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            var elements = Substitute.For<IStorageElements>();
+            var api = new ImageApiController(connectionString, preprocessor, elements);
+            await api.Resize(null, 100, 100);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task ResizeWidthInvalid()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            var elements = Substitute.For<IStorageElements>();
+            var api = new ImageApiController(connectionString, preprocessor, elements);
+            await api.Resize(Guid.NewGuid().ToString(), 0, 100);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task ResizeHeightInvalid()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            var elements = Substitute.For<IStorageElements>();
+            var api = new ImageApiController(connectionString, preprocessor, elements);
+            await api.Resize(Guid.NewGuid().ToString(), 100, 0);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task ResizeFormatNull()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            var elements = Substitute.For<IStorageElements>();
+            var api = new ImageApiController(connectionString, preprocessor, elements);
+            await api.Resize(Guid.NewGuid().ToString(), 100, 100, null);
         }
     }
 }
