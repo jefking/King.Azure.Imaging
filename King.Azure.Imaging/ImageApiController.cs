@@ -92,11 +92,14 @@
             return response;
         }
 
+        /// <summary>
+        /// http://documentation.imageresizing.net/doxygen/class_image_resizer_1_1_instructions.html
+        /// </summary>
+        /// <returns>Image</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Get(string file, int width, int height, string format)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height, string format = "jpg")
         {
             var instructionSet = string.Format("width={0}&height={1}&format={2}", width, height, format);
-            //var instructionSet = "width=100&height=100&crop=auto&format=jpg";
             var streamer = new ImageStreamer(this.container);
 
             var response = new HttpResponseMessage();
@@ -106,8 +109,7 @@
                 var job = new ImageJob(input, resize, new Instructions(instructionSet));
                 job.Build();
 
-                var output = new MemoryStream(resize.ToArray());
-                response.Content = new StreamContent(output);
+                response.Content = new StreamContent(new MemoryStream(resize.ToArray()));
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue(job.ResultMimeType);
             }
 
