@@ -99,6 +99,23 @@
         [HttpGet]
         public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height, string format = "jpg")
         {
+            if (string.IsNullOrWhiteSpace(file))
+            {
+                throw new ArgumentException("file");
+            }
+            if (0 >= width)
+            {
+                throw new ArgumentException("width");
+            }
+            if (0 >= height)
+            {
+                throw new ArgumentException("width");
+            }
+            if (string.IsNullOrWhiteSpace(format))
+            {
+                throw new ArgumentException("format");
+            }
+
             var instructionSet = string.Format("width={0}&height={1}&format={2}", width, height, format);
             var streamer = new ImageStreamer(this.container);
 
