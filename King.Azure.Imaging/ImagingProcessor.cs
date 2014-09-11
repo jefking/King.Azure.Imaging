@@ -1,14 +1,16 @@
 ﻿namespace King.Azure.Imaging
 {
-    using ImageResizer;
-    using King.Azure.Data;
-    using King.Azure.Imaging.Entities;
-    using King.Azure.Imaging.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Threading.Tasks;
+    using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
+using King.Azure.Data;
+using King.Azure.Imaging.Entities;
+using King.Azure.Imaging.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Threading.Tasks;
 
     /// <summary>
     /// Imaging Task
@@ -82,10 +84,18 @@
                     {
                         using (var output = new MemoryStream())
                         {
-                            var job = new ImageJob(input, output, new Instructions(versions[key]));
-                            job.Build();
+                            var format = new JpegFormat { Quality = 70 };
+                            var size = new Size(150, 0);
+                            using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+                            {
+                                imageFactory.Load(input)
+                                            .Resize(size)
+                                            .Format(format)
+                                            .Save(output);
+                            }
+
                             resized = output.ToArray();
-                            mimeType = job.ResultMimeType;
+                            mimeType = "unknown";//BUG
                         }
                     }
 

@@ -1,14 +1,16 @@
 ﻿namespace King.Azure.Imaging
 {
-    using ImageResizer;
-    using King.Azure.Data;
-    using System;
-    using System.IO;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
-    using System.Web;
-    using System.Web.Http;
+    using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
+using King.Azure.Data;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
 
     /// <summary>
     /// Image Api Controller
@@ -136,11 +138,19 @@
             using (var input = await streamer.Get(file))
             {
                 var resize = new MemoryStream();
-                var job = new ImageJob(input, resize, new Instructions(instructionSet));
-                job.Build();
+                var jpg = new JpegFormat { Quality = 70 };
+                Size size = new Size(150, 0);
+                using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+                {
+                    // Load, resize, set the format and quality and save an image.
+                    imageFactory.Load(input)
+                                .Resize(size)
+                                .Format(jpg)
+                                .Save(resize);
+                }
 
                 response.Content = new StreamContent(new MemoryStream(resize.ToArray()));
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(job.ResultMimeType);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("unknown");
             }
 
             return response;
