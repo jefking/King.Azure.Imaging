@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/jefking/King.Azure.Imaging</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/jefking/King.Azure.Imaging/master/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Image uploading and processing made easy.</description>
+    <description>Azure Image uploading and processing made easy.</description>
     <summary>Simplified Azure Imaging Framework.</summary>
     <releaseNotes>Dynamic Resize Images: Beta Release</releaseNotes>
     <copyright>Jef King</copyright>

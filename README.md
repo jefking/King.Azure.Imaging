@@ -1,6 +1,6 @@
 # BETA
 
-Image uploading and processing made easy
+Azure Image uploading and processing made easy.
 + Upload images to blob storage
 + Queue images for processing
 + Store meta data about images
