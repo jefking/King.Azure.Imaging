@@ -18,7 +18,7 @@
     <tags>King.Azure.Imaging Azure Image Jpg Png CDN image resize crop rotate jpeg jpg gif png server-safe-imaging imaging Cloud Blob</tags>
     <dependencies>
       <dependency id="King.Service" />
-      <dependency id="ImageResizer" />
+      <dependency id="ImageProcessor" />
       <dependency id="Microsoft.AspNet.WebApi.Core" />
     </dependencies>
     <frameworkAssemblies>
