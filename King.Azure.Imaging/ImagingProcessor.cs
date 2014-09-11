@@ -77,15 +77,16 @@
                 var bytes = await container.Get(original);
                 foreach (var key in this.versions.Keys)
                 {
+                    var version = this.versions[key];
                     byte[] resized;
                     string mimeType;
                     var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
+                    var format = new JpegFormat { Quality = 70 };
                     using (var input = new MemoryStream(bytes))
                     {
                         using (var output = new MemoryStream())
                         {
-                            var format = new JpegFormat { Quality = 70 };
-                            var size = new Size(versions[key].Width, versions[key].Height);
+                            var size = new Size(version.Width, version.Height);
                             using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
                             {
                                 imageFactory.Load(input)
@@ -95,18 +96,19 @@
                             }
 
                             resized = output.ToArray();
-                            mimeType = "unknown";//BUG
                         }
                     }
 
-                    await this.container.Save(filename, resized, mimeType);
+                    await this.container.Save(filename, resized, format.MimeType);
                     var entity = new ImageEntity()
                     {
                         PartitionKey = data.Identifier.ToString(),
                         RowKey = key.ToLowerInvariant(),
                         FileName = filename,
-                        ContentType = mimeType,
+                        ContentType = format.MimeType,
                         FileSize = resized.LongLength,
+                        Width = version.Width,
+                        Height = version.Height,
                         RelativePath = string.Format("{0}/{1}", this.container.Name, filename),
                     };
 

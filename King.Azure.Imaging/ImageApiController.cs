@@ -1,16 +1,16 @@
 ﻿namespace King.Azure.Imaging
 {
     using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
-using King.Azure.Data;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
+    using ImageProcessor.Imaging.Formats;
+    using King.Azure.Data;
+    using System;
+    using System.Drawing;
+    using System.IO;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Http;
 
     /// <summary>
     /// Image Api Controller
@@ -131,7 +131,6 @@ using System.Web.Http;
                 throw new ArgumentException("format");
             }
 
-            var instructionSet = string.Format("width={0}&height={1}&format={2}", width, height, format);
             var streamer = new ImageStreamer(this.container);
 
             var response = new HttpResponseMessage();
@@ -139,8 +138,8 @@ using System.Web.Http;
             {
                 var resize = new MemoryStream();
                 var jpg = new JpegFormat { Quality = 70 };
-                Size size = new Size(150, 0);
-                using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+                var size = new Size(150, 0);
+                using (var imageFactory = new ImageFactory(preserveExifData: true))
                 {
                     // Load, resize, set the format and quality and save an image.
                     imageFactory.Load(input)
@@ -150,7 +149,7 @@ using System.Web.Http;
                 }
 
                 response.Content = new StreamContent(new MemoryStream(resize.ToArray()));
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("unknown");
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(jpg.MimeType);
             }
 
             return response;
