@@ -138,7 +138,7 @@
             {
                 var resize = new MemoryStream();
                 var jpg = new JpegFormat { Quality = 70 };
-                var size = new Size(150, 0);
+                var size = new Size(width, height);
                 using (var imageFactory = new ImageFactory(preserveExifData: true))
                 {
                     imageFactory.Load(input)
