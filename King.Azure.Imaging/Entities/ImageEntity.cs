@@ -43,6 +43,24 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Image Width
+        /// </summary>
+        public int Width
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Image Height
+        /// </summary>
+        public int Height
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

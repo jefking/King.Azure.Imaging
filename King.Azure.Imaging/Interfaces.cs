@@ -84,16 +84,25 @@
     #region IImageVersion
     public interface IImageVersion
     {
+        #region Properties
+        /// <summary>
+        /// Image Width
+        /// </summary>
         int Width
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// Image Height
+        /// </summary>
         int Height
         {
             get;
             set;
         }
+        #endregion
     }
     #endregion
 }
