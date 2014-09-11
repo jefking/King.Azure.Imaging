@@ -57,22 +57,31 @@
     }
     #endregion
 
+    #region IVersions
     public interface IVersions
     {
+        #region Methods
         IDictionary<string, IImageVersion> Images
         {
             get;
         }
+        #endregion
     }
+    #endregion
 
+    #region IImageStreamer
     public interface IImageStreamer
     {
         Task<Stream> Get(string file);
+
         string ContentType
         {
             get;
         }
     }
+    #endregion
+
+    #region IImageVersion
     public interface IImageVersion
     {
         int Width
@@ -86,4 +95,5 @@
             set;
         }
     }
+    #endregion
 }
