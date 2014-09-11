@@ -11,7 +11,7 @@
         /// <summary>
         /// Versions
         /// </summary>
-        protected readonly IDictionary<string, string> versions = new Dictionary<string, string>(3);
+        protected readonly IDictionary<string, IImageVersion> versions = new Dictionary<string, IImageVersion>(3);
         #endregion
 
         #region Constructors
@@ -20,9 +20,26 @@
         /// </summary>
         public Versions()
         {
-            versions.Add("Thumb", "width=100&height=100&crop=auto&format=jpg");
-            versions.Add("Medium", "maxwidth=400&maxheight=400&format=jpg");
-            versions.Add("Large", "maxwidth=1900&maxheight=1900&format=jpg");
+            var thumb = new ImageVersion()
+            {
+                Height = 100,
+                Width = 100,
+            };
+            versions.Add("Thumb", thumb);
+
+            var medium = new ImageVersion()
+            {
+                Height = 400,
+                Width = 400,
+            };
+            versions.Add("Medium", medium);
+
+            var large = new ImageVersion()
+            {
+                Height = 1900,
+                Width = 1900,
+            };
+            versions.Add("Large", large);
         }
         #endregion
 
@@ -30,7 +47,7 @@
         /// <summary>
         /// Image Versions
         /// </summary>
-        public virtual IDictionary<string, string> Images
+        public virtual IDictionary<string, IImageVersion> Images
         {
             get
             {

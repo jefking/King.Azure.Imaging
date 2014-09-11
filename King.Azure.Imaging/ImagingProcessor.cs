@@ -21,17 +21,17 @@ using System.Threading.Tasks;
         /// <summary>
         /// Versions
         /// </summary>
-        protected readonly IDictionary<string, string> versions;
+        protected readonly IDictionary<string, IImageVersion> versions = null;
 
         /// <summary>
         /// Container
         /// </summary>
-        protected readonly IContainer container;
+        protected readonly IContainer container = null;
 
         /// <summary>
         /// Table
         /// </summary>
-        protected readonly ITableStorage table;
+        protected readonly ITableStorage table = null;
         #endregion
 
         #region Constructors
@@ -40,7 +40,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="container"></param>
         /// <param name="versions"></param>
-        public ImagingProcessor(IContainer container, ITableStorage table, IDictionary<string, string> versions)
+        public ImagingProcessor(IContainer container, ITableStorage table, IDictionary<string, IImageVersion> versions)
         {
             if (null == container)
             {
@@ -85,7 +85,7 @@ using System.Threading.Tasks;
                         using (var output = new MemoryStream())
                         {
                             var format = new JpegFormat { Quality = 70 };
-                            var size = new Size(150, 0);
+                            var size = new Size(versions[key].Width, versions[key].Height);
                             using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
                             {
                                 imageFactory.Load(input)

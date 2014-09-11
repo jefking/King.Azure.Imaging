@@ -59,7 +59,7 @@
 
     public interface IVersions
     {
-        IDictionary<string, string> Images
+        IDictionary<string, IImageVersion> Images
         {
             get;
         }
@@ -71,6 +71,19 @@
         string ContentType
         {
             get;
+        }
+    }
+    public interface IImageVersion
+    {
+        int Width
+        {
+            get;
+            set;
+        }
+        int Height
+        {
+            get;
+            set;
         }
     }
 }

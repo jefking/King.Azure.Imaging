@@ -18,7 +18,7 @@
         {
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(container, table, new Dictionary<string, string>());
+            new ImagingProcessor(container, table, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -26,7 +26,7 @@
         {
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            Assert.IsNotNull(new ImagingProcessor(container, table, new Dictionary<string, string>()) as IProcessor<ImageQueued>);
+            Assert.IsNotNull(new ImagingProcessor(container, table, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
         }
 
         [Test]
@@ -34,7 +34,7 @@
         public void ConstructorContainerNull()
         {
             var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(null, table, new Dictionary<string, string>());
+            new ImagingProcessor(null, table, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -42,7 +42,7 @@
         public void ConstructorTableNull()
         {
             var container = Substitute.For<IContainer>();
-            new ImagingProcessor(container, null, new Dictionary<string, string>());
+            new ImagingProcessor(container, null, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -63,8 +63,13 @@
                 Identifier = Guid.NewGuid(),
                 FileNameFormat = "good_{0}_file",
             };
-            var versions = new Dictionary<string, string>();
-            versions.Add("temp", "width=100&height=100&crop=auto&format=jpg");
+            var versions = new Dictionary<string, IImageVersion>();
+            var version = new ImageVersion()
+            {
+                Width = 100,
+                Height = 100,
+            };
+            versions.Add("temp", version);
             var container = Substitute.For<IContainer>();
             container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(Task.FromResult(bytes));
             container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), "image/jpeg");
@@ -91,8 +96,13 @@
                 Identifier = Guid.NewGuid(),
                 FileNameFormat = "good_{0}_file",
             };
-            var versions = new Dictionary<string, string>();
-            versions.Add("temp", "width=100&height=100&crop=auto&format=jpg");
+            var versions = new Dictionary<string, IImageVersion>();
+            var version = new ImageVersion()
+            {
+                Width = 100,
+                Height = 100,
+            };
+            versions.Add("temp", version);
             var container = Substitute.For<IContainer>();
             container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(t => { throw new ArgumentException(); });
 
