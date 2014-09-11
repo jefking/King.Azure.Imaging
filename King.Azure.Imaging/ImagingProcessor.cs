@@ -79,7 +79,6 @@
                 {
                     var version = this.versions[key];
                     byte[] resized;
-                    string mimeType;
                     var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
                     var format = new JpegFormat { Quality = 70 };
                     using (var input = new MemoryStream(bytes))

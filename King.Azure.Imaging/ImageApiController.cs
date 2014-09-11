@@ -141,7 +141,6 @@
                 var size = new Size(150, 0);
                 using (var imageFactory = new ImageFactory(preserveExifData: true))
                 {
-                    // Load, resize, set the format and quality and save an image.
                     imageFactory.Load(input)
                                 .Resize(size)
                                 .Format(jpg)
