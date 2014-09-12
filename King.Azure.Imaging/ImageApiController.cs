@@ -137,13 +137,13 @@
             using (var input = await streamer.Get(file))
             {
                 var resize = new MemoryStream();
-                var jpg = new JpegFormat { Quality = 70 };
+                var jpg = new JpegFormat { Quality = 70 };//Make Dynamic
                 var size = new Size(width, height);
                 using (var imageFactory = new ImageFactory(preserveExifData: true))
                 {
                     imageFactory.Load(input)
                                 .Resize(size)
-                                .Format(jpg)
+                                .Format(jpg)//Make Dynamic
                                 .Save(resize);
                 }
 

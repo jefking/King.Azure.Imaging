@@ -80,17 +80,17 @@
                     var version = this.versions[key];
                     byte[] resized;
                     var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
-                    var format = new JpegFormat { Quality = 70 };
+                    var format = new JpegFormat { Quality = 70 };//Make Dynamic
+                    var size = new Size(version.Width, version.Height);
                     using (var input = new MemoryStream(bytes))
                     {
                         using (var output = new MemoryStream())
                         {
-                            var size = new Size(version.Width, version.Height);
                             using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
                             {
                                 imageFactory.Load(input)
                                             .Resize(size)
-                                            .Format(format)
+                                            .Format(format)//Make Dynamic
                                             .Save(output);
                             }
 
