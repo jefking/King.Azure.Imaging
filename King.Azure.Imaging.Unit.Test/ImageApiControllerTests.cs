@@ -91,7 +91,7 @@
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Resize(Guid.NewGuid().ToString(), 0, 100);
+            await api.Resize(Guid.NewGuid().ToString(), -1, 100);
         }
 
         [Test]
@@ -101,17 +101,17 @@
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Resize(Guid.NewGuid().ToString(), 100, 0);
+            await api.Resize(Guid.NewGuid().ToString(), 100, -1);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
-        public async Task ResizeFormatNull()
+        public async Task WidthAndHeightZero()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Resize(Guid.NewGuid().ToString(), 100, 100, null);
+            await api.Resize(Guid.NewGuid().ToString(), 0, 0);
         }
     }
 }

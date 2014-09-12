@@ -17,4 +17,17 @@
             </div>
         }
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Streaming <small>(/api/image/dynamic?file=*File*&width=*Width*)</small></h1>
+        </div>
+        @foreach (var entity in Model)
+        {
+            var width = random.Next(10, 760);
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <img class="img-responsive" src="/api/image/dynamic?file=@entity.FileName&width=@width">
+                <em>Width (@width)</em>
+            </div>
+        }
+    </div>
 </div>

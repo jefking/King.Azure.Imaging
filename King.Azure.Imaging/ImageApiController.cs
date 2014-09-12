@@ -105,25 +105,25 @@
         /// </summary>
         /// <returns>Image</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height, string format = "jpg")
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width = 0, int height = 0)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
                 throw new ArgumentException("file");
             }
-            if (0 >= width)
+            if (0 > width)
             {
                 throw new ArgumentException("width");
             }
-            if (0 >= height)
+            if (0 > height)
             {
                 throw new ArgumentException("width");
             }
-            if (string.IsNullOrWhiteSpace(format))
+            if (0 >= width && 0 >= height)
             {
-                throw new ArgumentException("format");
+                throw new ArgumentException("width and height <= 0.");
             }
-            
+
             var response = new HttpResponseMessage();
             using (var input = await this.streamer.Get(file))
             {
