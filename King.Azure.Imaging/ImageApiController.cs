@@ -101,11 +101,11 @@
         }
 
         /// <summary>
-        /// 
+        /// Resize Image on the fly
         /// </summary>
         /// <returns>Image</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width = 0, int height = 0)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
