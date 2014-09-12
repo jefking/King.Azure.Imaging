@@ -67,6 +67,10 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Post new file to the server
+        /// </summary>
+        /// <returns>Task</returns>
         [HttpPost]
         public virtual async Task Post()
         {
@@ -85,6 +89,11 @@
             }
         }
 
+        /// <summary>
+        /// Get a specific file from Blob storage
+        /// </summary>
+        /// <param name="file">file name</param>
+        /// <returns>File</returns>
         [HttpGet]
         public virtual async Task<HttpResponseMessage> Get(string file)
         {
@@ -103,7 +112,7 @@
         /// <summary>
         /// Resize Image on the fly
         /// </summary>
-        /// <returns>Image</returns>
+        /// <returns>Image (Resized)</returns>
         [HttpGet]
         public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0)
         {
