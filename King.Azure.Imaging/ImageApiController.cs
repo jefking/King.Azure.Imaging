@@ -24,21 +24,15 @@
         protected readonly IImagePreprocessor preprocessor = null;
 
         /// <summary>
-        /// Storage Elements
+        /// Streamer
         /// </summary>
-        protected readonly IStorageElements elements = null;
-
-        /// <summary>
-        /// Container
-        /// </summary>
-        protected readonly IContainer container = null;
+        protected readonly IImageStreamer streamer = null;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default Constructor
         /// </summary>
-        /// <param name="connectionString"></param>
         public ImageApiController(string connectionString)
             : this(connectionString, new ImagePreprocessor(connectionString), new StorageElements())
         {
@@ -48,27 +42,27 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        /// <param name="connectionString"></param>
-        /// <param name="preprocessor"></param>
-        /// <param name="elements"></param>
         public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements)
+            : this(preprocessor, new ImageStreamer(new Container(elements.Container, connectionString)))
         {
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                throw new ArgumentException("connectionString");
-            }
+        }
+
+        /// <summary>
+        /// Mockable Constructor
+        /// </summary>
+        public ImageApiController(IImagePreprocessor preprocessor, IImageStreamer streamer)
+        {
             if (null == preprocessor)
             {
                 throw new ArgumentException("preprocessor");
             }
-            if (null == elements)
+            if (null == streamer)
             {
-                throw new ArgumentException("elements");
+                throw new ArgumentException("streamer");
             }
 
-            this.container = new Container(elements.Container, connectionString);
             this.preprocessor = preprocessor;
-            this.elements = elements;
+            this.streamer = streamer;
         }
         #endregion
 
@@ -99,16 +93,15 @@
                 throw new ArgumentException("file");
             }
 
-            var streamer = new ImageStreamer(this.container);
-            var ms = await streamer.Get(file);
+            var ms = await this.streamer.Get(file);
             var response = new HttpResponseMessage();
             response.Content = new StreamContent(ms);
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.ContentType);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(this.streamer.ContentType);
             return response;
         }
 
         /// <summary>
-        /// http://documentation.imageresizing.net/doxygen/class_image_resizer_1_1_instructions.html
+        /// 
         /// </summary>
         /// <returns>Image</returns>
         [HttpGet]
@@ -130,11 +123,9 @@
             {
                 throw new ArgumentException("format");
             }
-
-            var streamer = new ImageStreamer(this.container);
-
+            
             var response = new HttpResponseMessage();
-            using (var input = await streamer.Get(file))
+            using (var input = await this.streamer.Get(file))
             {
                 var resize = new MemoryStream();
                 var jpg = new JpegFormat { Quality = 70 };//Make Dynamic

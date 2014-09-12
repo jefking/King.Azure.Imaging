@@ -42,6 +42,22 @@
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
+        public void ConstructorImagePreProcessorNull()
+        {
+            var streamer = Substitute.For<IImageStreamer>();
+            new ImageApiController(null, streamer);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructorImageStreamerNull()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            new ImageApiController(preprocessor, null);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NullReferenceException))]
         public void ConstructorStorageElementsNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
