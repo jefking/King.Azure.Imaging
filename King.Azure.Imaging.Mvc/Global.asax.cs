@@ -24,6 +24,9 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Load site
+        /// </summary>
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -32,6 +35,7 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            //Load storage emulator for Blob/Queue/Table storage
             var emulator = ConfigurationManager.AppSettings["AzureEmulator"];
 
             using (var process = new Process())
@@ -46,11 +50,20 @@
             this.manager.Run();
         }
 
+        /// <summary>
+        /// Tear down worker process
+        /// </summary>
         protected void Application_End()
         {
             this.manager.OnStop();
         }
 
+        /// <summary>
+        /// Start process
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="arguments"></param>
+        /// <returns></returns>
         private static ProcessStartInfo CreateProcessStartInfo(string fileName, string arguments)
         {
             return new ProcessStartInfo(fileName, arguments)
