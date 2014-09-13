@@ -3,6 +3,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using System;
+    using System.Net;
     using System.Threading.Tasks;
     using System.Web.Http;
 
@@ -65,53 +66,73 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public async Task GetFileNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Get(null);
+            var response = await api.Get(null);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public async Task ResizeFileNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Resize(null, 100, 100);
+            var response = await api.Resize(null, 100, 100);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public async Task ResizeWidthInvalid()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Resize(Guid.NewGuid().ToString(), -1, 100);
+            var response =  await api.Resize(Guid.NewGuid().ToString(), -1, 100);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public async Task ResizeHeightInvalid()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Resize(Guid.NewGuid().ToString(), 100, -1);
+            var response = await api.Resize(Guid.NewGuid().ToString(), 100, -1);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public async Task WidthAndHeightZero()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
+            elements.Container.Returns(Guid.NewGuid().ToString());
+
             var api = new ImageApiController(connectionString, preprocessor, elements);
-            await api.Resize(Guid.NewGuid().ToString(), 0, 0);
+            var response = await api.Resize(Guid.NewGuid().ToString(), 0, 0);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
         }
     }
 }
