@@ -152,9 +152,9 @@
             var response = new HttpResponseMessage();
             using (var input = await this.streamer.Get(file))
             {
-                var resize = new MemoryStream();
                 var jpg = new JpegFormat { Quality = 70 };//Make Dynamic
                 var size = new Size(width, height);
+                var resize = new MemoryStream();
                 using (var imageFactory = new ImageFactory(preserveExifData: true))
                 {
                     imageFactory.Load(input)

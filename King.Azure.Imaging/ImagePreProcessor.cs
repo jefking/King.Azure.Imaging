@@ -22,6 +22,16 @@
         public const string Original = "original";
 
         /// <summary>
+        /// File Name Format
+        /// </summary>
+        public const string FileNameFormat = "{0}_{1}{2}";
+
+        /// <summary>
+        /// Path Format
+        /// </summary>
+        public const string PathFormat = "{0}/{1}";
+
+        /// <summary>
         /// Blob Container
         /// </summary>
         protected readonly IContainer container = null;
@@ -111,7 +121,7 @@
                 ContentType = contentType,
                 OriginalFileName = fileName,
                 FileSize = content.LongLength,
-                FileName = string.Format("{0}_{1}{2}", id, Original, extension),
+                FileName = string.Format(FileNameFormat, id, Original, extension),
             };
 
             await container.Save(data.FileName, data.Contents, data.ContentType);
@@ -119,11 +129,11 @@
             var entity = data.Map<ImageEntity>();
             entity.PartitionKey = data.Identifier.ToString();
             entity.RowKey = Original;
-            entity.RelativePath = string.Format("{0}/{1}", this.container.Name, entity.FileName);
+            entity.RelativePath = string.Format(PathFormat, this.container.Name, entity.FileName);
             await table.InsertOrReplace(entity);
 
             var toQueue = data.Map<ImageQueued>();
-            toQueue.FileNameFormat = string.Format("{0}_{1}{2}", id, "{0}", extension);
+            toQueue.FileNameFormat = string.Format(FileNameFormat, id, "{0}", extension);
 
             await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
         }
