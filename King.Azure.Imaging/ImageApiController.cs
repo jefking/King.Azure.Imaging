@@ -6,6 +6,7 @@
     using System;
     using System.Drawing;
     using System.IO;
+    using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
@@ -99,7 +100,10 @@
         {
             if (string.IsNullOrWhiteSpace(file))
             {
-                throw new ArgumentException("file");
+                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                {
+                    ReasonPhrase = "file must be specified",
+                };
             }
 
             var ms = await this.streamer.Get(file);
@@ -118,19 +122,31 @@
         {
             if (string.IsNullOrWhiteSpace(file))
             {
-                throw new ArgumentException("file");
+                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                {
+                    ReasonPhrase = "file must be specified",
+                };
             }
             if (0 > width)
             {
-                throw new ArgumentException("width");
+                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                {
+                    ReasonPhrase = "width less than 0",
+                };
             }
             if (0 > height)
             {
-                throw new ArgumentException("width");
+                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                {
+                    ReasonPhrase = "height less than 0",
+                };
             }
             if (0 >= width && 0 >= height)
             {
-                throw new ArgumentException("width and height <= 0.");
+                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                {
+                    ReasonPhrase = "width and heigh less than or equal to 0",
+                };
             }
 
             var response = new HttpResponseMessage();
