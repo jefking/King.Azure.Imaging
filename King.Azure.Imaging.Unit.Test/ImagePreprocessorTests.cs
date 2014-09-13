@@ -6,9 +6,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -132,6 +129,29 @@
             random.NextBytes(bytes);
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.jpg", Guid.NewGuid());
+            var container = Substitute.For<IContainer>();
+            container.Save(Arg.Any<string>(), bytes, contentType);
+            var table = Substitute.For<ITableStorage>();
+            table.InsertOrReplace(Arg.Any<ImageEntity>());
+            var queue = Substitute.For<IStorageQueue>();
+            queue.Save(Arg.Any<CloudQueueMessage>());
+
+            var ip = new ImagePreprocessor(container, table, queue);
+            await ip.Process(bytes, contentType, fileName);
+
+            container.Received().Save(Arg.Any<string>(), bytes, contentType);
+            table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
+            queue.Received().Save(Arg.Any<CloudQueueMessage>());
+        }
+
+        [Test]
+        public async Task ProcessNoExtension()
+        {
+            var random = new Random();
+            var bytes = new byte[64];
+            random.NextBytes(bytes);
+            var contentType = Guid.NewGuid().ToString();
+            var fileName = Guid.NewGuid().ToString();
             var container = Substitute.For<IContainer>();
             container.Save(Arg.Any<string>(), bytes, contentType);
             var table = Substitute.For<ITableStorage>();
