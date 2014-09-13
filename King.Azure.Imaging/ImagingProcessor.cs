@@ -86,7 +86,7 @@
                     {
                         using (var output = new MemoryStream())
                         {
-                            using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+                            using (var imageFactory = new ImageFactory(preserveExifData: true))
                             {
                                 imageFactory.Load(input)
                                             .Resize(size)
