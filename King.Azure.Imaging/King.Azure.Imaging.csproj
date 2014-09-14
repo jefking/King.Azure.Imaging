@@ -96,6 +96,7 @@
     <Compile Include="ImagePreprocessor.cs" />
     <Compile Include="ImageStreamer.cs" />
     <Compile Include="ImageTaskFactory.cs" />
+    <Compile Include="Imaging.cs" />
     <Compile Include="ImagingProcessor.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Models\ImageQueued.cs" />

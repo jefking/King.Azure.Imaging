@@ -78,46 +78,24 @@
                 foreach (var key in this.versions.Keys)
                 {
                     var version = this.versions[key];
-                    byte[] resized;
                     var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
-                    var format = new JpegFormat { Quality = 70 };//Make Dynamic
-                    var size = new Size(version.Width, version.Height);
-                    using (var input = new MemoryStream(bytes))
-                    {
-                        using (var output = new MemoryStream())
-                        {
-                            using (var image = new ImageFactory(preserveExifData: true))
-                            {
-                                image.Load(input)
-                                    .Resize(size)
-                                    .Format(format)//Make Dynamic
-                                    .Save(output);
-;
-                            }
+                    string mimeType;
 
-                            resized = output.ToArray();
-                        }
-                    }
+                    var img = new Imaging();
+                    var resized = img.Resize(bytes, version, out mimeType);
 
                     //Store in Blob
-                    await this.container.Save(filename, resized, format.MimeType);
-                    
-                    using (var image = new ImageFactory(preserveExifData: true))
-                    {
-                        using (var stream = new MemoryStream(resized))
-                        {
-                            image.Load(stream);
-                            size.Height = image.Image.Height;
-                            size.Width = image.Image.Width;
-                        }
-                    }
+                    await this.container.Save(filename, resized, mimeType);
+
+                    var size = img.Size(resized);
+
                     //Store in Table
                     await this.table.InsertOrReplace(new ImageEntity()
                     {
                         PartitionKey = data.Identifier.ToString(),
                         RowKey = key.ToLowerInvariant(),
                         FileName = filename,
-                        ContentType = format.MimeType,
+                        ContentType = mimeType,
                         FileSize = resized.LongLength,
                         Width = size.Width,
                         Height = size.Height,
