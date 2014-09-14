@@ -86,12 +86,14 @@
                     {
                         using (var output = new MemoryStream())
                         {
-                            using (var imageFactory = new ImageFactory(preserveExifData: true))
+                            using (var image = new ImageFactory(preserveExifData: true))
                             {
-                                imageFactory.Load(input)
+                                image.Load(input)
                                             .Resize(size)
                                             .Format(format)//Make Dynamic
                                             .Save(output);
+
+                                size = new Size(image.Image.Width, image.Image.Height);
                             }
 
                             resized = output.ToArray();

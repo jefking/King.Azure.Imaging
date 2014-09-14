@@ -1,11 +1,14 @@
 ﻿namespace King.Azure.Imaging
 {
+    using ImageProcessor;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using Microsoft.WindowsAzure.Storage.Queue;
     using Newtonsoft.Json;
     using System;
+    using System.Drawing;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -118,6 +121,17 @@
             //Store Blob
             await container.Save(originalFileName, content, contentType);
 
+            var size = new Size();
+            using (var image = new ImageFactory(preserveExifData: true))
+            {
+                using (var stream = new MemoryStream(content))
+                {
+                    image.Load(stream);
+                    size.Height = image.Image.Height;
+                    size.Width = image.Image.Width;
+                }
+            }
+
             //Store in Table
             await table.InsertOrReplace(new ImageEntity()
             {
@@ -127,6 +141,8 @@
                 RelativePath = string.Format(PathFormat, this.container.Name, originalFileName),
                 FileSize = content.LongLength,
                 FileName = originalFileName,
+                Width = size.Width,
+                Height = size.Height,
             });
 
             //Queue for Processing

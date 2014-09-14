@@ -50,7 +50,7 @@
             $('#fileupload').fileupload({
                 url: url,
                 dataType: 'json',
-                autoUpload: false,
+                autoUpload: true,
                 acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
                 maxFileSize: 10000000, // 10 MB
                 // Enable image resizing, except for Android and Opera,
@@ -66,11 +66,7 @@
                 $.each(data.files, function (index, file) {
                     var node = $('<p/>')
                             .append($('<span/>').text(file.name));
-                    if (!index) {
-                        node
-                            .append('<br>')
-                            .append(uploadButton.clone(true).data(data));
-                    }
+                    
                     node.appendTo(data.context);
                 });
             }).on('fileuploadprocessalways', function (e, data) {
@@ -115,10 +111,6 @@
                 });
             }).on('fileuploadfail', function (e, data) {
                 $.each(data.files, function (index, file) {
-                    var error = $('<span class="text-danger"/>').text('File upload failed.');
-                    $(data.context.children()[index])
-                        .append('<br>')
-                        .append(error);
                 });
             }).prop('disabled', !$.support.fileInput)
                 .parent().addClass($.support.fileInput ? undefined : 'disabled');
