@@ -3,7 +3,6 @@
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
-    using King.Mapper;
     using Microsoft.WindowsAzure.Storage.Queue;
     using Newtonsoft.Json;
     using System;
@@ -114,26 +113,25 @@
 
             var id = Guid.NewGuid();
             var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.')) : ".jpg";
-            var data = new RawData()
+            var originalFileName = string.Format(FileNameFormat, id, Original, extension);
+            var fileSize = content.LongLength;
+            await container.Save(originalFileName, content, contentType);
+
+            var entity = new ImageEntity()
             {
-                Contents = content,
-                Identifier = id,
+                PartitionKey = id.ToString(),
                 ContentType = contentType,
-                OriginalFileName = fileName,
-                FileSize = content.LongLength,
-                FileName = string.Format(FileNameFormat, id, Original, extension),
+                RowKey = Original,
+                RelativePath = string.Format(PathFormat, this.container.Name, originalFileName),
             };
 
-            await container.Save(data.FileName, data.Contents, data.ContentType);
-
-            var entity = data.Map<ImageEntity>();
-            entity.PartitionKey = data.Identifier.ToString();
-            entity.RowKey = Original;
-            entity.RelativePath = string.Format(PathFormat, this.container.Name, entity.FileName);
             await table.InsertOrReplace(entity);
 
-            var toQueue = data.Map<ImageQueued>();
-            toQueue.FileNameFormat = string.Format(FileNameFormat, id, "{0}", extension);
+            var toQueue = new ImageQueued()
+            {
+                Identifier = id,
+                FileNameFormat = string.Format(FileNameFormat, id, "{0}", extension)
+            };
 
             await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
         }

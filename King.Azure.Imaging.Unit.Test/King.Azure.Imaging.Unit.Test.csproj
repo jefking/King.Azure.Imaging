@@ -48,9 +48,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Azure.1.0.9\lib\net451\King.Azure.dll</HintPath>
     </Reference>
-    <Reference Include="King.Mapper">
-      <HintPath>..\packages\King.Mapper.1.7.7\lib\net451\King.Mapper.dll</HintPath>
-    </Reference>
     <Reference Include="King.Service, Version=1.4.1.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Service.1.6.10\lib\net451\King.Service.dll</HintPath>
@@ -118,7 +115,6 @@
     <Compile Include="ImageTaskFactoryTests.cs" />
     <Compile Include="ImagingProcessorTests.cs" />
     <Compile Include="Models\ImageQueuedTests.cs" />
-    <Compile Include="Models\RawDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageElementsTests.cs" />
     <Compile Include="VersionsTests.cs" />
