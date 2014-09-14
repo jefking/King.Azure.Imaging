@@ -22,7 +22,6 @@
         {
             var thumb = new ImageVersion()
             {
-                Height = 100,
                 Width = 100,
             };
             versions.Add("Thumb", thumb);
