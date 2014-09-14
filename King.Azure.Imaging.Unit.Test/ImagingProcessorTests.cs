@@ -77,6 +77,7 @@
             {
                 Identifier = Guid.NewGuid(),
                 FileNameFormat = "good_{0}_file",
+                OriginalExtension = string.Empty,
             };
             var versions = new Dictionary<string, IImageVersion>();
             var version = new ImageVersion()
@@ -112,6 +113,7 @@
             {
                 Identifier = Guid.NewGuid(),
                 FileNameFormat = "good_{0}_file",
+                OriginalExtension = string.Empty,
             };
             var versions = new Dictionary<string, IImageVersion>();
             var version = new ImageVersion()
