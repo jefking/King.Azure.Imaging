@@ -74,7 +74,7 @@
         public virtual async Task<bool> Process(ImageQueued data)
         {
             var result = false;
-            var original = string.Format(data.FileNameFormat, ImagePreprocessor.Original);
+            var original = string.Format(data.FileNameFormat, ImagePreprocessor.Original, data.OriginalExtension);
 
             try
             {
@@ -82,7 +82,7 @@
                 foreach (var key in this.versions.Keys)
                 {
                     var version = this.versions[key];
-                    var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
+                    var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant(), version.Format.DefaultExtension);
                     
                     var resized = this.imaging.Resize(bytes, version);
 

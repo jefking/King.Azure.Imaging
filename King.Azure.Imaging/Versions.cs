@@ -24,14 +24,14 @@
             var thumb = new ImageVersion
             {
                 Width = 100,
-                Format = new JpegFormat { Quality = 50 },
+                Format = new GifFormat { Quality = 50 },
             };
             versions.Add("Thumb", thumb);
 
             var medium = new ImageVersion
             {
                 Width = 640,
-                Format = new JpegFormat { Quality = 70 },
+                Format = new PngFormat { Quality = 70 },
             };
             versions.Add("Medium", medium);
 

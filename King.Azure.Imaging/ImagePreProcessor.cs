@@ -23,7 +23,7 @@
         /// <summary>
         /// File Name Format
         /// </summary>
-        public const string FileNameFormat = "{0}_{1}{2}";
+        public const string FileNameFormat = "{0}_{1}.{2}";
 
         /// <summary>
         /// Path Format
@@ -122,7 +122,7 @@
             }
 
             var id = Guid.NewGuid();
-            var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.')) : ".jpg";
+            var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1) : ".jpeg";
             var originalFileName = string.Format(FileNameFormat, id, Original, extension);
 
             //Store Blob
@@ -147,7 +147,8 @@
             var toQueue = JsonConvert.SerializeObject(new ImageQueued
             {
                 Identifier = id,
-                FileNameFormat = string.Format(FileNameFormat, id, "{0}", extension)
+                FileNameFormat = string.Format(FileNameFormat, id, "{0}", "{1}"),
+                OriginalExtension = extension,
             });
 
             await this.queue.Save(new CloudQueueMessage(toQueue));

@@ -18,6 +18,15 @@
         }
 
         /// <summary>
+        /// Original File Extension
+        /// </summary>
+        public string OriginalExtension
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Identifier
         /// </summary>
         public Guid Identifier
