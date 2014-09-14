@@ -75,15 +75,17 @@
             //Blob Container
             var container = new Container(elements.Container, connectionString, true);
             var table = new TableStorage(elements.Table, connectionString);
+            var queue = new StorageQueue(elements.Queue, connectionString);
 
             //Initialization Tasks
             tasks.Add(new InitializeStorageTask(container));
             tasks.Add(new InitializeStorageTask(table));
-            tasks.Add(new InitializeStorageTask(new StorageQueue(elements.Queue, connectionString)));
+            tasks.Add(new InitializeStorageTask(queue));
 
             //Image Processing Task
             var processor = new ImagingProcessor(new Imaging(), container, table, this.versions.Images);
-            tasks.Add(new BackoffRunner(new StorageDequeue<ImageQueued>(elements.Queue, connectionString, processor)));
+            var poller = new StorageQueuePoller<ImageQueued>(queue);
+            tasks.Add(new BackoffRunner(new DequeueBatch<ImageQueued>(poller, processor)));
 
             return tasks;
         }
