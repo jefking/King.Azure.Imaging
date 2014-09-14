@@ -98,8 +98,11 @@
                         }
                     }
 
+                    //Store in Blob
                     await this.container.Save(filename, resized, format.MimeType);
-                    var entity = new ImageEntity()
+
+                    //Store in Table
+                    await this.table.InsertOrReplace(new ImageEntity()
                     {
                         PartitionKey = data.Identifier.ToString(),
                         RowKey = key.ToLowerInvariant(),
@@ -109,9 +112,7 @@
                         Width = version.Width,
                         Height = version.Height,
                         RelativePath = string.Format("{0}/{1}", this.container.Name, filename),
-                    };
-
-                    await this.table.InsertOrReplace(entity);
+                    });
                 }
 
                 result = true;
