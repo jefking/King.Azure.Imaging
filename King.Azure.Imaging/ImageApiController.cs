@@ -95,10 +95,7 @@
                 }
             }
 
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                ReasonPhrase = "file(s) uploaded",
-            };
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         /// <summary>
