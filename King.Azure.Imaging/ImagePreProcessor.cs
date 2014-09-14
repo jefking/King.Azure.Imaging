@@ -114,26 +114,28 @@
             var id = Guid.NewGuid();
             var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.')) : ".jpg";
             var originalFileName = string.Format(FileNameFormat, id, Original, extension);
-            var fileSize = content.LongLength;
+
+            //Store Blob
             await container.Save(originalFileName, content, contentType);
 
-            var entity = new ImageEntity()
+            //Store in Table
+            await table.InsertOrReplace(new ImageEntity()
             {
                 PartitionKey = id.ToString(),
                 ContentType = contentType,
                 RowKey = Original,
                 RelativePath = string.Format(PathFormat, this.container.Name, originalFileName),
-            };
+                FileSize = content.LongLength,
+            });
 
-            await table.InsertOrReplace(entity);
-
-            var toQueue = new ImageQueued()
+            //Queue for Processing
+            var toQueue = JsonConvert.SerializeObject(new ImageQueued()
             {
                 Identifier = id,
                 FileNameFormat = string.Format(FileNameFormat, id, "{0}", extension)
-            };
+            });
 
-            await this.queue.Save(new CloudQueueMessage(JsonConvert.SerializeObject(toQueue)));
+            await this.queue.Save(new CloudQueueMessage(toQueue));
         }
         #endregion
     }
