@@ -1,15 +1,11 @@
 ﻿namespace King.Azure.Imaging
 {
-    using ImageProcessor;
-    using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Drawing;
-    using System.IO;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -32,6 +28,11 @@
         /// Table
         /// </summary>
         protected readonly ITableStorage table = null;
+
+        /// <summary>
+        /// Imaging
+        /// </summary>
+        protected readonly Imaging img = new Imaging();
         #endregion
 
         #region Constructors
@@ -81,7 +82,6 @@
                     var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
                     string mimeType;
 
-                    var img = new Imaging();
                     var resized = img.Resize(bytes, version, out mimeType);
 
                     //Store in Blob

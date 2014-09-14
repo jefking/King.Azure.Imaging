@@ -44,6 +44,11 @@
         /// Storage Queue
         /// </summary>
         protected readonly IStorageQueue queue = null;
+
+        /// <summary>
+        /// Imaging
+        /// </summary>
+        protected readonly Imaging img = new Imaging();
         #endregion
 
         #region Constructors
@@ -118,7 +123,6 @@
             //Store Blob
             await container.Save(originalFileName, content, contentType);
 
-            var img = new Imaging();
             var size = img.Size(content);
 
             //Store in Table
