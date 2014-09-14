@@ -20,14 +20,12 @@
         {
             var size = new Size();
             using (var image = new ImageFactory())
+            using (var stream = new MemoryStream(data))
             {
-                using (var stream = new MemoryStream(data))
-                {
-                    image.Load(stream);
+                image.Load(stream);
 
-                    size.Height = image.Image.Height;
-                    size.Width = image.Image.Width;
-                }
+                size.Height = image.Image.Height;
+                size.Width = image.Image.Width;
             }
 
             return size;
@@ -47,19 +45,14 @@
             mimeType = format.MimeType;
             var size = new Size(version.Width, version.Height);
             using (var output = new MemoryStream())
+            using (var input = new MemoryStream(data))
+            using (var image = new ImageFactory(preserveExifData: true))
             {
-                using (var input = new MemoryStream(data))
-                {
-                    using (var image = new ImageFactory(preserveExifData: true))
-                    {
-                        image.Load(input)
-                            .Resize(size)
-                            .Format(format)
-                            .Save(output);
-                    }
-
-                    resized = output.ToArray();
-                }
+                image.Load(input)
+                    .Resize(size)
+                    .Format(format)
+                    .Save(output);
+                resized = output.ToArray();
             }
 
             return resized;
