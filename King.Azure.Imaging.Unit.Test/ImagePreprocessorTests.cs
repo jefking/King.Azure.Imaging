@@ -6,6 +6,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using System;
+    using System.IO;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -121,12 +122,12 @@
             await ip.Process(bytes, Guid.NewGuid().ToString(), null);
         }
 
+        private static readonly byte[] image = File.ReadAllBytes(Environment.CurrentDirectory + "\\icon.png");
+
         [Test]
         public async Task Process()
         {
-            var random = new Random();
-            var bytes = new byte[64];
-            random.NextBytes(bytes);
+            var bytes = image;
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.jpg", Guid.NewGuid());
             var container = Substitute.For<IContainer>();
@@ -147,9 +148,7 @@
         [Test]
         public async Task ProcessNoExtension()
         {
-            var random = new Random();
-            var bytes = new byte[64];
-            random.NextBytes(bytes);
+            var bytes = image;
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();
             var container = Substitute.For<IContainer>();
