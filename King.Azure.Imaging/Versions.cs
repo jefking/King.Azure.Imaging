@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging
 {
+    using ImageProcessor.Imaging.Formats;
     using System.Collections.Generic;
 
     /// <summary>
@@ -20,21 +21,24 @@
         /// </summary>
         public Versions()
         {
-            var thumb = new ImageVersion()
+            var thumb = new ImageVersion
             {
                 Width = 100,
+                Format = new JpegFormat { Quality = 50 },
             };
             versions.Add("Thumb", thumb);
 
-            var medium = new ImageVersion()
+            var medium = new ImageVersion
             {
                 Width = 640,
+                Format = new JpegFormat { Quality = 70 },
             };
             versions.Add("Medium", medium);
 
-            var large = new ImageVersion()
+            var large = new ImageVersion
             {
                 Width = 1080,
+                Format = new JpegFormat { Quality = 85 },
             };
             versions.Add("Large", large);
         }

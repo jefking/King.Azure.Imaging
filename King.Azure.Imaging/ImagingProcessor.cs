@@ -80,12 +80,11 @@
                 {
                     var version = this.versions[key];
                     var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
-                    string mimeType;
-
-                    var resized = img.Resize(bytes, version, out mimeType);
+                    
+                    var resized = img.Resize(bytes, version);
 
                     //Store in Blob
-                    await this.container.Save(filename, resized, mimeType);
+                    await this.container.Save(filename, resized, version.Format.MimeType);
 
                     var size = img.Size(resized);
 
@@ -95,7 +94,7 @@
                         PartitionKey = data.Identifier.ToString(),
                         RowKey = key.ToLowerInvariant(),
                         FileName = filename,
-                        ContentType = mimeType,
+                        ContentType = version.Format.MimeType,
                         FileSize = resized.LongLength,
                         Width = size.Width,
                         Height = size.Height,

@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
+    using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
@@ -68,11 +69,12 @@
             {
                 Width = 100,
                 Height = 100,
+                Format = new JpegFormat { Quality = 70 },
             };
             versions.Add("temp", version);
             var container = Substitute.For<IContainer>();
             container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(Task.FromResult(bytes));
-            container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), "image/jpeg");
+            container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
 
             var table = Substitute.For<ITableStorage>();
             table.InsertOrReplace(Arg.Any<ImageEntity>());
@@ -83,7 +85,7 @@
             Assert.IsTrue(result);
 
             container.Received().Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original));
-            container.Received().Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), "image/jpeg");
+            container.Received().Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
 
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }

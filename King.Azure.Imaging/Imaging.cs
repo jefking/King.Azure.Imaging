@@ -38,19 +38,16 @@
         /// <param name="version">Version</param>
         /// <param name="mimeType">Mime Type</param>
         /// <returns></returns>
-        public virtual byte[] Resize(byte[] data, IImageVersion version, out string mimeType)
+        public virtual byte[] Resize(byte[] data, IImageVersion version)
         {
             byte[] resized;
-            var format = new JpegFormat { Quality = 70 };//Make Dynamic
-            mimeType = format.MimeType;
-            var size = new Size(version.Width, version.Height);
             using (var output = new MemoryStream())
             using (var input = new MemoryStream(data))
             using (var image = new ImageFactory(preserveExifData: true))
             {
                 image.Load(input)
-                    .Resize(size)
-                    .Format(format)
+                    .Resize(new Size(version.Width, version.Height))
+                    .Format(version.Format)
                     .Save(output);
                 resized = output.ToArray();
             }

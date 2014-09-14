@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging
 {
+    using ImageProcessor.Imaging.Formats;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
@@ -97,7 +98,6 @@
         int Width
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -106,7 +106,14 @@
         int Height
         {
             get;
-            set;
+        }
+
+        /// <summary>
+        /// Image Format
+        /// </summary>
+        ISupportedImageFormat Format
+        {
+            get;
         }
         #endregion
     }
