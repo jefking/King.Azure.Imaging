@@ -2,6 +2,8 @@
 {
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
+    using King.Azure.Imaging.Models;
+    using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
     using System;
@@ -72,6 +74,15 @@
 
             var data = await this.container.Get(entity.FileName);
             Assert.AreEqual(bytes, data);
+
+            var queued = await this.queue.Get();
+            Assert.IsNotNull(queued);
+
+            var imgQueued = JsonConvert.DeserializeObject<ImageQueued>(queued.AsString);
+            Assert.IsNotNull(imgQueued);
+            Assert.AreEqual(Guid.Parse(entity.PartitionKey), imgQueued.Identifier);
+            Assert.AreEqual(string.Format(ImagePreprocessor.FileNameFormat, entity.PartitionKey, "{0}", "{1}"), imgQueued.FileNameFormat);
+            Assert.AreEqual(ImagePreprocessor.DefaultExtension, imgQueued.OriginalExtension);
 
             imaging.Received().Size(bytes);
         }
