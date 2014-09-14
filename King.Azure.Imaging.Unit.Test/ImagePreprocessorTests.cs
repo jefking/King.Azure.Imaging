@@ -33,6 +33,18 @@
         }
 
         [Test]
+        public void FileNameFormat()
+        {
+            Assert.AreEqual("{0}_{1}.{2}", ImagePreprocessor.FileNameFormat);
+        }
+
+        [Test]
+        public void PathFormat()
+        {
+            Assert.AreEqual("{0}/{1}", ImagePreprocessor.PathFormat);
+        }
+
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void ConstructorConnectionStringNull()
         {
