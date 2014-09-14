@@ -48,7 +48,7 @@
         /// <summary>
         /// Imaging
         /// </summary>
-        protected readonly Imaging img = new Imaging();
+        protected readonly IImaging imaging = null;
         #endregion
 
         #region Constructors
@@ -65,15 +65,19 @@
         /// Mockable Constructor
         /// </summary>
         public ImagePreprocessor(string connectionString, IStorageElements elements)
-            :this(new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString))
+            :this(new Imaging(), new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString))
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImagePreprocessor(IContainer container, ITableStorage table, IStorageQueue queue)
+        public ImagePreprocessor(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue)
         {
+            if (null == imaging)
+            {
+                throw new ArgumentNullException("imaging");
+            }
             if (null == container)
             {
                 throw new ArgumentNullException("container");
@@ -87,6 +91,7 @@
                 throw new ArgumentNullException("queue");
             }
 
+            this.imaging = imaging;
             this.container = container;
             this.table = table;
             this.queue = queue;
@@ -123,10 +128,10 @@
             //Store Blob
             await container.Save(originalFileName, content, contentType);
 
-            var size = img.Size(content);
+            var size = this.imaging.Size(content);
 
             //Store in Table
-            await table.InsertOrReplace(new ImageEntity()
+            await table.InsertOrReplace(new ImageEntity
             {
                 PartitionKey = id.ToString(),
                 ContentType = contentType,
@@ -139,7 +144,7 @@
             });
 
             //Queue for Processing
-            var toQueue = JsonConvert.SerializeObject(new ImageQueued()
+            var toQueue = JsonConvert.SerializeObject(new ImageQueued
             {
                 Identifier = id,
                 FileNameFormat = string.Format(FileNameFormat, id, "{0}", extension)

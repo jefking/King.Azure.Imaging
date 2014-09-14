@@ -2,6 +2,7 @@
 {
     using ImageProcessor.Imaging.Formats;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.IO;
     using System.Threading.Tasks;
 
@@ -116,6 +117,14 @@
             get;
         }
         #endregion
+    }
+    #endregion
+
+    #region IImaging
+    public interface IImaging
+    {
+        Size Size(byte[] data);
+        byte[] Resize(byte[] data, IImageVersion version);
     }
     #endregion
 }

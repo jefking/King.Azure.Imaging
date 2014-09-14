@@ -8,14 +8,14 @@
     /// <summary>
     /// Imaging
     /// </summary>
-    public class Imaging
+    public class Imaging : IImaging
     {
         #region Methods
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
-        /// <returns></returns>
+        /// <returns>Image Size</returns>
         public virtual Size Size(byte[] data)
         {
             var size = new Size();
@@ -37,7 +37,7 @@
         /// <param name="data">Data</param>
         /// <param name="version">Version</param>
         /// <param name="mimeType">Mime Type</param>
-        /// <returns></returns>
+        /// <returns>Image Bytes</returns>
         public virtual byte[] Resize(byte[] data, IImageVersion version)
         {
             byte[] resized;

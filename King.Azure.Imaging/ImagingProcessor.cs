@@ -32,17 +32,19 @@
         /// <summary>
         /// Imaging
         /// </summary>
-        protected readonly Imaging img = new Imaging();
+        protected readonly IImaging imaging = null;
         #endregion
 
         #region Constructors
         /// <summary>
-        /// Constructor
+        /// Mockable Constructor
         /// </summary>
-        /// <param name="container"></param>
-        /// <param name="versions"></param>
-        public ImagingProcessor(IContainer container, ITableStorage table, IDictionary<string, IImageVersion> versions)
+        public ImagingProcessor(IImaging imaging, IContainer container, ITableStorage table, IDictionary<string, IImageVersion> versions)
         {
+            if (null == imaging)
+            {
+                throw new ArgumentNullException("imaging");
+            }
             if (null == container)
             {
                 throw new ArgumentNullException("container");
@@ -56,6 +58,7 @@
                 throw new ArgumentNullException("versions");
             }
 
+            this.imaging = imaging;
             this.container = container;
             this.table = table;
             this.versions = versions;
@@ -81,12 +84,12 @@
                     var version = this.versions[key];
                     var filename = string.Format(data.FileNameFormat, key.ToLowerInvariant());
                     
-                    var resized = img.Resize(bytes, version);
+                    var resized = this.imaging.Resize(bytes, version);
 
                     //Store in Blob
                     await this.container.Save(filename, resized, version.Format.MimeType);
 
-                    var size = img.Size(resized);
+                    var size = this.imaging.Size(resized);
 
                     //Store in Table
                     await this.table.InsertOrReplace(new ImageEntity()
