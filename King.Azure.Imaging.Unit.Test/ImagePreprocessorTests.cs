@@ -49,6 +49,16 @@
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorImagingNull()
+        {
+            var container = Substitute.For<IContainer>();
+            var table = Substitute.For<ITableStorage>();
+            var queue = Substitute.For<IStorageQueue>();
+            new ImagePreprocessor(null, container, table, queue);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorContainerNull()
         {
             var imaging = Substitute.For<IImaging>();

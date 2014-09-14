@@ -34,6 +34,15 @@
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorImagingNull()
+        {
+            var container = Substitute.For<IContainer>();
+            var table = Substitute.For<ITableStorage>();
+            new ImagingProcessor(null, container, table, new Dictionary<string, IImageVersion>());
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorContainerNull()
         {
             var imaging = Substitute.For<IImaging>();
