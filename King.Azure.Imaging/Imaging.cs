@@ -1,20 +1,19 @@
 ﻿namespace King.Azure.Imaging
 {
     using ImageProcessor;
-    using ImageProcessor.Imaging.Formats;
     using System.Drawing;
     using System.IO;
 
     /// <summary>
-    /// Imaging
+    /// Imaging, wrapper for image tasks
     /// </summary>
     public class Imaging : IImaging
     {
         #region Methods
         /// <summary>
-        /// 
+        /// Dimensions of Image
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Image Bytes</param>
         /// <returns>Image Size</returns>
         public virtual Size Size(byte[] data)
         {
@@ -36,7 +35,6 @@
         /// </summary>
         /// <param name="data">Data</param>
         /// <param name="version">Version</param>
-        /// <param name="mimeType">Mime Type</param>
         /// <returns>Image Bytes</returns>
         public virtual byte[] Resize(byte[] data, IImageVersion version)
         {

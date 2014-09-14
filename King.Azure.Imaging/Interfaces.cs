@@ -121,10 +121,27 @@
     #endregion
 
     #region IImaging
+    /// <summary>
+    /// Imaging Interface
+    /// </summary>
     public interface IImaging
     {
+        #region Methods
+        /// <summary>
+        /// Dimensions of Image
+        /// </summary>
+        /// <param name="data">Image Bytes</param>
+        /// <returns>Image Size</returns>
         Size Size(byte[] data);
+
+        /// <summary>
+        /// Resize Image
+        /// </summary>
+        /// <param name="data">Data</param>
+        /// <param name="version">Version</param>
+        /// <returns>Image Bytes</returns>
         byte[] Resize(byte[] data, IImageVersion version);
+        #endregion
     }
     #endregion
 }
