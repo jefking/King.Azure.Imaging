@@ -51,27 +51,30 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorContainerNull()
         {
+            var imaging = Substitute.For<IImaging>();
             var table = Substitute.For<ITableStorage>();
             var queue = Substitute.For<IStorageQueue>();
-            new ImagePreprocessor(null, table, queue);
+            new ImagePreprocessor(imaging, null, table, queue);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTableNull()
         {
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var queue = Substitute.For<IStorageQueue>();
-            new ImagePreprocessor(container, null, queue);
+            new ImagePreprocessor(imaging, container, null, queue);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorQueueNull()
         {
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            new ImagePreprocessor(container, table, null);
+            new ImagePreprocessor(imaging, container, table, null);
         }
 
         [Test]
@@ -130,6 +133,7 @@
             var bytes = image;
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.jpg", Guid.NewGuid());
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             container.Save(Arg.Any<string>(), bytes, contentType);
             var table = Substitute.For<ITableStorage>();
@@ -137,7 +141,7 @@
             var queue = Substitute.For<IStorageQueue>();
             queue.Save(Arg.Any<CloudQueueMessage>());
 
-            var ip = new ImagePreprocessor(container, table, queue);
+            var ip = new ImagePreprocessor(imaging, container, table, queue);
             await ip.Process(bytes, contentType, fileName);
 
             container.Received().Save(Arg.Any<string>(), bytes, contentType);
@@ -151,6 +155,7 @@
             var bytes = image;
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             container.Save(Arg.Any<string>(), bytes, contentType);
             var table = Substitute.For<ITableStorage>();
@@ -158,7 +163,7 @@
             var queue = Substitute.For<IStorageQueue>();
             queue.Save(Arg.Any<CloudQueueMessage>());
 
-            var ip = new ImagePreprocessor(container, table, queue);
+            var ip = new ImagePreprocessor(imaging, container, table, queue);
             await ip.Process(bytes, contentType, fileName);
 
             container.Received().Save(Arg.Any<string>(), bytes, contentType);

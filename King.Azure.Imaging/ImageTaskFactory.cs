@@ -82,7 +82,8 @@
             tasks.Add(new InitializeStorageTask(new StorageQueue(elements.Queue, connectionString)));
 
             //Image Processing Task
-            tasks.Add(new BackoffRunner(new StorageDequeue<ImageQueued>(elements.Queue, connectionString, new ImagingProcessor(container, table, this.versions.Images))));
+            var processor = new ImagingProcessor(new Imaging(), container, table, this.versions.Images);
+            tasks.Add(new BackoffRunner(new StorageDequeue<ImageQueued>(elements.Queue, connectionString, processor)));
 
             return tasks;
         }

@@ -17,42 +17,47 @@
         [Test]
         public void Constructor()
         {
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(container, table, new Dictionary<string, IImageVersion>());
+            new ImagingProcessor(imaging, container, table, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
         public void IsIProcessor()
         {
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            Assert.IsNotNull(new ImagingProcessor(container, table, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
+            Assert.IsNotNull(new ImagingProcessor(imaging, container, table, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorContainerNull()
         {
+            var imaging = Substitute.For<IImaging>();
             var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(null, table, new Dictionary<string, IImageVersion>());
+            new ImagingProcessor(imaging, null, table, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTableNull()
         {
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
-            new ImagingProcessor(container, null, new Dictionary<string, IImageVersion>());
+            new ImagingProcessor(imaging, container, null, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorVersionsNull()
         {
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(container, table, null);
+            new ImagingProcessor(imaging, container, table, null);
         }
 
         [Test]
@@ -72,6 +77,7 @@
                 Format = new JpegFormat { Quality = 70 },
             };
             versions.Add("temp", version);
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(Task.FromResult(bytes));
             container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
@@ -79,7 +85,7 @@
             var table = Substitute.For<ITableStorage>();
             table.InsertOrReplace(Arg.Any<ImageEntity>());
 
-            var ip = new ImagingProcessor(container, table, versions);
+            var ip = new ImagingProcessor(imaging, container, table, versions);
             var result = await ip.Process(data);
 
             Assert.IsTrue(result);
@@ -105,12 +111,13 @@
                 Height = 100,
             };
             versions.Add("temp", version);
+            var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(t => { throw new ArgumentException(); });
 
             var table = Substitute.For<ITableStorage>();
 
-            var ip = new ImagingProcessor(container, table, versions);
+            var ip = new ImagingProcessor(imaging, container, table, versions);
             var result = await ip.Process(data);
 
             Assert.IsFalse(result);
