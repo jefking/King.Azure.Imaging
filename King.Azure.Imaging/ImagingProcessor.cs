@@ -89,11 +89,10 @@
                             using (var image = new ImageFactory(preserveExifData: true))
                             {
                                 image.Load(input)
-                                            .Resize(size)
-                                            .Format(format)//Make Dynamic
-                                            .Save(output);
-
-                                size = new Size(image.Image.Width, image.Image.Height);
+                                    .Resize(size)
+                                    .Format(format)//Make Dynamic
+                                    .Save(output);
+;
                             }
 
                             resized = output.ToArray();
@@ -102,7 +101,16 @@
 
                     //Store in Blob
                     await this.container.Save(filename, resized, format.MimeType);
-
+                    
+                    using (var image = new ImageFactory(preserveExifData: true))
+                    {
+                        using (var stream = new MemoryStream(resized))
+                        {
+                            image.Load(stream);
+                            size.Height = image.Image.Height;
+                            size.Width = image.Image.Width;
+                        }
+                    }
                     //Store in Table
                     await this.table.InsertOrReplace(new ImageEntity()
                     {
@@ -111,8 +119,8 @@
                         FileName = filename,
                         ContentType = format.MimeType,
                         FileSize = resized.LongLength,
-                        Width = version.Width,
-                        Height = version.Height,
+                        Width = size.Width,
+                        Height = size.Height,
                         RelativePath = string.Format("{0}/{1}", this.container.Name, filename),
                     });
                 }
