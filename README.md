@@ -1,6 +1,6 @@
 # BETA
 
-Azure Image uploading and processing made easy.
+Scalable image uploading and processing for Azure
 + Upload images to blob storage
 + Queue images for background processing
 + Store structured metadata about images
