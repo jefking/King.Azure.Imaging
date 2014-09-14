@@ -2,9 +2,9 @@
 {
     using ImageProcessor;
     using System;
-    using System.Linq;
     using System.Drawing;
     using System.IO;
+    using System.Linq;
 
     /// <summary>
     /// Imaging, wrapper for image tasks
