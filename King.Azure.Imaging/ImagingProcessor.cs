@@ -92,7 +92,7 @@
                     var size = this.imaging.Size(resized);
 
                     //Store in Table
-                    await this.table.InsertOrReplace(new ImageEntity()
+                    await this.table.InsertOrReplace(new ImageEntity
                     {
                         PartitionKey = data.Identifier.ToString(),
                         RowKey = key.ToLowerInvariant(),

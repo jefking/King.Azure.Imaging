@@ -21,6 +21,11 @@
         public const string Original = "original";
 
         /// <summary>
+        /// Default Extension
+        /// </summary>
+        public const string DefaultExtension = "jpeg";
+
+        /// <summary>
         /// File Name Format
         /// </summary>
         public const string FileNameFormat = "{0}_{1}.{2}";
@@ -122,7 +127,7 @@
             }
 
             var id = Guid.NewGuid();
-            var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1) : ".jpeg";
+            var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1) : ImagePreprocessor.DefaultExtension;
             var originalFileName = string.Format(FileNameFormat, id, Original, extension);
 
             //Store Blob
@@ -134,8 +139,8 @@
             await table.InsertOrReplace(new ImageEntity
             {
                 PartitionKey = id.ToString(),
-                ContentType = contentType,
                 RowKey = Original,
+                ContentType = contentType,
                 RelativePath = string.Format(PathFormat, this.container.Name, originalFileName),
                 FileSize = content.LongLength,
                 FileName = originalFileName,
