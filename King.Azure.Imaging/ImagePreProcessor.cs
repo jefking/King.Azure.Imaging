@@ -128,7 +128,7 @@
 
             var id = Guid.NewGuid();
             var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1) : ImagePreprocessor.DefaultExtension;
-            var originalFileName = string.Format(FileNameFormat, id, Original, extension);
+            var originalFileName = string.Format(FileNameFormat, id, Original, extension.ToLowerInvariant());
 
             //Store Blob
             await container.Save(originalFileName, content, contentType);
