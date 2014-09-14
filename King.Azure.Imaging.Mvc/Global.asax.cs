@@ -38,6 +38,7 @@
             //Load storage emulator for Blob/Queue/Table storage
             var emulator = ConfigurationManager.AppSettings["AzureEmulator"];
 
+            //This is only for testing, and can be removed when using Azure Storage
             using (var process = new Process())
             {
                 process.StartInfo = CreateProcessStartInfo(emulator, "start");
