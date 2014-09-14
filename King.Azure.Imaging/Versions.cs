@@ -28,14 +28,12 @@
 
             var medium = new ImageVersion()
             {
-                Height = 400,
                 Width = 400,
             };
             versions.Add("Medium", medium);
 
             var large = new ImageVersion()
             {
-                Height = 1900,
                 Width = 1900,
             };
             versions.Add("Large", large);
