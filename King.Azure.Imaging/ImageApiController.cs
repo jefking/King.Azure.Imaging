@@ -124,9 +124,12 @@
         /// <summary>
         /// Resize Image on the fly
         /// </summary>
+        /// <remarks>
+        /// Format and Cache are not wired in yet, soon
+        /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, bool cache = false)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = "jpg", bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
