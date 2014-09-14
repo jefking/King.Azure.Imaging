@@ -1,6 +1,8 @@
 ﻿namespace King.Azure.Imaging
 {
     using ImageProcessor;
+    using System;
+    using System.Linq;
     using System.Drawing;
     using System.IO;
 
@@ -17,6 +19,11 @@
         /// <returns>Image Size</returns>
         public virtual Size Size(byte[] data)
         {
+            if (null == data || !data.Any())
+            {
+                throw new ArgumentException("data");
+            }
+
             var size = new Size();
             using (var image = new ImageFactory())
             using (var stream = new MemoryStream(data))
@@ -38,6 +45,15 @@
         /// <returns>Image Bytes</returns>
         public virtual byte[] Resize(byte[] data, IImageVersion version)
         {
+            if (null == data || !data.Any())
+            {
+                throw new ArgumentException("data");
+            }
+            if (null == version)
+            {
+                throw new ArgumentNullException("version");
+            }
+
             byte[] resized;
             using (var output = new MemoryStream())
             using (var input = new MemoryStream(data))

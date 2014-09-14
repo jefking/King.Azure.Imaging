@@ -83,6 +83,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -114,6 +115,7 @@
     <Compile Include="ImageStreamerTests.cs" />
     <Compile Include="ImageTaskFactoryTests.cs" />
     <Compile Include="ImagingProcessorTests.cs" />
+    <Compile Include="ImagingTests.cs" />
     <Compile Include="Models\ImageQueuedTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageElementsTests.cs" />
