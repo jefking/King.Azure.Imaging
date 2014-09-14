@@ -34,7 +34,7 @@
 
             var large = new ImageVersion()
             {
-                Width = 1280,
+                Width = 1080,
             };
             versions.Add("Large", large);
         }
