@@ -126,7 +126,7 @@
         /// </summary>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
