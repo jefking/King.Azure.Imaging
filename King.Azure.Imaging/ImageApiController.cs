@@ -73,8 +73,14 @@
         /// </summary>
         /// <returns>Task</returns>
         [HttpPost]
-        public virtual async Task Post()
+        public virtual async Task<HttpResponseMessage> Post()
         {
+            //http://stackoverflow.com/questions/10320232/how-to-accept-a-file-post-asp-net-mvc-4-webapi
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType);
+            }
+
             var request = HttpContext.Current.Request;
             if (null != request.Files)
             {
@@ -88,6 +94,11 @@
                     await this.preprocessor.Process(bytes, contentType, fileName);
                 }
             }
+
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                ReasonPhrase = "file(s) uploaded",
+            };
         }
 
         /// <summary>
