@@ -33,6 +33,12 @@
         }
 
         [Test]
+        public void DefaultExtension()
+        {
+            Assert.AreEqual("jpeg", ImagePreprocessor.DefaultExtension);
+        }
+
+        [Test]
         public void FileNameFormat()
         {
             Assert.AreEqual("{0}_{1}.{2}", ImagePreprocessor.FileNameFormat);
