@@ -126,6 +126,7 @@
                 RowKey = Original,
                 RelativePath = string.Format(PathFormat, this.container.Name, originalFileName),
                 FileSize = content.LongLength,
+                FileName = originalFileName,
             });
 
             //Queue for Processing
