@@ -4,9 +4,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using System.IO;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -42,12 +40,35 @@
 
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = new ImageStreamer(this.container);
+            var imaging = Substitute.For<IImaging>();
 
-            var api = new ImageApiController(preProcessor, streamer);
+            var api = new ImageApiController(preProcessor, streamer, imaging);
             var data = await api.Get(file);
 
             Assert.IsNotNull(data);
             Assert.AreEqual(bytes, await data.Content.ReadAsByteArrayAsync());
+            Assert.AreEqual("image/jpeg", data.Content.Headers.ContentType.MediaType);
+        }
+
+        [Test]
+        public async Task Resize()
+        {
+            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+
+            var file = Guid.NewGuid().ToString();
+
+            await this.container.Save(file, bytes, "image/png");
+
+            var preProcessor = Substitute.For<IImagePreprocessor>();
+            var streamer = new ImageStreamer(this.container);
+            var imaging = Substitute.For<IImaging>();
+
+            var api = new ImageApiController(preProcessor, streamer, imaging);
+            var data = await api.Resize(file, 10);
+
+            Assert.IsNotNull(data);
+            var resized = await data.Content.ReadAsByteArrayAsync();
+            Assert.IsTrue(bytes.LongLength > resized.LongLength);
             Assert.AreEqual("image/jpeg", data.Content.Headers.ContentType.MediaType);
         }
     }

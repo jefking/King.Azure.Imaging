@@ -46,7 +46,8 @@
         public void ConstructorImagePreProcessorNull()
         {
             var streamer = Substitute.For<IImageStreamer>();
-            new ImageApiController(null, streamer);
+            var imaging = Substitute.For<IImaging>();
+            new ImageApiController(null, streamer, imaging);
         }
 
         [Test]
@@ -54,7 +55,17 @@
         public void ConstructorImageStreamerNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
-            new ImageApiController(preprocessor, null);
+            var imaging = Substitute.For<IImaging>();
+            new ImageApiController(preprocessor, null, imaging);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructorImagingNull()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            var streamer = Substitute.For<IImageStreamer>();
+            new ImageApiController(preprocessor, streamer, null);
         }
 
         [Test]

@@ -28,6 +28,11 @@
         /// Streamer
         /// </summary>
         protected readonly IImageStreamer streamer = null;
+
+        /// <summary>
+        /// Imaging
+        /// </summary>
+        protected readonly IImaging imaging = null;
         #endregion
 
         #region Constructors
@@ -44,14 +49,14 @@
         /// Mockable Constructor
         /// </summary>
         public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements)
-            : this(preprocessor, new ImageStreamer(new Container(elements.Container, connectionString)))
+            : this(preprocessor, new ImageStreamer(new Container(elements.Container, connectionString)), new Imaging())
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(IImagePreprocessor preprocessor, IImageStreamer streamer)
+        public ImageApiController(IImagePreprocessor preprocessor, IImageStreamer streamer, IImaging imaging)
         {
             if (null == preprocessor)
             {
@@ -61,9 +66,14 @@
             {
                 throw new ArgumentException("streamer");
             }
+            if (null == imaging)
+            {
+                throw new ArgumentException("imaging");
+            }
 
             this.preprocessor = preprocessor;
             this.streamer = streamer;
+            this.imaging = imaging;
         }
         #endregion
 
@@ -114,9 +124,9 @@
                 };
             }
 
-            var ms = await this.streamer.Get(file);
+            var stream = await this.streamer.Get(file);
             var response = new HttpResponseMessage();
-            response.Content = new StreamContent(ms);
+            response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(this.streamer.ContentType);
             return response;
         }
@@ -160,22 +170,20 @@
                 };
             }
 
+                var version = new ImageVersion()
+                {
+                    Height = height,
+                    Width = width,
+                    Format = new JpegFormat { Quality = 70 }, //Make Dynamic
+                };
+
             var response = new HttpResponseMessage();
             using (var input = await this.streamer.Get(file))
+            using (var ms = input as MemoryStream)
             {
-                var jpg = new JpegFormat { Quality = 70 };//Make Dynamic
-                var size = new Size(width, height);
-                var resize = new MemoryStream();
-                using (var imageFactory = new ImageFactory(preserveExifData: true))
-                {
-                    imageFactory.Load(input)
-                                .Resize(size)
-                                .Format(jpg)//Make Dynamic
-                                .Save(resize);
-                }
-
-                response.Content = new StreamContent(new MemoryStream(resize.ToArray()));
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(jpg.MimeType);
+                var resized = this.imaging.Resize(ms.ToArray(), version);
+                response.Content = new StreamContent(new MemoryStream(resized));
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
             }
 
             return response;
