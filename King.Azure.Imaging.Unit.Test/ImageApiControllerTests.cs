@@ -3,8 +3,10 @@
     using NSubstitute;
     using NUnit.Framework;
     using System;
+    using System.IO;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using System.Web.Http;
 
@@ -145,6 +147,40 @@
 
             Assert.IsNotNull(response);
             Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
+        }
+
+        [Test]
+        public async Task Post()
+        {
+            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            var fileContent = new ByteArrayContent(bytes);
+
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = "myFilename.jpg"
+            };
+
+            var preProcessor = Substitute.For<IImagePreprocessor>();
+            preProcessor.Process(bytes, "image/jpeg", "myFilename.jpg");
+
+            var streamer = Substitute.For<IImageStreamer>();
+            var imaging = Substitute.For<IImaging>();
+
+            var api = new ImageApiController(preProcessor, streamer, imaging)
+            {
+                Request = new HttpRequestMessage(),
+            };
+            var content = new MultipartContent();
+            content.Add(fileContent);
+            api.Request.Content = content;
+
+            var response = await api.Post();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+            preProcessor.Received().Process(bytes, "image/jpeg", "myFilename.jpg");
         }
 
         [Test]
