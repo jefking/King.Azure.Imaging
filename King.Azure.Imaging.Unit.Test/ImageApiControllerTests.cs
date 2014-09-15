@@ -150,8 +150,11 @@
         [Test]
         public async Task Post()
         {
-            var content = Substitute.For<HttpContent>();
-            content.IsMimeMultipartContent().Returns(false);
+            var random = new Random();
+            var bytes = new byte[128];
+            random.NextBytes(bytes);
+
+            var content = new ByteArrayContent(bytes);
 
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = Substitute.For<IImageStreamer>();
@@ -163,7 +166,10 @@
             };
             api.Request.Content = content;
 
-            var data = await api.Post();
+            var response = await api.Post();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
         }
     }
 }
