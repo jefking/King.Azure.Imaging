@@ -90,10 +90,12 @@
                 return new JpegFormat();
             }
 
+            extension = extension.ToLowerInvariant();
+
             foreach (var format in formats)
             {
                 var f = (from e in format.FileExtensions
-                         where extension == e
+                         where extension == e.ToLowerInvariant()
                          select e).FirstOrDefault();
 
                 if (null != f)
