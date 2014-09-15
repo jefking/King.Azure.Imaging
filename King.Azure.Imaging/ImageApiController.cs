@@ -170,12 +170,12 @@
                 };
             }
 
-                var version = new ImageVersion()
-                {
-                    Height = height,
-                    Width = width,
-                    Format = new JpegFormat { Quality = 70 }, //Make Dynamic
-                };
+            var version = new ImageVersion()
+            {
+                Height = height,
+                Width = width,
+                Format = new JpegFormat { Quality = 70 }, //Make Dynamic
+            };
 
             var response = new HttpResponseMessage();
             using (var input = await this.streamer.Get(file))
