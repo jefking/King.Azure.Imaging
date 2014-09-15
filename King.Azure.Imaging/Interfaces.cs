@@ -74,12 +74,16 @@
     #region IImageStreamer
     public interface IImageStreamer
     {
+        #region Methods
         Task<Stream> Get(string file);
+        #endregion
 
+        #region Properties
         string ContentType
         {
             get;
         }
+        #endregion
     }
     #endregion
 
