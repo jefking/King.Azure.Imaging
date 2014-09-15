@@ -189,6 +189,11 @@
 
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
 
+            if (cache)
+            {
+                //Store image directly or queue for reprocessing?
+            }
+
             return response;
         }
         #endregion

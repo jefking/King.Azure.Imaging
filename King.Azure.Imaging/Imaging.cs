@@ -87,7 +87,7 @@
         {
             if (string.IsNullOrWhiteSpace(extension))
             {
-                extension = ImagePreprocessor.DefaultExtension;
+                return new JpegFormat();
             }
 
             foreach (var format in formats)
