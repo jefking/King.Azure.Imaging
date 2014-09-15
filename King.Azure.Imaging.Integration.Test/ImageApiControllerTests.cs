@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Integration.Test
 {
+    using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
     using NSubstitute;
     using NUnit.Framework;
@@ -65,6 +66,7 @@
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = new ImageStreamer(this.container);
             var imaging = Substitute.For<IImaging>();
+            imaging.Get(ImagePreprocessor.DefaultExtension).Returns(new JpegFormat());
 
             var api = new ImageApiController(preProcessor, streamer, imaging);
             var data = await api.Resize(file, 10);
