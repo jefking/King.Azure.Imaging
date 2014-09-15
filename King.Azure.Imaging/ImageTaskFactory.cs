@@ -72,7 +72,7 @@
         {
             var tasks = new List<IRunnable>();
 
-            //Blob Container
+            //Storage
             var container = new Container(elements.Container, connectionString, true);
             var table = new TableStorage(elements.Table, connectionString);
             var queue = new StorageQueue(elements.Queue, connectionString);
@@ -82,9 +82,11 @@
             tasks.Add(new InitializeStorageTask(table));
             tasks.Add(new InitializeStorageTask(queue));
 
-            //Image Processing Task
+            //Image Processor
             var processor = new ImagingProcessor(new Imaging(), container, table, this.versions.Images);
+            //Queue Poller
             var poller = new StorageQueuePoller<ImageQueued>(queue);
+            //Image Processing Task
             tasks.Add(new BackoffRunner(new DequeueBatch<ImageQueued>(poller, processor)));
 
             return tasks;

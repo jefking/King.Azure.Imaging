@@ -1,6 +1,10 @@
-﻿using ImageProcessor.Imaging.Formats;
-namespace King.Azure.Imaging
+﻿namespace King.Azure.Imaging
 {
+    using ImageProcessor.Imaging.Formats;
+
+    /// <summary>
+    /// Image Version
+    /// </summary>
     public class ImageVersion : IImageVersion
     {
         #region Properties
