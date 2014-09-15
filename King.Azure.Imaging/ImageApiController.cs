@@ -1,16 +1,13 @@
 ﻿namespace King.Azure.Imaging
 {
-    using ImageProcessor;
     using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
     using System;
-    using System.Drawing;
     using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using System.Web;
     using System.Web.Http;
 
     /// <summary>
@@ -139,7 +136,7 @@
         /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = "jpg", bool cache = false)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = ImagePreprocessor.DefaultExtension, bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
