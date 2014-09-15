@@ -92,6 +92,7 @@
 
             var provider = new MultipartMemoryStreamProvider();
             await this.Request.Content.ReadAsMultipartAsync(provider);
+
             foreach (var file in provider.Contents)
             {
                 var bytes = await file.ReadAsByteArrayAsync();
