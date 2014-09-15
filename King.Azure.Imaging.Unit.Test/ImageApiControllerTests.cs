@@ -148,7 +148,7 @@
         }
 
         [Test]
-        public async Task Post()
+        public async Task PostInvalid()
         {
             var random = new Random();
             var bytes = new byte[128];
@@ -168,6 +168,24 @@
 
             Assert.IsNotNull(response);
             Assert.AreEqual(HttpStatusCode.UnsupportedMediaType, response.StatusCode);
+        }
+
+        [Test]
+        public async Task PostEmpty()
+        {
+            var preProcessor = Substitute.For<IImagePreprocessor>();
+            var streamer = Substitute.For<IImageStreamer>();
+            var imaging = Substitute.For<IImaging>();
+
+            var api = new ImageApiController(preProcessor, streamer, imaging)
+            {
+                Request = new HttpRequestMessage(),
+            };
+
+            var response = await api.Post();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }

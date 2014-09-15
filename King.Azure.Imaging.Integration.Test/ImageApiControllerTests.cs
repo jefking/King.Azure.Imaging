@@ -40,7 +40,6 @@
             {
                 Request = new HttpRequestMessage(),
             };
-            api.Request.Content = new MultipartContent();
             
             var response = await api.Post();
 
