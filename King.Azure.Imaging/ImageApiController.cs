@@ -167,11 +167,13 @@
                 };
             }
 
+            var factory = new ImageFormatFactory();
+            var imageFormat = factory.Get(format);
             var version = new ImageVersion()
             {
                 Height = height,
                 Width = width,
-                Format = new JpegFormat { Quality = 70 }, //Make Dynamic
+                Format = imageFormat,
             };
 
             var response = new HttpResponseMessage();
