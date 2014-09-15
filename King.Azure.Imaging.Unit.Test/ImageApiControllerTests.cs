@@ -154,8 +154,6 @@
             var bytes = new byte[128];
             random.NextBytes(bytes);
 
-            var content = new ByteArrayContent(bytes);
-
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
@@ -164,7 +162,7 @@
             {
                 Request = new HttpRequestMessage(),
             };
-            api.Request.Content = content;
+            api.Request.Content = new ByteArrayContent(bytes);
 
             var response = await api.Post();
 

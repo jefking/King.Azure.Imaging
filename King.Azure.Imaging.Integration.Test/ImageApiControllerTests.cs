@@ -5,6 +5,7 @@
     using NUnit.Framework;
     using System;
     using System.IO;
+    using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
 
@@ -39,7 +40,12 @@
             {
                 Request = new HttpRequestMessage(),
             };
-            var data = await api.Post();
+            api.Request.Content = new MultipartContent();
+            
+            var response = await api.Post();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Test]
