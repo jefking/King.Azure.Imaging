@@ -125,8 +125,11 @@
             }
 
             var stream = await this.streamer.Get(file);
-            var response = new HttpResponseMessage();
-            response.Content = new StreamContent(stream);
+            var response = new HttpResponseMessage
+            {
+                Content = new StreamContent(stream),
+            };
+
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(this.streamer.ContentType);
             return response;
         }
