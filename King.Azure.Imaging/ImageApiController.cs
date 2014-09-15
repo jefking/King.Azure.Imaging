@@ -167,11 +167,6 @@
                 };
             }
 
-            if (string.IsNullOrWhiteSpace(format))
-            {
-                format = ImagePreprocessor.DefaultExtension;
-            }
-
             var version = new ImageVersion()
             {
                 Height = height,
