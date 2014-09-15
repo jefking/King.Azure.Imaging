@@ -91,17 +91,15 @@
                 return new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType);
             }
 
-            var request = HttpContext.Current.Request;
-            if (null != request.Files)
+            var provider = new MultipartMemoryStreamProvider();
+            await this.Request.Content.ReadAsMultipartAsync(provider);
+            if (null != provider.Contents)
             {
-                foreach (string index in request.Files)
+                foreach (var file in provider.Contents)
                 {
-                    var file = request.Files[index];
-                    var contentType = file.ContentType;
-                    var fileName = file.FileName;
-                    var bytes = new byte[file.ContentLength];
-                    await file.InputStream.ReadAsync(bytes, 0, bytes.Length);
-                    await this.preprocessor.Process(bytes, contentType, fileName);
+                    var bytes = await file.ReadAsByteArrayAsync();
+
+                    await this.preprocessor.Process(bytes, file.Headers.ContentType.MediaType, file.Headers.ContentDisposition.FileName.Trim('\"'));
                 }
             }
 
