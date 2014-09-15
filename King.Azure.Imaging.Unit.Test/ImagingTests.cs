@@ -110,6 +110,14 @@
         }
 
         [Test]
+        public void GetInvalid()
+        {
+            var i = new Imaging();
+            var format = i.Get(Guid.NewGuid().ToString());
+            Assert.IsNotNull(format as JpegFormat);
+        }
+
+        [Test]
         public void GetBitMap()
         {
             var expected = new BitmapFormat();

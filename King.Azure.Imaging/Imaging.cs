@@ -102,7 +102,7 @@
                 }
             }
 
-            return null;
+            return new JpegFormat();
         }
         #endregion
     }
