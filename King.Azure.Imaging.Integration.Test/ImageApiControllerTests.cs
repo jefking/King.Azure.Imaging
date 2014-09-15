@@ -7,6 +7,7 @@
     using System.IO;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -32,6 +33,15 @@
         [Test]
         public async Task Post()
         {
+            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            var fileContent = new ByteArrayContent(bytes);
+
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = "myFilename.jpg"
+            };
+
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
@@ -40,7 +50,9 @@
             {
                 Request = new HttpRequestMessage(),
             };
-            api.Request.Content = new MultipartContent();
+            var content = new MultipartContent();
+            content.Add(fileContent);
+            api.Request.Content = content;
 
             var response = await api.Post();
 
