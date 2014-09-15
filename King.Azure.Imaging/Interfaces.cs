@@ -145,6 +145,13 @@
         /// <param name="version">Version</param>
         /// <returns>Image Bytes</returns>
         byte[] Resize(byte[] data, IImageVersion version);
+
+        /// <summary>
+        /// Get Image Format
+        /// </summary>
+        /// <param name="extension">Extension</param>
+        /// <returns>Image Format</returns>
+        ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension);
         #endregion
     }
     #endregion

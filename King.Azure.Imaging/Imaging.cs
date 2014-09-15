@@ -1,7 +1,9 @@
 ﻿namespace King.Azure.Imaging
 {
     using ImageProcessor;
+    using ImageProcessor.Imaging.Formats;
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -11,6 +13,13 @@
     /// </summary>
     public class Imaging : IImaging
     {
+        #region Members
+        /// <summary>
+        /// Image Formats
+        /// </summary>
+        protected static readonly IEnumerable<ISupportedImageFormat> formats = new ISupportedImageFormat[] { new BitmapFormat(), new GifFormat(), new JpegFormat(), new PngFormat(), new TiffFormat() };
+        #endregion
+
         #region Methods
         /// <summary>
         /// Dimensions of Image
@@ -67,6 +76,28 @@
             }
 
             return resized;
+        }
+
+        /// <summary>
+        /// Get Image Format
+        /// </summary>
+        /// <param name="extension">Extension</param>
+        /// <returns>Image Format</returns>
+        public virtual ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension)
+        {
+            foreach (var format in formats)
+            {
+                var f = (from e in format.FileExtensions
+                         where extension == e
+                         select e).FirstOrDefault();
+
+                if (null != f)
+                {
+                    return format;
+                }
+            }
+
+            return null;
         }
         #endregion
     }

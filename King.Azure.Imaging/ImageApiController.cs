@@ -167,13 +167,16 @@
                 };
             }
 
-            var factory = new ImageFormatFactory();
-            var imageFormat = factory.Get(format);
+            if (string.IsNullOrWhiteSpace(format))
+            {
+                format = ImagePreprocessor.DefaultExtension;
+            }
+
             var version = new ImageVersion()
             {
                 Height = height,
                 Width = width,
-                Format = imageFormat,
+                Format = this.imaging.Get(format),
             };
 
             var response = new HttpResponseMessage();
