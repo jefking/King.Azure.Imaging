@@ -94,11 +94,11 @@
 
             foreach (var format in formats)
             {
-                var f = (from e in format.FileExtensions
+                var isFormat = (from e in format.FileExtensions
                          where extension == e.ToLowerInvariant()
-                         select e).FirstOrDefault();
+                         select true).FirstOrDefault();
 
-                if (null != f)
+                if (isFormat)
                 {
                     return format;
                 }
