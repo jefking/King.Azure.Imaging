@@ -9,7 +9,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Imaging, wrapper for image tasks
+    /// Imaging, wrapper for ImageProcessor tasks
     /// </summary>
     public class Imaging : IImaging
     {
@@ -85,6 +85,11 @@
         /// <returns>Image Format</returns>
         public virtual ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension)
         {
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                extension = ImagePreprocessor.DefaultExtension;
+            }
+
             foreach (var format in formats)
             {
                 var f = (from e in format.FileExtensions

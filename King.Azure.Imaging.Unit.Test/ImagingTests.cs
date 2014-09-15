@@ -3,12 +3,8 @@
     using ImageProcessor.Imaging.Formats;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     [TestFixture]
     public class ImagingTests
@@ -99,6 +95,78 @@
             var size = i.Size(data);
             Assert.AreEqual(version.Width, size.Width);
             Assert.AreEqual(version.Height, size.Height);
+        }
+
+        [Test]
+        public void GetDefault()
+        {
+            var i = new Imaging();
+            var format = i.Get(null);
+            Assert.IsNotNull(format as JpegFormat);
+            format = i.Get(string.Empty);
+            Assert.IsNotNull(format as JpegFormat);
+            format = i.Get("  ");
+            Assert.IsNotNull(format as JpegFormat);
+        }
+
+        [Test]
+        public void GetBitMap()
+        {
+            var expected = new BitmapFormat();
+            var i = new Imaging();
+            foreach (var extension in expected.FileExtensions)
+            {
+                var format = i.Get(extension);
+                Assert.AreEqual(expected.GetType(), format.GetType());
+            }
+        }
+
+        [Test]
+        public void GetTiff()
+        {
+            var expected = new TiffFormat();
+            var i = new Imaging();
+            foreach (var extension in expected.FileExtensions)
+            {
+                var format = i.Get(extension);
+                Assert.AreEqual(expected.GetType(), format.GetType());
+            }
+        }
+
+        [Test]
+        public void GetPng()
+        {
+            var expected = new PngFormat();
+            var i = new Imaging();
+            foreach (var extension in expected.FileExtensions)
+            {
+                var format = i.Get(extension);
+                Assert.AreEqual(expected.GetType(), format.GetType());
+            }
+        }
+
+        [Test]
+        public void GetJpeg()
+        {
+            var expected = new JpegFormat();
+            var i = new Imaging();
+            foreach (var extension in expected.FileExtensions)
+            {
+                var format = i.Get(extension);
+                Assert.AreEqual(expected.GetType(), format.GetType());
+            }
+        }
+
+        [Test]
+        public void GetGif()
+        {
+            var expected = new GifFormat();
+            var i = new Imaging();
+            foreach (var extension in expected.FileExtensions)
+            {
+                var format = i.Get(extension);
+                Assert.AreEqual(expected.GetType(), format.GetType());
+            }
         }
     }
 }
