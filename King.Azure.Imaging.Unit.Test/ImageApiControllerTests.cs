@@ -4,6 +4,7 @@
     using NUnit.Framework;
     using System;
     using System.Net;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
 
@@ -144,6 +145,25 @@
 
             Assert.IsNotNull(response);
             Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
+        }
+
+        [Test]
+        public async Task Post()
+        {
+            var content = Substitute.For<HttpContent>();
+            content.IsMimeMultipartContent().Returns(false);
+
+            var preProcessor = Substitute.For<IImagePreprocessor>();
+            var streamer = Substitute.For<IImageStreamer>();
+            var imaging = Substitute.For<IImaging>();
+
+            var api = new ImageApiController(preProcessor, streamer, imaging)
+            {
+                Request = new HttpRequestMessage(),
+            };
+            api.Request.Content = content;
+
+            var data = await api.Post();
         }
     }
 }

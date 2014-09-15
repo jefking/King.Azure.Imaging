@@ -5,6 +5,7 @@
     using NUnit.Framework;
     using System;
     using System.IO;
+    using System.Net.Http;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -25,6 +26,20 @@
         public void TearDown()
         {
             this.container.Delete().Wait();
+        }
+
+        [Test]
+        public async Task Post()
+        {
+            var preProcessor = Substitute.For<IImagePreprocessor>();
+            var streamer = Substitute.For<IImageStreamer>();
+            var imaging = Substitute.For<IImaging>();
+
+            var api = new ImageApiController(preProcessor, streamer, imaging)
+            {
+                Request = new HttpRequestMessage(),
+            };
+            var data = await api.Post();
         }
 
         [Test]

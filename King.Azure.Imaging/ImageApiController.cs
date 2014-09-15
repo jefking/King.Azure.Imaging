@@ -85,7 +85,6 @@
         [HttpPost]
         public virtual async Task<HttpResponseMessage> Post()
         {
-            //http://stackoverflow.com/questions/10320232/how-to-accept-a-file-post-asp-net-mvc-4-webapi
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType);
@@ -93,14 +92,13 @@
 
             var provider = new MultipartMemoryStreamProvider();
             await this.Request.Content.ReadAsMultipartAsync(provider);
-            if (null != provider.Contents)
+            foreach (var file in provider.Contents)
             {
-                foreach (var file in provider.Contents)
-                {
-                    var bytes = await file.ReadAsByteArrayAsync();
+                var bytes = await file.ReadAsByteArrayAsync();
 
-                    await this.preprocessor.Process(bytes, file.Headers.ContentType.MediaType, file.Headers.ContentDisposition.FileName.Trim('\"'));
-                }
+                await this.preprocessor.Process(bytes
+                    , file.Headers.ContentType.MediaType
+                    , file.Headers.ContentDisposition.FileName.Trim('\"'));
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -184,8 +182,9 @@
             {
                 var resized = this.imaging.Resize(ms.ToArray(), version);
                 response.Content = new StreamContent(new MemoryStream(resized));
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
             }
+
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
 
             return response;
         }
