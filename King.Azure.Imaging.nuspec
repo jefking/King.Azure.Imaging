@@ -25,7 +25,6 @@
       <frameworkAssembly assemblyName="System" targetFramework="net451" />
       <frameworkAssembly assemblyName="System.Drawing" targetFramework="net451" />
       <frameworkAssembly assemblyName="System.Net.Http" targetFramework="net451" />
-      <frameworkAssembly assemblyName="System.Web" targetFramework="net451" />
     </frameworkAssemblies>
   </metadata>
   <files>
