@@ -2,6 +2,7 @@
 {
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
+    using System.Configuration;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -19,7 +20,7 @@
         /// <summary>
         /// Connection String
         /// </summary>
-        private const string connectionString = "UseDevelopmentStorage=true";
+        private static readonly string connection = ConfigurationManager.AppSettings["StorageAccount"];
         #endregion
 
         #region Methods
@@ -30,45 +31,40 @@
 
         public ActionResult Thumbs()
         {
-            var table = new TableStorage(elements.Table, connectionString);
-            var data = from t in table.QueryByRow<ImageEntity>("thumb")
-                       select t;
+            var table = new TableStorage(elements.Table, connection);
+            var data = table.QueryByRow<ImageEntity>("thumb");
 
             return View(data);
         }
 
         public ActionResult Originals()
         {
-            var table = new TableStorage(elements.Table, connectionString);
-            var data = from t in table.QueryByRow<ImageEntity>("original")
-                       select t;
+            var table = new TableStorage(elements.Table, connection);
+            var data = table.QueryByRow<ImageEntity>(ImagePreprocessor.Original);
 
             return View(data);
         }
 
         public ActionResult Large()
         {
-            var table = new TableStorage(elements.Table, connectionString);
-            var data = from t in table.QueryByRow<ImageEntity>("large")
-                       select t;
+            var table = new TableStorage(elements.Table, connection);
+            var data = table.QueryByRow<ImageEntity>("large");
 
             return View(data);
         }
 
         public ActionResult Medium()
         {
-            var table = new TableStorage(elements.Table, connectionString);
-            var data = from t in table.QueryByRow<ImageEntity>("medium")
-                       select t;
+            var table = new TableStorage(elements.Table, connection);
+            var data = table.QueryByRow<ImageEntity>("medium");
 
             return View(data);
         }
 
         public ActionResult Dynamic()
         {
-            var table = new TableStorage(elements.Table, connectionString);
-            var data = from t in table.QueryByRow<ImageEntity>("original")
-                       select t;
+            var table = new TableStorage(elements.Table, connection);
+            var data = table.QueryByRow<ImageEntity>(ImagePreprocessor.Original);
 
             return View(data);
         }
