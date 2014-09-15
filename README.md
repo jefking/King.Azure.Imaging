@@ -1,4 +1,4 @@
-# BETA
+# Initial Version
 
 Scalable image uploading and processing for Azure
 + Upload images to blob storage
