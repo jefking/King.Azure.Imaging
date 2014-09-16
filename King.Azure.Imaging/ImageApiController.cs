@@ -167,6 +167,12 @@
                 };
             }
 
+            var wasCached = false;
+            if (cache)
+            {
+                //Check for processed version
+            }
+
             var version = new ImageVersion()
             {
                 Height = height,
@@ -184,7 +190,7 @@
 
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
 
-            if (cache)
+            if (cache && !wasCached)
             {
                 //Store image directly or queue for reprocessing?
             }
