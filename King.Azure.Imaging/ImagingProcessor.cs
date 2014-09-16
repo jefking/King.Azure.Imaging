@@ -73,46 +73,36 @@
         /// <returns>Successful</returns>
         public virtual async Task<bool> Process(ImageQueued data)
         {
-            var result = false;
             var original = string.Format(data.FileNameFormat, ImagePreprocessor.Original, data.OriginalExtension).ToLowerInvariant();
 
-            try
+            var bytes = await container.Get(original);
+            foreach (var key in this.versions.Keys)
             {
-                var bytes = await container.Get(original);
-                foreach (var key in this.versions.Keys)
+                var version = this.versions[key];
+                var filename = string.Format(data.FileNameFormat, key, version.Format.DefaultExtension).ToLowerInvariant();
+
+                var resized = this.imaging.Resize(bytes, version);
+
+                //Store in Blob
+                await this.container.Save(filename, resized, version.Format.MimeType);
+
+                var size = this.imaging.Size(resized);
+
+                //Store in Table
+                await this.table.InsertOrReplace(new ImageEntity
                 {
-                    var version = this.versions[key];
-                    var filename = string.Format(data.FileNameFormat, key, version.Format.DefaultExtension).ToLowerInvariant();
-                    
-                    var resized = this.imaging.Resize(bytes, version);
-
-                    //Store in Blob
-                    await this.container.Save(filename, resized, version.Format.MimeType);
-
-                    var size = this.imaging.Size(resized);
-
-                    //Store in Table
-                    await this.table.InsertOrReplace(new ImageEntity
-                    {
-                        PartitionKey = data.Identifier.ToString(),
-                        RowKey = key.ToLowerInvariant(),
-                        FileName = filename,
-                        ContentType = version.Format.MimeType,
-                        FileSize = resized.LongLength,
-                        Width = size.Width,
-                        Height = size.Height,
-                        RelativePath = string.Format("{0}/{1}", this.container.Name, filename),
-                    });
-                }
-
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.ToString());
+                    PartitionKey = data.Identifier.ToString(),
+                    RowKey = key.ToLowerInvariant(),
+                    FileName = filename,
+                    ContentType = version.Format.MimeType,
+                    FileSize = resized.LongLength,
+                    Width = size.Width,
+                    Height = size.Height,
+                    RelativePath = string.Format("{0}/{1}", this.container.Name, filename),
+                });
             }
 
-            return result;
+            return true;
         }
         #endregion
     }

@@ -105,33 +105,5 @@
 
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }
-
-        [Test]
-        public async Task ProcessThrows()
-        {
-            var data = new ImageQueued()
-            {
-                Identifier = Guid.NewGuid(),
-                FileNameFormat = "good_{0}_file",
-                OriginalExtension = string.Empty,
-            };
-            var versions = new Dictionary<string, IImageVersion>();
-            var version = new ImageVersion()
-            {
-                Width = 100,
-                Height = 100,
-            };
-            versions.Add("temp", version);
-            var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(t => { throw new ArgumentException(); });
-
-            var table = Substitute.For<ITableStorage>();
-
-            var ip = new ImagingProcessor(imaging, container, table, versions);
-            var result = await ip.Process(data);
-
-            Assert.IsFalse(result);
-        }
     }
 }
