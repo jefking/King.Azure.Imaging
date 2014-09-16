@@ -66,7 +66,7 @@
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = new ImageStreamer(this.container);
             var imaging = Substitute.For<IImaging>();
-            imaging.Get(ImagePreprocessor.DefaultExtension).Returns(new JpegFormat());
+            imaging.Get(ImagePreprocessor.DefaultExtension, 85).Returns(new JpegFormat());
 
             var api = new ImageApiController(preProcessor, streamer, imaging);
             var data = await api.Resize(file, 10);
@@ -75,6 +75,8 @@
             var resized = await data.Content.ReadAsByteArrayAsync();
             Assert.IsTrue(bytes.LongLength > resized.LongLength);
             Assert.AreEqual("image/jpeg", data.Content.Headers.ContentType.MediaType);
+            
+            imaging.Received().Get(ImagePreprocessor.DefaultExtension, 85);
         }
     }
 }
