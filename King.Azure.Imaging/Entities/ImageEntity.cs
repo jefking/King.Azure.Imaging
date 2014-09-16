@@ -61,6 +61,15 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Image Quality
+        /// </summary>
+        public int Quality
+        {
+            get;
+            set;
+        }
         #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging
 {
     using ImageProcessor.Imaging.Formats;
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
@@ -76,6 +77,7 @@
     {
         #region Methods
         Task<Stream> Get(string file);
+        Task<byte[]> Get(Guid id, string format, string extension);
         #endregion
 
         #region Properties

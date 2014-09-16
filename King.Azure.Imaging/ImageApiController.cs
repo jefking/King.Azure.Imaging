@@ -181,32 +181,36 @@
             var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true;");
             var partition = file.Substring(0, file.IndexOf('_'));
             var row = string.Format("{0}_{1}_{2}x{3}", version.Format.DefaultExtension, quality, width, height);
+            var fileName = string.Format("{0}_{1}.{2}", partition, row, version.Format.DefaultExtension);
 
+            byte[] resized = null;
+
+            var response = new HttpResponseMessage();
             if (cache)
             {
-                var entity = table.QueryByPartitionAndRow<ImageEntity>(partition, row);
-                if (null != entity)
+                resized = await this.streamer.Get(Guid.Parse(partition), row, version.Format.DefaultExtension);
+                if (null != resized)
                 {
                     wasCached = true;
-                    file = entity.FileName;
+
+                    response.Content = new StreamContent(new MemoryStream(resized));
                 }
             }
 
-            byte[] resized;
-            var response = new HttpResponseMessage();
-            using (var input = await this.streamer.Get(file))
-            using (var ms = input as MemoryStream)
+            if (null == response.Content)
             {
-                resized = this.imaging.Resize(ms.ToArray(), version);
-                response.Content = new StreamContent(new MemoryStream(resized));
+                using (var input = await this.streamer.Get(file))
+                using (var ms = input as MemoryStream)
+                {
+                    resized = this.imaging.Resize(ms.ToArray(), version);
+                    response.Content = new StreamContent(new MemoryStream(resized));
+                }
             }
 
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
 
             if (cache && !wasCached)
             {
-                var fileName = string.Format("{0}_{1}.{2}", partition, row, version.Format.DefaultExtension);
-
                 //Store in Blob
                 var container = new Container(elements.Container, "UseDevelopmentStorage=true;");
                 await container.Save(fileName, resized, version.Format.MimeType);
@@ -221,6 +225,7 @@
                     FileSize = resized.LongLength,
                     Width = width,
                     Height = height,
+                    Quality = version.Format.Quality,
                     RelativePath = string.Format("{0}/{1}", container.Name, fileName),
                 });
             }
