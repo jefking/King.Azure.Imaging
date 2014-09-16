@@ -72,6 +72,7 @@
                     .Resize(new Size(version.Width, version.Height))
                     .Format(version.Format)
                     .Save(output);
+
                 resized = output.ToArray();
             }
 
@@ -82,12 +83,17 @@
         /// Get Image Format
         /// </summary>
         /// <param name="extension">Extension</param>
+        /// <param name="quality">Quality Settings</param>
         /// <returns>Image Format</returns>
-        public virtual ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension)
+        public virtual ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension, int quality = 100)
         {
+            quality = quality > 0 ? quality : 100;
             if (string.IsNullOrWhiteSpace(extension))
             {
-                return new JpegFormat();
+                return new JpegFormat()
+                {
+                    Quality = quality
+                };
             }
 
             extension = extension.ToLowerInvariant();
@@ -95,16 +101,21 @@
             foreach (var format in formats)
             {
                 var isFormat = (from e in format.FileExtensions
-                         where extension == e.ToLowerInvariant()
-                         select true).FirstOrDefault();
+                                where extension == e.ToLowerInvariant()
+                                select true).FirstOrDefault();
 
                 if (isFormat)
                 {
-                    return format;
+                    var temp = Activator.CreateInstance(format.GetType()) as ISupportedImageFormat;
+                    temp.Quality = quality;
+                    return temp;
                 }
             }
 
-            return new JpegFormat();
+            return new JpegFormat()
+            {
+                Quality = quality
+            };
         }
         #endregion
     }

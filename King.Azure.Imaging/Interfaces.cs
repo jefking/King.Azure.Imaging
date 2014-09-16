@@ -151,7 +151,7 @@
         /// </summary>
         /// <param name="extension">Extension</param>
         /// <returns>Image Format</returns>
-        ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension);
+        ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension, int quality = 100);
         #endregion
     }
     #endregion

@@ -136,7 +136,7 @@
         /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = ImagePreprocessor.DefaultExtension, bool cache = false)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = ImagePreprocessor.DefaultExtension, int quality = 85, bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -171,7 +171,7 @@
             {
                 Height = height,
                 Width = width,
-                Format = this.imaging.Get(format),
+                Format = this.imaging.Get(format, quality),
             };
 
             var response = new HttpResponseMessage();
