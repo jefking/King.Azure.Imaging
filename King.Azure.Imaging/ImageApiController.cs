@@ -177,17 +177,11 @@
             }
 
             var wasCached = false;
-
-            var version = new ImageVersion()
-            {
-                Height = height,
-                Width = width,
-                Format = this.imaging.Get(format, quality),
-            };
+            var imgFormat = this.imaging.Get(format, quality);
 
             var identifier = Guid.Parse(file.Substring(0, file.IndexOf('_')));
-            var versionName = string.Format("{0}_{1}_{2}x{3}", version.Format.DefaultExtension, quality, width, height);
-            var fileName = string.Format("{0}_{1}.{2}", identifier, versionName, version.Format.DefaultExtension);
+            var versionName = string.Format("{0}_{1}_{2}x{3}", imgFormat.DefaultExtension, quality, width, height);
+            var fileName = string.Format("{0}_{1}.{2}", identifier, versionName, imgFormat.DefaultExtension);
 
             byte[] resized = null;
 
@@ -199,6 +193,13 @@
 
             if (!wasCached)
             {
+                var version = new ImageVersion()
+                {
+                    Height = height,
+                    Width = width,
+                    Format = imgFormat,
+                };
+
                 var toResize = await this.streamer.GetBytes(file);
                 resized = this.imaging.Resize(toResize, version);
             }
@@ -207,11 +208,11 @@
             {
                 Content = new StreamContent(new MemoryStream(resized)),
             };
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(imgFormat.MimeType);
 
             if (cache && !wasCached)
             {
-                await this.store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, false, null, quality);
+                await this.store.Save(fileName, resized, versionName, imgFormat.MimeType, identifier, false, null, quality);
             }
 
             return response;
