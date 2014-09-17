@@ -130,33 +130,8 @@
             var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1) : ImagePreprocessor.DefaultExtension;
             var originalFileName = string.Format(FileNameFormat, id, Original, extension.ToLowerInvariant());
 
-            //Store Blob
-            await container.Save(originalFileName, content, contentType);
-
-            var size = this.imaging.Size(content);
-
-            //Store in Table
-            await table.InsertOrReplace(new ImageEntity
-            {
-                PartitionKey = id.ToString(),
-                RowKey = Original,
-                ContentType = contentType,
-                RelativePath = string.Format(PathFormat, this.container.Name, originalFileName),
-                FileSize = content.LongLength,
-                FileName = originalFileName,
-                Width = size.Width,
-                Height = size.Height,
-            });
-
-            //Queue for Processing
-            var toQueue = JsonConvert.SerializeObject(new ImageQueued
-            {
-                Identifier = id,
-                FileNameFormat = string.Format(FileNameFormat, id, "{0}", "{1}"),
-                OriginalExtension = extension,
-            });
-
-            await this.queue.Save(new CloudQueueMessage(toQueue));
+            var store = new ImageStore();
+            await store.Save(originalFileName, content, Original, contentType, id, true, extension);
         }
         #endregion
     }

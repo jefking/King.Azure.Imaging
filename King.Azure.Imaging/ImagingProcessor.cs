@@ -82,23 +82,8 @@
 
                 var resized = this.imaging.Resize(bytes, version);
 
-                //Store in Blob
-                await this.container.Save(filename, resized, version.Format.MimeType);
-
-                var size = this.imaging.Size(resized);
-
-                //Store in Table
-                await this.table.InsertOrReplace(new ImageEntity
-                {
-                    PartitionKey = data.Identifier.ToString(),
-                    RowKey = key.ToLowerInvariant(),
-                    FileName = filename,
-                    ContentType = version.Format.MimeType,
-                    FileSize = resized.LongLength,
-                    Width = size.Width,
-                    Height = size.Height,
-                    RelativePath = string.Format("{0}/{1}", this.container.Name, filename),
-                });
+                var store = new ImageStore();
+                await store.Save(filename, resized, key, version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
             }
 
             return true;

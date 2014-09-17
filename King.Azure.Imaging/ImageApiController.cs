@@ -1,18 +1,13 @@
 ﻿namespace King.Azure.Imaging
 {
     using King.Azure.Data;
-    using King.Azure.Imaging.Entities;
     using System;
-    using System.Linq;
     using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using System.Web.Http;
-    using Microsoft.WindowsAzure.Storage.Queue;
-    using Newtonsoft.Json;
-    using King.Azure.Imaging.Models;
 
     /// <summary>
     /// Image Api Controller
@@ -207,7 +202,7 @@
             if (cache && !wasCached)
             {
                 var store = new ImageStore();
-                await store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, width, height, quality);
+                await store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, false, null, quality, width, height);
             }
 
             return response;
