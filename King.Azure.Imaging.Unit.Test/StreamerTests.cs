@@ -28,8 +28,17 @@
         public async Task GetFileNull()
         {
             var container = Substitute.For<IContainer>();
-            var istreamer =new Streamer(container);
+            var istreamer = new Streamer(container);
             await istreamer.Get(null);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task GetBytesNull()
+        {
+            var container = Substitute.For<IContainer>();
+            var istreamer = new Streamer(container);
+            await istreamer.GetBytes(null);
         }
     }
 }

@@ -2,7 +2,6 @@
 {
     using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
-    using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using NSubstitute;
     using NUnit.Framework;
@@ -18,7 +17,6 @@
         public void Constructor()
         {
             var imaging = Substitute.For<IImaging>();
-            var table = Substitute.For<ITableStorage>();
             var store = Substitute.For<IDataStore>();
             new Processor(imaging, store, new Dictionary<string, IImageVersion>());
         }

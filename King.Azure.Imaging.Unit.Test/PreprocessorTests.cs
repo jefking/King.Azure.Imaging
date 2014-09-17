@@ -1,8 +1,5 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
-    using King.Azure.Data;
-    using King.Azure.Imaging.Entities;
-    using Microsoft.WindowsAzure.Storage.Queue;
     using NSubstitute;
     using NUnit.Framework;
     using System;
@@ -12,17 +9,16 @@
     [TestFixture]
     public class PreprocessorTests
     {
+        private const string connectionString = "UseDevelopmentStorage=true";
         [Test]
         public void Constructor()
         {
-            var connectionString = "UseDevelopmentStorage=true";
             new Preprocessor(connectionString);
         }
 
         [Test]
         public void IsIImagePreprocessor()
         {
-            var connectionString = "UseDevelopmentStorage=true";
             Assert.IsNotNull(new Preprocessor(connectionString) as IPreprocessor);
         }
 
@@ -37,8 +33,6 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task ProcessContentNull()
         {
-            var connectionString = "UseDevelopmentStorage=true";
-
             var ip = new Preprocessor(connectionString);
             await ip.Process(null, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
         }
@@ -50,8 +44,7 @@
             var random = new Random();
             var bytes = new byte[64];
             random.NextBytes(bytes);
-            var connectionString = "UseDevelopmentStorage=true";
-
+            
             var ip = new Preprocessor(connectionString);
             await ip.Process(bytes, null, Guid.NewGuid().ToString());
         }
@@ -63,8 +56,7 @@
             var random = new Random();
             var bytes = new byte[64];
             random.NextBytes(bytes);
-            var connectionString = "UseDevelopmentStorage=true";
-
+            
             var ip = new Preprocessor(connectionString);
             await ip.Process(bytes, Guid.NewGuid().ToString(), null);
         }
