@@ -1,7 +1,6 @@
 ﻿namespace King.Azure.Imaging
 {
     using King.Azure.Data;
-    using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using System;
     using System.Collections.Generic;
