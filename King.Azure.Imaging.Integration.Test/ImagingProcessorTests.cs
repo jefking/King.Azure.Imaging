@@ -63,7 +63,7 @@
             var queued = new ImageQueued
             {
                 Identifier = Guid.NewGuid(),
-                OriginalExtension = ImagePreprocessor.DefaultExtension,
+                OriginalExtension = ImageNaming.DefaultExtension,
                 
             };
             queued.FileNameFormat = queued.Identifier.ToString() + "_{0}.{1}";
@@ -81,7 +81,7 @@
 
             //Assert.IsNotNull(entity);
             //Assert.AreEqual(version.Format.MimeType, entity.ContentType);
-            //Assert.AreEqual(string.Format(ImagePreprocessor.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
+            //Assert.AreEqual(string.Format(ImageNaming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
             //Assert.AreEqual(resized.LongLength, entity.FileSize);
             //Assert.AreEqual(size.Width, entity.Width);
             //Assert.AreEqual(size.Height, entity.Height);

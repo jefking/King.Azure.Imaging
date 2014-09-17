@@ -90,7 +90,7 @@
             versions.Add("temp", version);
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
-            container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(Task.FromResult(bytes));
+            container.Get(string.Format(data.FileNameFormat, ImageNaming.Original)).Returns(Task.FromResult(bytes));
             container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
 
             var store = Substitute.For<IImageStore>();
@@ -100,7 +100,7 @@
 
             Assert.IsTrue(result);
 
-            container.Received().Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original));
+            container.Received().Get(string.Format(data.FileNameFormat, ImageNaming.Original));
             container.Received().Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
         }
     }

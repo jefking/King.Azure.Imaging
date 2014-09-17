@@ -18,7 +18,8 @@
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
             var queue = Substitute.For<IStorageQueue>();
-            new ImageStore(null, container, table, queue);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageStore(null, container, table, queue, naming);
         }
 
         [Test]
@@ -28,7 +29,8 @@
             var imaging = Substitute.For<IImaging>();
             var table = Substitute.For<ITableStorage>();
             var queue = Substitute.For<IStorageQueue>();
-            new ImageStore(imaging, null, table, queue);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageStore(imaging, null, table, queue, naming);
         }
 
         [Test]
@@ -38,7 +40,8 @@
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var queue = Substitute.For<IStorageQueue>();
-            new ImageStore(imaging, container, null, queue);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageStore(imaging, container, null, queue, naming);
         }
 
         [Test]
@@ -48,7 +51,19 @@
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            new ImageStore(imaging, container, table, null);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageStore(imaging, container, table, null, naming);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorImageNamingNull()
+        {
+            var imaging = Substitute.For<IImaging>();
+            var container = Substitute.For<IContainer>();
+            var table = Substitute.For<ITableStorage>();
+            var queue = Substitute.For<IStorageQueue>();
+            new ImageStore(imaging, container, table, queue, null);
         }
     }
 }

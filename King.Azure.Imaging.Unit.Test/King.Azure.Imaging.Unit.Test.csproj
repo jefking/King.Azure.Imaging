@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Entities\ImageEntityTests.cs" />
     <Compile Include="ImageApiControllerTests.cs" />
+    <Compile Include="ImageNamingTests.cs" />
     <Compile Include="ImagePreprocessorTests.cs" />
     <Compile Include="ImageStoreTests.cs" />
     <Compile Include="ImageStreamerTests.cs" />

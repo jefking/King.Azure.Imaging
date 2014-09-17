@@ -27,30 +27,6 @@
         }
 
         [Test]
-        public void Original()
-        {
-            Assert.AreEqual("original", ImagePreprocessor.Original);
-        }
-
-        [Test]
-        public void DefaultExtension()
-        {
-            Assert.AreEqual("jpeg", ImagePreprocessor.DefaultExtension);
-        }
-
-        [Test]
-        public void FileNameFormat()
-        {
-            Assert.AreEqual("{0}_{1}.{2}", ImagePreprocessor.FileNameFormat);
-        }
-
-        [Test]
-        public void PathFormat()
-        {
-            Assert.AreEqual("{0}/{1}", ImagePreprocessor.PathFormat);
-        }
-
-        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void ConstructorConnectionStringNull()
         {
@@ -102,12 +78,13 @@
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.png", Guid.NewGuid());
             var store = Substitute.For<IImageStore>();
-            store.Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "png");
+            store.Save(Arg.Any<string>(), bytes, ImageNaming.Original, contentType, Arg.Any<Guid>(), true, "png");
+            var naming = Substitute.For<IImageNaming>();
 
-            var ip = new ImagePreprocessor(store);
+            var ip = new ImagePreprocessor(store, naming);
             await ip.Process(bytes, contentType, fileName);
 
-            store.Received().Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "png");
+            store.Received().Save(Arg.Any<string>(), bytes, ImageNaming.Original, contentType, Arg.Any<Guid>(), true, "png");
         }
 
         [Test]
@@ -117,12 +94,13 @@
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();
             var store = Substitute.For<IImageStore>();
-            store.Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "jpg");
+            store.Save(Arg.Any<string>(), bytes, ImageNaming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
+            var naming = Substitute.For<IImageNaming>();
 
-            var ip = new ImagePreprocessor(store);
+            var ip = new ImagePreprocessor(store, naming);
             await ip.Process(bytes, contentType, fileName);
 
-            store.Received().Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "jpg");
+            store.Received().Save(Arg.Any<string>(), bytes, ImageNaming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
         }
     }
 }

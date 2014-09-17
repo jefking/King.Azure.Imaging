@@ -33,7 +33,8 @@
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
-            new ImageApiController(null, preprocessor, elements);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageApiController(null, preprocessor, elements, naming);
         }
 
         [Test]
@@ -41,27 +42,28 @@
         public void ConstructorImagePreprocessorNull()
         {
             var elements = Substitute.For<IStorageElements>();
-            new ImageApiController(connectionString, null, elements);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageApiController(connectionString, null, elements, naming);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void ConstructorImagePreProcessorNull()
         {
-            var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IImageStore>();
-            new ImageApiController(null, streamer, imaging, store);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageApiController(null, imaging, store, naming);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
-        public void ConstructorImageStreamerNull()
+        public void ConstructorImageNamingNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var store = Substitute.For<IImageStore>();
             var imaging = Substitute.For<IImaging>();
-            new ImageApiController(preprocessor, null, imaging, store);
+            new ImageApiController(preprocessor, imaging, store, null);
         }
 
         [Test]
@@ -69,9 +71,9 @@
         public void ConstructorImagingNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
-            var streamer = Substitute.For<IImageStreamer>();
             var store = Substitute.For<IImageStore>();
-            new ImageApiController(preprocessor, streamer, null, store);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageApiController(preprocessor, null, store, naming);
         }
 
         [Test]
@@ -79,9 +81,9 @@
         public void ConstructorStoreNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
-            var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
-            new ImageApiController(preprocessor, streamer, imaging, null);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageApiController(preprocessor, imaging, null, naming);
         }
 
         [Test]
@@ -89,7 +91,8 @@
         public void ConstructorStorageElementsNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
-            new ImageApiController(connectionString, preprocessor, null);
+            var naming = Substitute.For<IImageNaming>();
+            new ImageApiController(connectionString, preprocessor, null, naming);
         }
 
         [Test]
@@ -98,8 +101,9 @@
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(connectionString, preprocessor, elements, naming);
             var response = await api.Get(null);
 
             Assert.IsNotNull(response);
@@ -112,8 +116,9 @@
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(connectionString, preprocessor, elements, naming);
             var response = await api.Resize(null, 100, 100);
 
             Assert.IsNotNull(response);
@@ -126,8 +131,9 @@
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(connectionString, preprocessor, elements, naming);
             var response =  await api.Resize(Guid.NewGuid().ToString(), -1, 100);
 
             Assert.IsNotNull(response);
@@ -140,8 +146,9 @@
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(connectionString, preprocessor, elements, naming);
             var response = await api.Resize(Guid.NewGuid().ToString(), 100, -1);
 
             Assert.IsNotNull(response);
@@ -154,8 +161,9 @@
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(connectionString, preprocessor, elements, naming);
             var response = await api.Resize(Guid.NewGuid().ToString(), 0, 0);
 
             Assert.IsNotNull(response);
@@ -177,11 +185,11 @@
             var preProcessor = Substitute.For<IImagePreprocessor>();
             preProcessor.Process(bytes, "image/jpeg", "myFilename.jpg");
 
-            var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IImageStore>();
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging, store)
+            var api = new ImageApiController(preProcessor, imaging, store, naming)
             {
                 Request = new HttpRequestMessage(),
             };
@@ -205,11 +213,11 @@
             random.NextBytes(bytes);
 
             var preProcessor = Substitute.For<IImagePreprocessor>();
-            var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IImageStore>();
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging, store)
+            var api = new ImageApiController(preProcessor, imaging, store, naming)
             {
                 Request = new HttpRequestMessage(),
             };
@@ -225,11 +233,11 @@
         public async Task PostEmpty()
         {
             var preProcessor = Substitute.For<IImagePreprocessor>();
-            var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IImageStore>();
+            var naming = Substitute.For<IImageNaming>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging, store)
+            var api = new ImageApiController(preProcessor, imaging, store, naming)
             {
                 Request = new HttpRequestMessage(),
             };

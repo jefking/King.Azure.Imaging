@@ -47,7 +47,7 @@
             var bytes = new byte[128];
             random.NextBytes(bytes);
             var fileName = Guid.NewGuid().ToString();
-            var originalFileName = string.Format(ImagePreprocessor.FileNameFormat, fileName, ImagePreprocessor.Original, ImagePreprocessor.DefaultExtension);
+            var originalFileName = string.Format(ImageNaming.FileNameFormat, fileName, ImageNaming.Original, ImageNaming.DefaultExtension);
             var contentType = "image/jpeg";
             var size = new Size()
             {
@@ -61,12 +61,12 @@
             //var preProcessor = new ImagePreprocessor(imaging, this.container, this.table, this.queue);
             //await preProcessor.Process(bytes, contentType, fileName);
 
-            //var entity = (from e in this.table.QueryByRow<ImageEntity>(ImagePreprocessor.Original)
+            //var entity = (from e in this.table.QueryByRow<ImageEntity>(ImageNaming.Original)
             //              select e).FirstOrDefault();
 
             //Assert.IsNotNull(entity);
             //Assert.AreEqual(contentType, entity.ContentType);
-            //Assert.AreEqual(string.Format(ImagePreprocessor.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
+            //Assert.AreEqual(string.Format(ImageNaming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
             //Assert.AreEqual(bytes.LongLength, entity.FileSize);
             //Assert.AreEqual(size.Width, entity.Width);
             //Assert.AreEqual(size.Height, entity.Height);
