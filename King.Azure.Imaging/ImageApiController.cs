@@ -187,7 +187,7 @@
 
             var identifier = Guid.Parse(file.Substring(0, file.IndexOf('_')));
             var versionName = string.Format("{0}_{1}_{2}x{3}", version.Format.DefaultExtension, quality, width, height);
-            var fileName = string.Format("{0}_{1}.{2}", identifier, version, version.Format.DefaultExtension);
+            var fileName = string.Format("{0}_{1}.{2}", identifier, versionName, version.Format.DefaultExtension);
 
             byte[] resized = null;
 
@@ -211,7 +211,7 @@
 
             if (cache && !wasCached)
             {
-                await this.store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, false, null, quality, width, height);
+                await this.store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, false, null, quality);
             }
 
             return response;

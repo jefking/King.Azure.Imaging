@@ -8,6 +8,9 @@
     using System;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Image Store
+    /// </summary>
     public class ImageStore : IImageStore
     {
         #region Members

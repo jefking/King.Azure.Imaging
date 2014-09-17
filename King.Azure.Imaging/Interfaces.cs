@@ -161,7 +161,23 @@
     #region IImageStore
     public interface IImageStore
     {
-        Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool toQueue = false, string extension = null, int quality = 100, int width = 0, int height = 0);
+        #region Methods
+        /// <summary>
+        /// Save to data stores
+        /// </summary>
+        /// <param name="fileName">File Name</param>
+        /// <param name="content">Content</param>
+        /// <param name="version">Version</param>
+        /// <param name="mimeType">MimeType/Content Type</param>
+        /// <param name="identifier">Identifier</param>
+        /// <param name="queueForResize">Queue for Resize</param>
+        /// <param name="extension">Extension</param>
+        /// <param name="quality">Quality</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <returns></returns>
+        Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, int quality = 100, int width = 0, int height = 0);
+        #endregion
     }
     #endregion
 }
