@@ -74,10 +74,9 @@
         public async Task GetFileNull()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
+            var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(preprocessor, store);
             var response = await api.Get(null);
 
             Assert.IsNotNull(response);
@@ -88,10 +87,9 @@
         public async Task ResizeFileNull()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
+            var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(preprocessor, store);
             var response = await api.Resize(null, 100, 100);
 
             Assert.IsNotNull(response);
@@ -102,10 +100,9 @@
         public async Task ResizeWidthInvalid()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
+            var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(preprocessor, store);
             var response =  await api.Resize(Guid.NewGuid().ToString(), -1, 100);
 
             Assert.IsNotNull(response);
@@ -116,10 +113,9 @@
         public async Task ResizeHeightInvalid()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
+            var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(preprocessor, store);
             var response = await api.Resize(Guid.NewGuid().ToString(), 100, -1);
 
             Assert.IsNotNull(response);
@@ -130,10 +126,9 @@
         public async Task WidthAndHeightZero()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
+            var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(connectionString, preprocessor, elements);
+            var api = new ImageApiController(preprocessor, store);
             var response = await api.Resize(Guid.NewGuid().ToString(), 0, 0);
 
             Assert.IsNotNull(response);

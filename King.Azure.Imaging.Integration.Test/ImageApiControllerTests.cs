@@ -32,6 +32,7 @@
         }
 
         [Test]
+        [Ignore]
         public async Task Get()
         {
             var random = new Random();
@@ -66,6 +67,7 @@
             var preProcessor = Substitute.For<IPreprocessor>();
             var streamer = new Streamer(this.container);
             var store = Substitute.For<IDataStore>();
+            store.Streamer.Returns(streamer);
 
             var api = new ImageApiController(preProcessor, store);
             var data = await api.Resize(file, 10);
