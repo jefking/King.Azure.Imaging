@@ -62,5 +62,47 @@
 
             Assert.AreEqual(expected, data.FileSize);
         }
+
+        [Test]
+        public void Width()
+        {
+            var random = new Random();
+            var expected = random.Next();
+
+            var data = new ImageEntity()
+            {
+                Width = expected
+            };
+
+            Assert.AreEqual(expected, data.Width);
+        }
+
+        [Test]
+        public void Height()
+        {
+            var random = new Random();
+            var expected = random.Next();
+
+            var data = new ImageEntity()
+            {
+                Height = expected
+            };
+
+            Assert.AreEqual(expected, data.Height);
+        }
+
+        [Test]
+        public void Quality()
+        {
+            var random = new Random();
+            var expected = random.Next();
+
+            var data = new ImageEntity()
+            {
+                Quality = expected
+            };
+
+            Assert.AreEqual(expected, data.Quality);
+        }
     }
 }

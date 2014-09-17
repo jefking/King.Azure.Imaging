@@ -26,6 +26,18 @@
         }
 
         [Test]
+        public void OriginalExtension()
+        {
+            var expected = Guid.NewGuid().ToString();
+            var data = new ImageQueued()
+            {
+                OriginalExtension = expected
+            };
+
+            Assert.AreEqual(expected, data.OriginalExtension);
+        }
+
+        [Test]
         public void FileNameFormat()
         {
             var expected = Guid.NewGuid().ToString();
