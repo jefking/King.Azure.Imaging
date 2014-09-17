@@ -28,5 +28,35 @@
             Assert.IsNotNull(v.Images["medium"]);
             Assert.IsNotNull(v.Images["large"]);
         }
+
+        [Test]
+        public void Thumb()
+        {
+            var v = new Versions();
+            var version = v.Images["thumb"];
+            Assert.AreEqual(100, version.Width);
+            Assert.AreEqual(0, version.Height);
+            Assert.AreEqual(50, version.Format.Quality);
+        }
+
+        [Test]
+        public void Medium()
+        {
+            var v = new Versions();
+            var version = v.Images["medium"];
+            Assert.AreEqual(640, version.Width);
+            Assert.AreEqual(0, version.Height);
+            Assert.AreEqual(70, version.Format.Quality);
+        }
+
+        [Test]
+        public void Large()
+        {
+            var v = new Versions();
+            var version = v.Images["large"];
+            Assert.AreEqual(1080, version.Width);
+            Assert.AreEqual(0, version.Height);
+            Assert.AreEqual(85, version.Format.Quality);
+        }
     }
 }
