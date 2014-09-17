@@ -93,6 +93,7 @@
     <Compile Include="Entities\ImageEntity.cs" />
     <Compile Include="ImageApiController.cs" />
     <Compile Include="ImagePreprocessor.cs" />
+    <Compile Include="ImageStore.cs" />
     <Compile Include="ImageStreamer.cs" />
     <Compile Include="ImageTaskFactory.cs" />
     <Compile Include="Imaging.cs" />

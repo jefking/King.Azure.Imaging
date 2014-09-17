@@ -10,6 +10,9 @@
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Microsoft.WindowsAzure.Storage.Queue;
+    using Newtonsoft.Json;
+    using King.Azure.Imaging.Models;
 
     /// <summary>
     /// Image Api Controller
@@ -177,57 +180,34 @@
                 Format = this.imaging.Get(format, quality),
             };
 
-            var elements = new StorageElements();
-            var table = new TableStorage(elements.Table, "UseDevelopmentStorage=true;");
-            var partition = file.Substring(0, file.IndexOf('_'));
-            var row = string.Format("{0}_{1}_{2}x{3}", version.Format.DefaultExtension, quality, width, height);
-            var fileName = string.Format("{0}_{1}.{2}", partition, row, version.Format.DefaultExtension);
+            var identifier = Guid.Parse(file.Substring(0, file.IndexOf('_')));
+            var versionName = string.Format("{0}_{1}_{2}x{3}", version.Format.DefaultExtension, quality, width, height);
+            var fileName = string.Format("{0}_{1}.{2}", identifier, version, version.Format.DefaultExtension);
 
             byte[] resized = null;
 
-            var response = new HttpResponseMessage();
             if (cache)
             {
-                resized = await this.streamer.Get(Guid.Parse(partition), row, version.Format.DefaultExtension);
-                if (null != resized)
-                {
-                    wasCached = true;
-
-                    response.Content = new StreamContent(new MemoryStream(resized));
-                }
+                resized = await this.streamer.GetBytes(fileName);
+                wasCached = null != resized;
             }
 
-            if (null == response.Content)
+            if (!wasCached)
             {
-                using (var input = await this.streamer.Get(file))
-                using (var ms = input as MemoryStream)
-                {
-                    resized = this.imaging.Resize(ms.ToArray(), version);
-                    response.Content = new StreamContent(new MemoryStream(resized));
-                }
+                var toResize = await this.streamer.GetBytes(file);
+                resized = this.imaging.Resize(toResize, version);
             }
 
+            var response = new HttpResponseMessage
+            {
+                Content = new StreamContent(new MemoryStream(resized)),
+            };
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(version.Format.MimeType);
 
             if (cache && !wasCached)
             {
-                //Store in Blob
-                var container = new Container(elements.Container, "UseDevelopmentStorage=true;");
-                await container.Save(fileName, resized, version.Format.MimeType);
-
-                //Store in Table
-                await table.InsertOrReplace(new ImageEntity
-                {
-                    PartitionKey = partition,
-                    RowKey = row,
-                    FileName = fileName,
-                    ContentType = version.Format.MimeType,
-                    FileSize = resized.LongLength,
-                    Width = width,
-                    Height = height,
-                    Quality = version.Format.Quality,
-                    RelativePath = string.Format("{0}/{1}", container.Name, fileName),
-                });
+                var store = new ImageStore();
+                await store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, width, height, quality);
             }
 
             return response;

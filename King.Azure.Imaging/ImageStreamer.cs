@@ -61,11 +61,15 @@
         /// Get File
         /// </summary>
         /// <param name="file">File</param>
-        /// <returns>Stream</returns>
-        public virtual async Task<byte[]> Get(Guid id, string format, string extension)
+        /// <returns>Byte[]</returns>
+        public virtual async Task<byte[]> GetBytes(string file)
         {
+            if (string.IsNullOrWhiteSpace(file))
+            {
+                throw new ArgumentException("file");
+            }
+
             byte[] bytes = null;
-            var file = string.Format("{0}_{1}.{2}", id, format, extension);
             
             var exists = await this.container.Exists(file);
             if (exists)

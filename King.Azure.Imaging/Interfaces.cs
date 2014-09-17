@@ -77,7 +77,7 @@
     {
         #region Methods
         Task<Stream> Get(string file);
-        Task<byte[]> Get(Guid id, string format, string extension);
+        Task<byte[]> GetBytes(string file);
         #endregion
 
         #region Properties
