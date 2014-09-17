@@ -20,19 +20,9 @@
         protected readonly IPreprocessor preprocessor = null;
 
         /// <summary>
-        /// Imaging
-        /// </summary>
-        protected readonly IImaging imaging = null;
-
-        /// <summary>
         /// Image Store
         /// </summary>
         protected readonly IDataStore store = null;
-
-        /// <summary>
-        /// Image Naming
-        /// </summary>
-        protected readonly INaming naming = null;
         #endregion
 
         #region Constructors
@@ -40,7 +30,7 @@
         /// Default Constructor
         /// </summary>
         public ImageApiController(string connectionString)
-            : this(connectionString, new Preprocessor(connectionString), new StorageElements(), new Naming())
+            : this(connectionString, new Preprocessor(connectionString), new StorageElements())
         {
 
         }
@@ -48,37 +38,27 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(string connectionString, IPreprocessor preprocessor, IStorageElements elements, INaming naming)
-            : this(preprocessor, new Imaging(), new DataStore(connectionString, elements), naming)
+        public ImageApiController(string connectionString, IPreprocessor preprocessor, IStorageElements elements)
+            : this(preprocessor, new DataStore(connectionString, elements))
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(IPreprocessor preprocessor, IImaging imaging, IDataStore store, INaming naming)
+        public ImageApiController(IPreprocessor preprocessor, IDataStore store)
         {
             if (null == preprocessor)
             {
                 throw new ArgumentException("preprocessor");
             }
-            if (null == imaging)
-            {
-                throw new ArgumentException("imaging");
-            }
             if (null == store)
             {
                 throw new ArgumentException("store");
             }
-            if (null == naming)
-            {
-                throw new ArgumentException("naming");
-            }
 
             this.preprocessor = preprocessor;
-            this.imaging = imaging;
             this.store = store;
-            this.naming = naming;
         }
         #endregion
 
@@ -102,9 +82,7 @@
             {
                 var bytes = await file.ReadAsByteArrayAsync();
 
-                await this.preprocessor.Process(bytes
-                    , file.Headers.ContentType.MediaType
-                    , file.Headers.ContentDisposition.FileName.Trim('\"'));
+                await this.preprocessor.Process(bytes, file.Headers.ContentType.MediaType, file.Headers.ContentDisposition.FileName.Trim('\"'));
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -145,8 +123,7 @@
         /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85
-            , bool cache = false)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
