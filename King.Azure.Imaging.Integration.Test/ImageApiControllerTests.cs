@@ -44,11 +44,9 @@
 
             var preProcessor = Substitute.For<IPreprocessor>();
             var streamer = new Streamer(this.container);
-            var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
-            var naming = Substitute.For<INaming>();
 
-            var api = new ImageApiController(preProcessor, imaging, store, naming);
+            var api = new ImageApiController(preProcessor, store);
             var data = await api.Get(file);
 
             Assert.IsNotNull(data);
@@ -67,20 +65,15 @@
 
             var preProcessor = Substitute.For<IPreprocessor>();
             var streamer = new Streamer(this.container);
-            var imaging = Substitute.For<IImaging>();
-            imaging.Get(Naming.DefaultExtension, 85).Returns(new JpegFormat());
             var store = Substitute.For<IDataStore>();
-            var naming = Substitute.For<INaming>();
 
-            var api = new ImageApiController(preProcessor, imaging, store, naming);
+            var api = new ImageApiController(preProcessor, store);
             var data = await api.Resize(file, 10);
 
             Assert.IsNotNull(data);
             var resized = await data.Content.ReadAsByteArrayAsync();
             Assert.IsTrue(bytes.LongLength > resized.LongLength);
             Assert.AreEqual("image/jpeg", data.Content.Headers.ContentType.MediaType);
-
-            imaging.Received().Get(Naming.DefaultExtension, 85);
         }
     }
 }
