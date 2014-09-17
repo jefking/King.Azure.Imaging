@@ -2,6 +2,7 @@
 {
     public class ImageData
     {
+        #region Properties
         public byte[] Raw
         {
             get;
@@ -12,5 +13,6 @@
             get;
             set;
         }
+        #endregion
     }
 }
