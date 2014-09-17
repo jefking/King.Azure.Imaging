@@ -20,7 +20,8 @@
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(imaging, container, table, new Dictionary<string, IImageVersion>());
+            var store = Substitute.For<IImageStore>();
+            new ImagingProcessor(imaging, container, store, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -28,8 +29,8 @@
         {
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
-            var table = Substitute.For<ITableStorage>();
-            Assert.IsNotNull(new ImagingProcessor(imaging, container, table, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
+            var store = Substitute.For<IImageStore>();
+            Assert.IsNotNull(new ImagingProcessor(imaging, container, store, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
         }
 
         [Test]
@@ -37,8 +38,8 @@
         public void ConstructorImagingNull()
         {
             var container = Substitute.For<IContainer>();
-            var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(null, container, table, new Dictionary<string, IImageVersion>());
+            var store = Substitute.For<IImageStore>();
+            new ImagingProcessor(null, container, store, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -46,13 +47,13 @@
         public void ConstructorContainerNull()
         {
             var imaging = Substitute.For<IImaging>();
-            var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(imaging, null, table, new Dictionary<string, IImageVersion>());
+            var store = Substitute.For<IImageStore>();
+            new ImagingProcessor(imaging, null, store, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorTableNull()
+        public void ConstructorStoreeNull()
         {
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
@@ -65,8 +66,8 @@
         {
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
-            var table = Substitute.For<ITableStorage>();
-            new ImagingProcessor(imaging, container, table, null);
+            var store = Substitute.For<IImageStore>();
+            new ImagingProcessor(imaging, container, store, null);
         }
 
         [Test]
@@ -92,18 +93,15 @@
             container.Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original)).Returns(Task.FromResult(bytes));
             container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
 
-            var table = Substitute.For<ITableStorage>();
-            table.InsertOrReplace(Arg.Any<ImageEntity>());
+            var store = Substitute.For<IImageStore>();
 
-            var ip = new ImagingProcessor(imaging, container, table, versions);
+            var ip = new ImagingProcessor(imaging, container, store, versions);
             var result = await ip.Process(data);
 
             Assert.IsTrue(result);
 
             container.Received().Get(string.Format(data.FileNameFormat, ImagePreprocessor.Original));
             container.Received().Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
-
-            table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }
     }
 }

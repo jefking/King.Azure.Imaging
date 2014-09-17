@@ -1,10 +1,5 @@
 ﻿namespace King.Azure.Imaging
 {
-    using King.Azure.Data;
-    using King.Azure.Imaging.Entities;
-    using King.Azure.Imaging.Models;
-    using Microsoft.WindowsAzure.Storage.Queue;
-    using Newtonsoft.Json;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
@@ -36,24 +31,9 @@
         public const string PathFormat = "{0}/{1}";
 
         /// <summary>
-        /// Blob Container
+        /// Image Store
         /// </summary>
-        protected readonly IContainer container = null;
-
-        /// <summary>
-        /// Table
-        /// </summary>
-        protected readonly ITableStorage table = null;
-
-        /// <summary>
-        /// Storage Queue
-        /// </summary>
-        protected readonly IStorageQueue queue = null;
-
-        /// <summary>
-        /// Imaging
-        /// </summary>
-        protected readonly IImaging imaging = null;
+        protected readonly IImageStore store = null;
         #endregion
 
         #region Constructors
@@ -62,44 +42,21 @@
         /// </summary>
         /// <param name="connectionString">Connection String</param>
         public ImagePreprocessor(string connectionString)
-            :this(connectionString, new StorageElements())
+            : this(new ImageStore(connectionString))
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImagePreprocessor(string connectionString, IStorageElements elements)
-            :this(new Imaging(), new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString))
+        public ImagePreprocessor(IImageStore store)
         {
-        }
-
-        /// <summary>
-        /// Mockable Constructor
-        /// </summary>
-        public ImagePreprocessor(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue)
-        {
-            if (null == imaging)
+            if (null == store)
             {
-                throw new ArgumentNullException("imaging");
-            }
-            if (null == container)
-            {
-                throw new ArgumentNullException("container");
-            }
-            if (null == table)
-            {
-                throw new ArgumentNullException("table");
-            }
-            if (null == queue)
-            {
-                throw new ArgumentNullException("queue");
+                throw new ArgumentNullException("store");
             }
 
-            this.imaging = imaging;
-            this.container = container;
-            this.table = table;
-            this.queue = queue;
+            this.store = store;
         }
         #endregion
 
@@ -130,8 +87,7 @@
             var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1) : ImagePreprocessor.DefaultExtension;
             var originalFileName = string.Format(FileNameFormat, id, Original, extension.ToLowerInvariant());
 
-            var store = new ImageStore();
-            await store.Save(originalFileName, content, Original, contentType, id, true, extension);
+            await this.store.Save(originalFileName, content, Original, contentType, id, true, extension);
         }
         #endregion
     }

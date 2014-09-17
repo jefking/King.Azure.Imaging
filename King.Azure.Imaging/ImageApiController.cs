@@ -29,6 +29,11 @@
         /// Imaging
         /// </summary>
         protected readonly IImaging imaging = null;
+
+        /// <summary>
+        /// Image Store
+        /// </summary>
+        protected readonly IImageStore store = null;
         #endregion
 
         #region Constructors
@@ -45,14 +50,14 @@
         /// Mockable Constructor
         /// </summary>
         public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements)
-            : this(preprocessor, new ImageStreamer(new Container(elements.Container, connectionString)), new Imaging())
+            : this(preprocessor, new ImageStreamer(new Container(elements.Container, connectionString)), new Imaging(), new ImageStore(connectionString, elements))
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(IImagePreprocessor preprocessor, IImageStreamer streamer, IImaging imaging)
+        public ImageApiController(IImagePreprocessor preprocessor, IImageStreamer streamer, IImaging imaging, IImageStore store)
         {
             if (null == preprocessor)
             {
@@ -66,10 +71,15 @@
             {
                 throw new ArgumentException("imaging");
             }
+            if (null == store)
+            {
+                throw new ArgumentException("store");
+            }
 
             this.preprocessor = preprocessor;
             this.streamer = streamer;
             this.imaging = imaging;
+            this.store = store;
         }
         #endregion
 
@@ -201,8 +211,7 @@
 
             if (cache && !wasCached)
             {
-                var store = new ImageStore();
-                await store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, false, null, quality, width, height);
+                await this.store.Save(fileName, resized, versionName, version.Format.MimeType, identifier, false, null, quality, width, height);
             }
 
             return response;

@@ -83,7 +83,7 @@
             tasks.Add(new InitializeStorageTask(queue));
 
             //Image Processor
-            var processor = new ImagingProcessor(new Imaging(), container, table, this.versions.Images);
+            var processor = new ImagingProcessor(new Imaging(), container, new ImageStore(connectionString), this.versions.Images);
             //Queue Poller
             var poller = new StorageQueuePoller<ImageQueued>(queue);
             //Image Processing Task

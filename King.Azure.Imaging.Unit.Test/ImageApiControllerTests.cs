@@ -50,7 +50,8 @@
         {
             var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
-            new ImageApiController(null, streamer, imaging);
+            var store = Substitute.For<IImageStore>();
+            new ImageApiController(null, streamer, imaging, store);
         }
 
         [Test]
@@ -58,8 +59,9 @@
         public void ConstructorImageStreamerNull()
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
+            var store = Substitute.For<IImageStore>();
             var imaging = Substitute.For<IImaging>();
-            new ImageApiController(preprocessor, null, imaging);
+            new ImageApiController(preprocessor, null, imaging, store);
         }
 
         [Test]
@@ -68,7 +70,18 @@
         {
             var preprocessor = Substitute.For<IImagePreprocessor>();
             var streamer = Substitute.For<IImageStreamer>();
-            new ImageApiController(preprocessor, streamer, null);
+            var store = Substitute.For<IImageStore>();
+            new ImageApiController(preprocessor, streamer, null, store);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ConstructorStoreNull()
+        {
+            var preprocessor = Substitute.For<IImagePreprocessor>();
+            var streamer = Substitute.For<IImageStreamer>();
+            var imaging = Substitute.For<IImaging>();
+            new ImageApiController(preprocessor, streamer, imaging, null);
         }
 
         [Test]
@@ -166,8 +179,9 @@
 
             var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
+            var store = Substitute.For<IImageStore>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging)
+            var api = new ImageApiController(preProcessor, streamer, imaging, store)
             {
                 Request = new HttpRequestMessage(),
             };
@@ -193,8 +207,9 @@
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
+            var store = Substitute.For<IImageStore>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging)
+            var api = new ImageApiController(preProcessor, streamer, imaging, store)
             {
                 Request = new HttpRequestMessage(),
             };
@@ -212,8 +227,9 @@
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = Substitute.For<IImageStreamer>();
             var imaging = Substitute.For<IImaging>();
+            var store = Substitute.For<IImageStore>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging)
+            var api = new ImageApiController(preProcessor, streamer, imaging, store)
             {
                 Request = new HttpRequestMessage(),
             };

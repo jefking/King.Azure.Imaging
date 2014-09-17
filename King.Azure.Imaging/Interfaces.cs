@@ -157,4 +157,11 @@
         #endregion
     }
     #endregion
+
+    #region IImageStore
+    public interface IImageStore
+    {
+        Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool toQueue = false, string extension = null, int quality = 100, int width = 0, int height = 0);
+    }
+    #endregion
 }

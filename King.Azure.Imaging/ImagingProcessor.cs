@@ -24,9 +24,9 @@
         protected readonly IContainer container = null;
 
         /// <summary>
-        /// Table
+        /// Image Store
         /// </summary>
-        protected readonly ITableStorage table = null;
+        protected readonly IImageStore store = null;
 
         /// <summary>
         /// Imaging
@@ -38,7 +38,7 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImagingProcessor(IImaging imaging, IContainer container, ITableStorage table, IDictionary<string, IImageVersion> versions)
+        public ImagingProcessor(IImaging imaging, IContainer container, IImageStore store, IDictionary<string, IImageVersion> versions)
         {
             if (null == imaging)
             {
@@ -48,9 +48,9 @@
             {
                 throw new ArgumentNullException("container");
             }
-            if (null == table)
+            if (null == store)
             {
-                throw new ArgumentNullException("table");
+                throw new ArgumentNullException("store");
             }
             if (null == versions)
             {
@@ -59,7 +59,7 @@
 
             this.imaging = imaging;
             this.container = container;
-            this.table = table;
+            this.store = store;
             this.versions = versions;
         }
         #endregion
@@ -82,8 +82,7 @@
 
                 var resized = this.imaging.Resize(bytes, version);
 
-                var store = new ImageStore();
-                await store.Save(filename, resized, key, version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
+                await this.store.Save(filename, resized, key, version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
             }
 
             return true;

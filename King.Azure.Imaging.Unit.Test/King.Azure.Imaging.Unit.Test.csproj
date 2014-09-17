@@ -111,6 +111,7 @@
     <Compile Include="Entities\ImageEntityTests.cs" />
     <Compile Include="ImageApiControllerTests.cs" />
     <Compile Include="ImagePreprocessorTests.cs" />
+    <Compile Include="ImageStoreTests.cs" />
     <Compile Include="ImageStreamerTests.cs" />
     <Compile Include="ImageTaskFactoryTests.cs" />
     <Compile Include="ImagingProcessorTests.cs" />

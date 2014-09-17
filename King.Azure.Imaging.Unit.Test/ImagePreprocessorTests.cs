@@ -54,55 +54,7 @@
         [ExpectedException(typeof(ArgumentException))]
         public void ConstructorConnectionStringNull()
         {
-            new ImagePreprocessor(null);
-        }
-
-        [Test]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void ConstructorElementsNull()
-        {
-            var connectionString = "UseDevelopmentStorage=true";
-            new ImagePreprocessor(connectionString, null);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorImagingNull()
-        {
-            var container = Substitute.For<IContainer>();
-            var table = Substitute.For<ITableStorage>();
-            var queue = Substitute.For<IStorageQueue>();
-            new ImagePreprocessor(null, container, table, queue);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorContainerNull()
-        {
-            var imaging = Substitute.For<IImaging>();
-            var table = Substitute.For<ITableStorage>();
-            var queue = Substitute.For<IStorageQueue>();
-            new ImagePreprocessor(imaging, null, table, queue);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorTableNull()
-        {
-            var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            var queue = Substitute.For<IStorageQueue>();
-            new ImagePreprocessor(imaging, container, null, queue);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorQueueNull()
-        {
-            var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            var table = Substitute.For<ITableStorage>();
-            new ImagePreprocessor(imaging, container, table, null);
+            new ImagePreprocessor((string)null);
         }
 
         [Test]
@@ -110,12 +62,8 @@
         public async Task ProcessContentNull()
         {
             var connectionString = "UseDevelopmentStorage=true";
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
-            elements.Table.Returns(Guid.NewGuid().ToString());
-            elements.Queue.Returns(Guid.NewGuid().ToString());
 
-            var ip = new ImagePreprocessor(connectionString, elements);
+            var ip = new ImagePreprocessor(connectionString);
             await ip.Process(null, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
         }
 
@@ -127,12 +75,8 @@
             var bytes = new byte[64];
             random.NextBytes(bytes);
             var connectionString = "UseDevelopmentStorage=true";
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
-            elements.Table.Returns(Guid.NewGuid().ToString());
-            elements.Queue.Returns(Guid.NewGuid().ToString());
 
-            var ip = new ImagePreprocessor(connectionString, elements);
+            var ip = new ImagePreprocessor(connectionString);
             await ip.Process(bytes, null, Guid.NewGuid().ToString());
         }
 
@@ -144,12 +88,8 @@
             var bytes = new byte[64];
             random.NextBytes(bytes);
             var connectionString = "UseDevelopmentStorage=true";
-            var elements = Substitute.For<IStorageElements>();
-            elements.Container.Returns(Guid.NewGuid().ToString());
-            elements.Table.Returns(Guid.NewGuid().ToString());
-            elements.Queue.Returns(Guid.NewGuid().ToString());
 
-            var ip = new ImagePreprocessor(connectionString, elements);
+            var ip = new ImagePreprocessor(connectionString);
             await ip.Process(bytes, Guid.NewGuid().ToString(), null);
         }
 
@@ -160,21 +100,14 @@
         {
             var bytes = image;
             var contentType = Guid.NewGuid().ToString();
-            var fileName = string.Format("{0}.jpg", Guid.NewGuid());
-            var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            container.Save(Arg.Any<string>(), bytes, contentType);
-            var table = Substitute.For<ITableStorage>();
-            table.InsertOrReplace(Arg.Any<ImageEntity>());
-            var queue = Substitute.For<IStorageQueue>();
-            queue.Save(Arg.Any<CloudQueueMessage>());
+            var fileName = string.Format("{0}.png", Guid.NewGuid());
+            var store = Substitute.For<IImageStore>();
+            store.Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "png");
 
-            var ip = new ImagePreprocessor(imaging, container, table, queue);
+            var ip = new ImagePreprocessor(store);
             await ip.Process(bytes, contentType, fileName);
 
-            container.Received().Save(Arg.Any<string>(), bytes, contentType);
-            table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
-            queue.Received().Save(Arg.Any<CloudQueueMessage>());
+            store.Received().Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "png");
         }
 
         [Test]
@@ -183,20 +116,13 @@
             var bytes = image;
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();
-            var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            container.Save(Arg.Any<string>(), bytes, contentType);
-            var table = Substitute.For<ITableStorage>();
-            table.InsertOrReplace(Arg.Any<ImageEntity>());
-            var queue = Substitute.For<IStorageQueue>();
-            queue.Save(Arg.Any<CloudQueueMessage>());
+            var store = Substitute.For<IImageStore>();
+            store.Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "jpg");
 
-            var ip = new ImagePreprocessor(imaging, container, table, queue);
+            var ip = new ImagePreprocessor(store);
             await ip.Process(bytes, contentType, fileName);
 
-            container.Received().Save(Arg.Any<string>(), bytes, contentType);
-            table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
-            queue.Received().Save(Arg.Any<CloudQueueMessage>());
+            store.Received().Save(Arg.Any<string>(), bytes, ImagePreprocessor.Original, contentType, Arg.Any<Guid>(), true, "jpg");
         }
     }
 }

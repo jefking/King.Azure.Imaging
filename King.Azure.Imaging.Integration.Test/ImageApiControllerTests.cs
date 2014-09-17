@@ -45,8 +45,9 @@
             var preProcessor = Substitute.For<IImagePreprocessor>();
             var streamer = new ImageStreamer(this.container);
             var imaging = Substitute.For<IImaging>();
+            var store = Substitute.For<IImageStore>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging);
+            var api = new ImageApiController(preProcessor, streamer, imaging, store);
             var data = await api.Get(file);
 
             Assert.IsNotNull(data);
@@ -67,8 +68,9 @@
             var streamer = new ImageStreamer(this.container);
             var imaging = Substitute.For<IImaging>();
             imaging.Get(ImagePreprocessor.DefaultExtension, 85).Returns(new JpegFormat());
+            var store = Substitute.For<IImageStore>();
 
-            var api = new ImageApiController(preProcessor, streamer, imaging);
+            var api = new ImageApiController(preProcessor, streamer, imaging, store);
             var data = await api.Resize(file, 10);
 
             Assert.IsNotNull(data);
