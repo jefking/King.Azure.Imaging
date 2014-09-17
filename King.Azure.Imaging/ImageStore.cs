@@ -82,6 +82,16 @@
         }
         #endregion
 
+        #region Properties
+        public IImageStreamer Streamer
+        {
+            get
+            {
+                return new ImageStreamer(this.container);
+            }
+        }
+        #endregion
+
         #region Methods
         public async Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, int quality = 100, int width = 0, int height = 0)
         {
@@ -115,11 +125,12 @@
 
             if (queueForResize)
             {
+                var naming = new ImageNaming();
                 //Queue for Processing
                 var json = JsonConvert.SerializeObject(new ImageQueued
                 {
                     Identifier = identifier,
-                    FileNameFormat = string.Format(ImagePreprocessor.FileNameFormat, identifier, "{0}", "{1}"),
+                    FileNameFormat = naming.FileName(identifier, "{0}", "{1}"),
                     OriginalExtension = extension,
                 });
                 await this.queue.Save(new CloudQueueMessage(json));

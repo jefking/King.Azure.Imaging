@@ -153,14 +153,27 @@
         /// </summary>
         /// <param name="extension">Extension</param>
         /// <returns>Image Format</returns>
-        ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension, int quality = 100);
+        ISupportedImageFormat Get(string extension = ImageNaming.DefaultExtension, int quality = 100);
         #endregion
     }
     #endregion
 
     #region IImageStore
+    /// <summary>
+    /// Image Store
+    /// </summary>
     public interface IImageStore
     {
+        #region Properties
+        /// <summary>
+        /// Image Streamer
+        /// </summary>
+        IImageStreamer Streamer
+        {
+            get;
+        }
+        #endregion
+
         #region Methods
         /// <summary>
         /// Save to data stores
@@ -177,6 +190,18 @@
         /// <param name="height">Height</param>
         /// <returns></returns>
         Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, int quality = 100, int width = 0, int height = 0);
+        #endregion
+    }
+    #endregion
+
+    #region IImageNaming
+    public interface IImageNaming
+    {
+        #region Methods
+        string DynamicVersion(string extension, int quality, int width, int height);
+        string FileName(Guid identifier, string version, string extension);
+        Guid FromFileName(string file);
+        string Extension(string file);
         #endregion
     }
     #endregion

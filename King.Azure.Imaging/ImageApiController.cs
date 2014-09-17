@@ -21,11 +21,6 @@
         protected readonly IImagePreprocessor preprocessor = null;
 
         /// <summary>
-        /// Streamer
-        /// </summary>
-        protected readonly IImageStreamer streamer = null;
-
-        /// <summary>
         /// Imaging
         /// </summary>
         protected readonly IImaging imaging = null;
@@ -50,22 +45,18 @@
         /// Mockable Constructor
         /// </summary>
         public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements)
-            : this(preprocessor, new ImageStreamer(new Container(elements.Container, connectionString)), new Imaging(), new ImageStore(connectionString, elements))
+            : this(preprocessor, new Imaging(), new ImageStore(connectionString, elements))
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(IImagePreprocessor preprocessor, IImageStreamer streamer, IImaging imaging, IImageStore store)
+        public ImageApiController(IImagePreprocessor preprocessor, IImaging imaging, IImageStore store)
         {
             if (null == preprocessor)
             {
                 throw new ArgumentException("preprocessor");
-            }
-            if (null == streamer)
-            {
-                throw new ArgumentException("streamer");
             }
             if (null == imaging)
             {
@@ -77,7 +68,6 @@
             }
 
             this.preprocessor = preprocessor;
-            this.streamer = streamer;
             this.imaging = imaging;
             this.store = store;
         }
@@ -127,13 +117,14 @@
                 };
             }
 
-            var stream = await this.streamer.Get(file);
+            var streamer = this.store.Streamer;
+            var stream = await streamer.Get(file);
             var response = new HttpResponseMessage
             {
                 Content = new StreamContent(stream),
             };
 
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(this.streamer.ContentType);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.ContentType);
             return response;
         }
 
@@ -145,7 +136,7 @@
         /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = ImagePreprocessor.DefaultExtension, int quality = 85, bool cache = false)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = ImageNaming.DefaultExtension, int quality = 85, bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -179,28 +170,30 @@
             var wasCached = false;
             var imgFormat = this.imaging.Get(format, quality);
 
-            var identifier = Guid.Parse(file.Substring(0, file.IndexOf('_')));
-            var versionName = string.Format("{0}_{1}_{2}x{3}", imgFormat.DefaultExtension, quality, width, height);
-            var fileName = string.Format("{0}_{1}.{2}", identifier, versionName, imgFormat.DefaultExtension);
+            var naming = new ImageNaming();
+            var identifier = naming.FromFileName(file);
+            var versionName = naming.DynamicVersion(imgFormat.DefaultExtension, quality, width, height);
+            var cachedFileName = naming.FileName(identifier, versionName, imgFormat.DefaultExtension);
 
             byte[] resized = null;
+            var streamer = this.store.Streamer;
 
             if (cache)
             {
-                resized = await this.streamer.GetBytes(fileName);
+                resized = await streamer.GetBytes(cachedFileName);
                 wasCached = null != resized;
             }
 
             if (!wasCached)
             {
-                var version = new ImageVersion()
+                var version = new ImageVersion
                 {
                     Height = height,
                     Width = width,
                     Format = imgFormat,
                 };
 
-                var toResize = await this.streamer.GetBytes(file);
+                var toResize = await streamer.GetBytes(file);
                 resized = this.imaging.Resize(toResize, version);
             }
 
@@ -212,7 +205,7 @@
 
             if (cache && !wasCached)
             {
-                await this.store.Save(fileName, resized, versionName, imgFormat.MimeType, identifier, false, null, quality);
+                await this.store.Save(cachedFileName, resized, versionName, imgFormat.MimeType, identifier, false, null, quality);
             }
 
             return response;

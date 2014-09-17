@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Entities\ImageEntity.cs" />
     <Compile Include="ImageApiController.cs" />
+    <Compile Include="ImageNaming.cs" />
     <Compile Include="ImagePreprocessor.cs" />
     <Compile Include="ImageStore.cs" />
     <Compile Include="ImageStreamer.cs" />

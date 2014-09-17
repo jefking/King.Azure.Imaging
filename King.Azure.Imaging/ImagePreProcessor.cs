@@ -11,26 +11,6 @@
     {
         #region Members
         /// <summary>
-        /// Original
-        /// </summary>
-        public const string Original = "original";
-
-        /// <summary>
-        /// Default Extension
-        /// </summary>
-        public const string DefaultExtension = "jpeg";
-
-        /// <summary>
-        /// File Name Format
-        /// </summary>
-        public const string FileNameFormat = "{0}_{1}.{2}";
-
-        /// <summary>
-        /// Path Format
-        /// </summary>
-        public const string PathFormat = "{0}/{1}";
-
-        /// <summary>
         /// Image Store
         /// </summary>
         protected readonly IImageStore store = null;
@@ -83,11 +63,12 @@
                 throw new ArgumentException("fileName");
             }
 
+            var naming = new ImageNaming();
             var id = Guid.NewGuid();
-            var extension = fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1) : ImagePreprocessor.DefaultExtension;
-            var originalFileName = string.Format(FileNameFormat, id, Original, extension);
+            var extension = naming.Extension(fileName);
+            var originalFileName = naming.FileName(id, ImageNaming.Original, extension);
 
-            await this.store.Save(originalFileName, content, Original, contentType, id, true, extension);
+            await this.store.Save(originalFileName, content, ImageNaming.Original, contentType, id, true, extension);
         }
         #endregion
     }

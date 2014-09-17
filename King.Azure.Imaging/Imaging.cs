@@ -85,7 +85,7 @@
         /// <param name="extension">Extension</param>
         /// <param name="quality">Quality Settings</param>
         /// <returns>Image Format</returns>
-        public virtual ISupportedImageFormat Get(string extension = ImagePreprocessor.DefaultExtension, int quality = 100)
+        public virtual ISupportedImageFormat Get(string extension = ImageNaming.DefaultExtension, int quality = 100)
         {
             quality = quality > 0 ? quality : 100;
             if (string.IsNullOrWhiteSpace(extension))

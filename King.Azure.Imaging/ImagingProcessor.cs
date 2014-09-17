@@ -71,7 +71,7 @@
         /// <returns>Successful</returns>
         public virtual async Task<bool> Process(ImageQueued data)
         {
-            var original = string.Format(data.FileNameFormat, ImagePreprocessor.Original, data.OriginalExtension).ToLowerInvariant();
+            var original = string.Format(data.FileNameFormat, ImageNaming.Original, data.OriginalExtension).ToLowerInvariant();
 
             var bytes = await container.Get(original);
             foreach (var key in this.versions.Keys)
