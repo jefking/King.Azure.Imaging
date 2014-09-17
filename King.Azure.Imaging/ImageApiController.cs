@@ -18,7 +18,7 @@
         /// <summary>
         /// Image Preprocessor
         /// </summary>
-        protected readonly IImagePreprocessor preprocessor = null;
+        protected readonly IPreprocessor preprocessor = null;
 
         /// <summary>
         /// Imaging
@@ -28,12 +28,12 @@
         /// <summary>
         /// Image Store
         /// </summary>
-        protected readonly IImageStore store = null;
+        protected readonly IDataStore store = null;
 
         /// <summary>
         /// Image Naming
         /// </summary>
-        protected readonly IImageNaming naming = null;
+        protected readonly INaming naming = null;
         #endregion
 
         #region Constructors
@@ -41,7 +41,7 @@
         /// Default Constructor
         /// </summary>
         public ImageApiController(string connectionString)
-            : this(connectionString, new ImagePreprocessor(connectionString), new StorageElements(), new ImageNaming())
+            : this(connectionString, new Preprocessor(connectionString), new StorageElements(), new Naming())
         {
 
         }
@@ -49,15 +49,15 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements, IImageNaming naming)
-            : this(preprocessor, new Imaging(), new ImageStore(connectionString, elements), naming)
+        public ImageApiController(string connectionString, IPreprocessor preprocessor, IStorageElements elements, INaming naming)
+            : this(preprocessor, new Imaging(), new DataStore(connectionString, elements), naming)
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(IImagePreprocessor preprocessor, IImaging imaging, IImageStore store, IImageNaming naming)
+        public ImageApiController(IPreprocessor preprocessor, IImaging imaging, IDataStore store, INaming naming)
         {
             if (null == preprocessor)
             {
@@ -146,7 +146,7 @@
         /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = ImageNaming.DefaultExtension, int quality = 85, bool cache = false)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {

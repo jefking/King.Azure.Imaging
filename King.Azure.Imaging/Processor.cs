@@ -9,7 +9,7 @@
     /// <summary>
     /// Imaging Task
     /// </summary>
-    public class ImagingProcessor : IProcessor<ImageQueued>
+    public class Processor : IProcessor<ImageQueued>
     {
         #region Members
         /// <summary>
@@ -18,14 +18,9 @@
         protected readonly IDictionary<string, IImageVersion> versions = null;
 
         /// <summary>
-        /// Container
-        /// </summary>
-        protected readonly IContainer container = null;
-
-        /// <summary>
         /// Image Store
         /// </summary>
-        protected readonly IImageStore store = null;
+        protected readonly IDataStore store = null;
 
         /// <summary>
         /// Imaging
@@ -37,15 +32,11 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImagingProcessor(IImaging imaging, IContainer container, IImageStore store, IDictionary<string, IImageVersion> versions)
+        public Processor(IImaging imaging, IDataStore store, IDictionary<string, IImageVersion> versions)
         {
             if (null == imaging)
             {
                 throw new ArgumentNullException("imaging");
-            }
-            if (null == container)
-            {
-                throw new ArgumentNullException("container");
             }
             if (null == store)
             {
@@ -57,7 +48,6 @@
             }
 
             this.imaging = imaging;
-            this.container = container;
             this.store = store;
             this.versions = versions;
         }
@@ -71,9 +61,10 @@
         /// <returns>Successful</returns>
         public virtual async Task<bool> Process(ImageQueued data)
         {
-            var original = string.Format(data.FileNameFormat, ImageNaming.Original, data.OriginalExtension).ToLowerInvariant();
+            var original = string.Format(data.FileNameFormat, Naming.Original, data.OriginalExtension).ToLowerInvariant();
 
-            var bytes = await container.Get(original);
+            var streamer = this.store.Streamer;
+            var bytes = await streamer.GetBytes(original);
             foreach (var key in this.versions.Keys)
             {
                 var version = this.versions[key];

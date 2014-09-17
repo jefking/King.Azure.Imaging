@@ -12,43 +12,31 @@
     using System.Threading.Tasks;
 
     [TestFixture]
-    public class ImagingProcessorTests
+    public class ProcessorTests
     {
         [Test]
         public void Constructor()
         {
             var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
-            var store = Substitute.For<IImageStore>();
-            new ImagingProcessor(imaging, container, store, new Dictionary<string, IImageVersion>());
+            var store = Substitute.For<IDataStore>();
+            new Processor(imaging, store, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
         public void IsIProcessor()
         {
             var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            var store = Substitute.For<IImageStore>();
-            Assert.IsNotNull(new ImagingProcessor(imaging, container, store, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
+            var store = Substitute.For<IDataStore>();
+            Assert.IsNotNull(new Processor(imaging, store, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorImagingNull()
         {
-            var container = Substitute.For<IContainer>();
-            var store = Substitute.For<IImageStore>();
-            new ImagingProcessor(null, container, store, new Dictionary<string, IImageVersion>());
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorContainerNull()
-        {
-            var imaging = Substitute.For<IImaging>();
-            var store = Substitute.For<IImageStore>();
-            new ImagingProcessor(imaging, null, store, new Dictionary<string, IImageVersion>());
+            var store = Substitute.For<IDataStore>();
+            new Processor(null, store, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -56,8 +44,7 @@
         public void ConstructorStoreeNull()
         {
             var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            new ImagingProcessor(imaging, container, null, new Dictionary<string, IImageVersion>());
+            new Processor(imaging, null, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -65,9 +52,8 @@
         public void ConstructorVersionsNull()
         {
             var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            var store = Substitute.For<IImageStore>();
-            new ImagingProcessor(imaging, container, store, null);
+            var store = Substitute.For<IDataStore>();
+            new Processor(imaging, store, null);
         }
 
         [Test]
@@ -90,17 +76,17 @@
             versions.Add("temp", version);
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
-            container.Get(string.Format(data.FileNameFormat, ImageNaming.Original)).Returns(Task.FromResult(bytes));
+            container.Get(string.Format(data.FileNameFormat, Naming.Original)).Returns(Task.FromResult(bytes));
             container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
 
-            var store = Substitute.For<IImageStore>();
+            var store = Substitute.For<IDataStore>();
 
-            var ip = new ImagingProcessor(imaging, container, store, versions);
+            var ip = new Processor(imaging, store, versions);
             var result = await ip.Process(data);
 
             Assert.IsTrue(result);
 
-            container.Received().Get(string.Format(data.FileNameFormat, ImageNaming.Original));
+            container.Received().Get(string.Format(data.FileNameFormat, Naming.Original));
             container.Received().Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
         }
     }

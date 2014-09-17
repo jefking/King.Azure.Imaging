@@ -26,21 +26,21 @@
                 Width = 100,
                 Format = new GifFormat { Quality = 50 },
             };
-            versions.Add("Thumb", thumb);
+            versions.Add("thumb", thumb);
 
             var medium = new ImageVersion
             {
                 Width = 640,
                 Format = new JpegFormat { Quality = 70 },
             };
-            versions.Add("Medium", medium);
+            versions.Add("medium", medium);
 
             var large = new ImageVersion
             {
                 Width = 1080,
                 Format = new JpegFormat { Quality = 85 },
             };
-            versions.Add("Large", large);
+            versions.Add("large", large);
         }
         #endregion
 

@@ -7,18 +7,18 @@
     /// <summary>
     /// Image Preprocessor
     /// </summary>
-    public class ImagePreprocessor : IImagePreprocessor
+    public class Preprocessor : IPreprocessor
     {
         #region Members
         /// <summary>
         /// Image Store
         /// </summary>
-        protected readonly IImageStore store = null;
+        protected readonly IDataStore store = null;
 
         /// <summary>
         /// Image Naming
         /// </summary>
-        protected readonly IImageNaming naming = null;
+        protected readonly INaming naming = null;
         #endregion
 
         #region Constructors
@@ -26,15 +26,15 @@
         /// Constructor
         /// </summary>
         /// <param name="connectionString">Connection String</param>
-        public ImagePreprocessor(string connectionString)
-            : this(new ImageStore(connectionString), new ImageNaming())
+        public Preprocessor(string connectionString)
+            : this(new DataStore(connectionString), new Naming())
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImagePreprocessor(IImageStore store, IImageNaming naming)
+        public Preprocessor(IDataStore store, INaming naming)
         {
             if (null == store)
             {
@@ -75,9 +75,9 @@
 
             var id = Guid.NewGuid();
             var extension = this.naming.Extension(fileName);
-            var originalFileName = this.naming.FileName(id, ImageNaming.Original, extension);
+            var originalFileName = this.naming.FileName(id, Naming.Original, extension);
 
-            await this.store.Save(originalFileName, content, ImageNaming.Original, contentType, id, true, extension);
+            await this.store.Save(originalFileName, content, Naming.Original, contentType, id, true, extension);
         }
         #endregion
     }

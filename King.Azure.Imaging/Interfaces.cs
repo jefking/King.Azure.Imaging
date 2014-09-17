@@ -7,11 +7,11 @@
     using System.IO;
     using System.Threading.Tasks;
 
-    #region IImagePreprocessor
+    #region IPreprocessor
     /// <summary>
     /// Image Preprocessor Interface
     /// </summary>
-    public interface IImagePreprocessor
+    public interface IPreprocessor
     {
         #region Methods
         /// <summary>
@@ -72,8 +72,8 @@
     }
     #endregion
 
-    #region IImageStreamer
-    public interface IImageStreamer
+    #region IStreamer
+    public interface IStreamer
     {
         #region Methods
         Task<Stream> Get(string file);
@@ -153,7 +153,7 @@
         /// </summary>
         /// <param name="extension">Extension</param>
         /// <returns>Image Format</returns>
-        ISupportedImageFormat Get(string extension = ImageNaming.DefaultExtension, int quality = 100);
+        ISupportedImageFormat Get(string extension = Naming.DefaultExtension, int quality = 100);
         #endregion
     }
     #endregion
@@ -162,13 +162,13 @@
     /// <summary>
     /// Image Store
     /// </summary>
-    public interface IImageStore
+    public interface IDataStore
     {
         #region Properties
         /// <summary>
         /// Image Streamer
         /// </summary>
-        IImageStreamer Streamer
+        IStreamer Streamer
         {
             get;
         }
@@ -194,8 +194,8 @@
     }
     #endregion
 
-    #region IImageNaming
-    public interface IImageNaming
+    #region INaming
+    public interface INaming
     {
         #region Methods
         string DynamicVersion(string extension, int quality, int width, int height);

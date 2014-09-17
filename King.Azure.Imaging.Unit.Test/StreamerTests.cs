@@ -7,20 +7,20 @@
     using System.Threading.Tasks;
 
     [TestFixture]
-    public class ImageStreamerTests
+    public class StreamerTests
     {
         [Test]
         public void Constructor()
         {
             var container = Substitute.For<IContainer>();
-            new ImageStreamer(container);
+            new Streamer(container);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorContainerNull()
         {
-            new ImageStreamer(null);
+            new Streamer(null);
         }
 
         [Test]
@@ -28,7 +28,7 @@
         public async Task GetFileNull()
         {
             var container = Substitute.For<IContainer>();
-            var istreamer =new ImageStreamer(container);
+            var istreamer =new Streamer(container);
             await istreamer.Get(null);
         }
     }

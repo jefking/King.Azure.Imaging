@@ -8,7 +8,7 @@
     /// <summary>
     /// Image Streamer
     /// </summary>
-    public class ImageStreamer : IImageStreamer
+    public class Streamer : IStreamer
     {
         #region Members
         /// <summary>
@@ -22,7 +22,7 @@
         /// Constructor
         /// </summary>
         /// <param name="container">Container</param>
-        public ImageStreamer(IContainer container)
+        public Streamer(IContainer container)
         {
             if (null == container)
             {
