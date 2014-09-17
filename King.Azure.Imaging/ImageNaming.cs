@@ -52,6 +52,10 @@
         {
             return file.Contains('.') ? file.Substring(file.LastIndexOf('.') + 1).ToLowerInvariant() : DefaultExtension;
         }
+        public string RelativePath(string folder, string file)
+        {
+            return string.Format(PathFormat, folder, file).ToLowerInvariant();
+        }
         #endregion
     }
 }

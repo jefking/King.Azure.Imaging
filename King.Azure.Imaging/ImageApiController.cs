@@ -29,6 +29,11 @@
         /// Image Store
         /// </summary>
         protected readonly IImageStore store = null;
+
+        /// <summary>
+        /// Image Naming
+        /// </summary>
+        protected readonly IImageNaming naming = null;
         #endregion
 
         #region Constructors
@@ -36,7 +41,7 @@
         /// Default Constructor
         /// </summary>
         public ImageApiController(string connectionString)
-            : this(connectionString, new ImagePreprocessor(connectionString), new StorageElements())
+            : this(connectionString, new ImagePreprocessor(connectionString), new StorageElements(), new ImageNaming())
         {
 
         }
@@ -44,15 +49,15 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements)
-            : this(preprocessor, new Imaging(), new ImageStore(connectionString, elements))
+        public ImageApiController(string connectionString, IImagePreprocessor preprocessor, IStorageElements elements, IImageNaming naming)
+            : this(preprocessor, new Imaging(), new ImageStore(connectionString, elements), naming)
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(IImagePreprocessor preprocessor, IImaging imaging, IImageStore store)
+        public ImageApiController(IImagePreprocessor preprocessor, IImaging imaging, IImageStore store, IImageNaming naming)
         {
             if (null == preprocessor)
             {
@@ -66,10 +71,15 @@
             {
                 throw new ArgumentException("store");
             }
+            if (null == naming)
+            {
+                throw new ArgumentException("naming");
+            }
 
             this.preprocessor = preprocessor;
             this.imaging = imaging;
             this.store = store;
+            this.naming = naming;
         }
         #endregion
 
@@ -170,10 +180,9 @@
             var wasCached = false;
             var imgFormat = this.imaging.Get(format, quality);
 
-            var naming = new ImageNaming();
-            var identifier = naming.FromFileName(file);
-            var versionName = naming.DynamicVersion(imgFormat.DefaultExtension, quality, width, height);
-            var cachedFileName = naming.FileName(identifier, versionName, imgFormat.DefaultExtension);
+            var identifier = this.naming.FromFileName(file);
+            var versionName = this.naming.DynamicVersion(imgFormat.DefaultExtension, quality, width, height);
+            var cachedFileName = this.naming.FileName(identifier, versionName, imgFormat.DefaultExtension);
 
             byte[] resized = null;
             var streamer = this.store.Streamer;

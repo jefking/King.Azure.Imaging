@@ -33,6 +33,11 @@
         /// Imaging
         /// </summary>
         protected readonly IImaging imaging = null;
+
+        /// <summary>
+        /// Image Naming
+        /// </summary>
+        protected readonly IImageNaming naming = null;
         #endregion
 
         #region Constructors
@@ -49,14 +54,14 @@
         /// Mockable Constructor
         /// </summary>
         public ImageStore(string connectionString, IStorageElements elements)
-            : this(new Imaging(), new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString))
+            : this(new Imaging(), new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString), new ImageNaming())
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageStore(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue)
+        public ImageStore(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue, IImageNaming naming)
         {
             if (null == imaging)
             {
@@ -74,11 +79,16 @@
             {
                 throw new ArgumentNullException("queue");
             }
+            if (null == naming)
+            {
+                throw new ArgumentNullException("naming");
+            }
 
             this.imaging = imaging;
             this.container = container;
             this.table = table;
             this.queue = queue;
+            this.naming = naming;
         }
         #endregion
 
@@ -120,17 +130,16 @@
                 Width = width,
                 Height = height,
                 Quality = quality,
-                RelativePath = string.Format("{0}/{1}", container.Name, fileName),
+                RelativePath = this.naming.RelativePath(container.Name, fileName),
             });
 
             if (queueForResize)
             {
-                var naming = new ImageNaming();
                 //Queue for Processing
                 var json = JsonConvert.SerializeObject(new ImageQueued
                 {
                     Identifier = identifier,
-                    FileNameFormat = naming.FileName(identifier, "{0}", "{1}"),
+                    FileNameFormat = this.naming.FileName(identifier, "{0}", "{1}"),
                     OriginalExtension = extension,
                 });
                 await this.queue.Save(new CloudQueueMessage(json));

@@ -14,6 +14,11 @@
         /// Image Store
         /// </summary>
         protected readonly IImageStore store = null;
+
+        /// <summary>
+        /// Image Naming
+        /// </summary>
+        protected readonly IImageNaming naming = null;
         #endregion
 
         #region Constructors
@@ -22,21 +27,26 @@
         /// </summary>
         /// <param name="connectionString">Connection String</param>
         public ImagePreprocessor(string connectionString)
-            : this(new ImageStore(connectionString))
+            : this(new ImageStore(connectionString), new ImageNaming())
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImagePreprocessor(IImageStore store)
+        public ImagePreprocessor(IImageStore store, IImageNaming naming)
         {
             if (null == store)
             {
                 throw new ArgumentNullException("store");
             }
+            if (null == naming)
+            {
+                throw new ArgumentNullException("naming");
+            }
 
             this.store = store;
+            this.naming = naming;
         }
         #endregion
 
@@ -63,10 +73,9 @@
                 throw new ArgumentException("fileName");
             }
 
-            var naming = new ImageNaming();
             var id = Guid.NewGuid();
-            var extension = naming.Extension(fileName);
-            var originalFileName = naming.FileName(id, ImageNaming.Original, extension);
+            var extension = this.naming.Extension(fileName);
+            var originalFileName = this.naming.FileName(id, ImageNaming.Original, extension);
 
             await this.store.Save(originalFileName, content, ImageNaming.Original, contentType, id, true, extension);
         }
