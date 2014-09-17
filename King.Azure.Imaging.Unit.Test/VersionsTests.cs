@@ -24,9 +24,9 @@
             var v = new Versions();
             Assert.IsNotNull(v.Images);
             Assert.AreEqual(3, v.Images.Keys.Count());
-            Assert.IsNotNull(v.Images["Thumb"]);
-            Assert.IsNotNull(v.Images["Medium"]);
-            Assert.IsNotNull(v.Images["Large"]);
+            Assert.IsNotNull(v.Images["thumb"]);
+            Assert.IsNotNull(v.Images["medium"]);
+            Assert.IsNotNull(v.Images["large"]);
         }
     }
 }
