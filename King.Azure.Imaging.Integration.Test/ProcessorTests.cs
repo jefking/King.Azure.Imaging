@@ -13,7 +13,7 @@
     using System.Threading.Tasks;
 
     [TestFixture]
-    public class ImagingProcessorTests
+    public class ProcessorTests
     {
         private const string connectionString = "UseDevelopmentStorage=true";
         private IContainer container;
@@ -63,7 +63,7 @@
             var queued = new ImageQueued
             {
                 Identifier = Guid.NewGuid(),
-                OriginalExtension = ImageNaming.DefaultExtension,
+                OriginalExtension = Naming.DefaultExtension,
                 
             };
             queued.FileNameFormat = queued.Identifier.ToString() + "_{0}.{1}";

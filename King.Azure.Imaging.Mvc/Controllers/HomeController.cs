@@ -40,7 +40,7 @@
         public ActionResult Originals()
         {
             var table = new TableStorage(elements.Table, connection);
-            var data = table.QueryByRow<ImageEntity>(ImageNaming.Original);
+            var data = table.QueryByRow<ImageEntity>(Naming.Original);
 
             return View(data);
         }
@@ -64,7 +64,7 @@
         public ActionResult Dynamic()
         {
             var table = new TableStorage(elements.Table, connection);
-            var data = table.QueryByRow<ImageEntity>(ImageNaming.Original);
+            var data = table.QueryByRow<ImageEntity>(Naming.Original);
 
             return View(data);
         }

@@ -110,9 +110,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ImageApiControllerTests.cs" />
-    <Compile Include="ImagePreprocessorTests.cs" />
-    <Compile Include="ImageStreamerTests.cs" />
-    <Compile Include="ImagingProcessorTests.cs" />
+    <Compile Include="PreprocessorTests.cs" />
+    <Compile Include="StreamerTests.cs" />
+    <Compile Include="ProcessorTests.cs" />
     <Compile Include="Initialization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

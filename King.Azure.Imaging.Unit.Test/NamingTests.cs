@@ -8,30 +8,30 @@
     using System.Threading.Tasks;
 
     [TestFixture]
-    public class ImageNamingTests
+    public class NamingTests
     {
         [Test]
         public void Original()
         {
-            Assert.AreEqual("original", ImageNaming.Original);
+            Assert.AreEqual("original", Naming.Original);
         }
 
         [Test]
         public void DefaultExtension()
         {
-            Assert.AreEqual("jpeg", ImageNaming.DefaultExtension);
+            Assert.AreEqual("jpeg", Naming.DefaultExtension);
         }
 
         [Test]
         public void FileNameFormat()
         {
-            Assert.AreEqual("{0}_{1}.{2}", ImageNaming.FileNameFormat);
+            Assert.AreEqual("{0}_{1}.{2}", Naming.FileNameFormat);
         }
 
         [Test]
         public void PathFormat()
         {
-            Assert.AreEqual("{0}/{1}", ImageNaming.PathFormat);
+            Assert.AreEqual("{0}/{1}", Naming.PathFormat);
         }
     }
 }

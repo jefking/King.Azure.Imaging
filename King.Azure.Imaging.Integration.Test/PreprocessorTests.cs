@@ -12,7 +12,7 @@
     using System.Threading.Tasks;
 
     [TestFixture]
-    public class ImagePreprocessorTests
+    public class PreprocessorTests
     {
         private const string connectionString = "UseDevelopmentStorage=true";
         private IContainer container;
@@ -47,7 +47,7 @@
             var bytes = new byte[128];
             random.NextBytes(bytes);
             var fileName = Guid.NewGuid().ToString();
-            var originalFileName = string.Format(ImageNaming.FileNameFormat, fileName, ImageNaming.Original, ImageNaming.DefaultExtension);
+            var originalFileName = string.Format(Naming.FileNameFormat, fileName, Naming.Original, Naming.DefaultExtension);
             var contentType = "image/jpeg";
             var size = new Size()
             {

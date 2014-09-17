@@ -1,6 +1,5 @@
 ﻿namespace King.Azure.Imaging
 {
-    using King.Azure.Data;
     using System;
     using System.IO;
     using System.Net;

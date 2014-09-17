@@ -11,7 +11,7 @@
         /// <summary>
         /// Image Width
         /// </summary>
-        public int Width
+        public virtual int Width
         {
             get;
             set;
@@ -20,7 +20,7 @@
         /// <summary>
         /// Image Height
         /// </summary>
-        public int Height
+        public virtual int Height
         {
             get;
             set;
@@ -29,7 +29,7 @@
         /// <summary>
         /// Image Format
         /// </summary>
-        public ISupportedImageFormat Format
+        public virtual ISupportedImageFormat Format
         {
             get;
             set;
