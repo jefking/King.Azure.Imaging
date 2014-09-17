@@ -200,6 +200,7 @@
         #region Methods
         string DynamicVersion(string extension, int quality, int width, int height);
         string FileName(Guid identifier, string version, string extension);
+        string FileNamePartial(Guid identifier);
         Guid FromFileName(string file);
         string Extension(string file);
         string RelativePath(string folder, string file);

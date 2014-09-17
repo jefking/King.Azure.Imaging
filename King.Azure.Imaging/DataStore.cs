@@ -103,7 +103,8 @@
         #endregion
 
         #region Methods
-        public virtual async Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, int quality = 100, int width = 0, int height = 0)
+        public virtual async Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false
+            , string extension = null, int quality = 100, int width = 0, int height = 0)
         {
             fileName = fileName.ToLowerInvariant();
             version = version.ToLowerInvariant();
@@ -136,13 +137,12 @@
             if (queueForResize)
             {
                 //Queue for Processing
-                var json = JsonConvert.SerializeObject(new ImageQueued
+                await this.queue.Save(new ImageQueued
                 {
                     Identifier = identifier,
-                    FileNameFormat = this.naming.FileName(identifier, "{0}", "{1}"),
+                    FileNameFormat = this.naming.FileNamePartial(identifier),
                     OriginalExtension = extension,
                 });
-                await this.queue.Save(new CloudQueueMessage(json));
             }
         }
         #endregion

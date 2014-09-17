@@ -44,6 +44,10 @@
         {
             return string.Format(FileNameFormat, identifier, version, extension).ToLowerInvariant();
         }
+        public virtual string FileNamePartial(Guid identifier)
+        {
+            return string.Format(FileNameFormat, identifier, "{0}", "{1}").ToLowerInvariant();
+        }
         public virtual Guid FromFileName(string file)
         {
             return Guid.Parse(file.Substring(0, file.IndexOf('_')));
