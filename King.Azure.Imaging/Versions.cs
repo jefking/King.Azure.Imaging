@@ -31,7 +31,7 @@
             var medium = new ImageVersion
             {
                 Width = 640,
-                Format = new PngFormat { Quality = 70 },
+                Format = new JpegFormat { Quality = 70 },
             };
             versions.Add("Medium", medium);
 
