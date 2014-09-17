@@ -145,7 +145,8 @@
         /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = false)
+        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85
+            , bool cache = false)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -176,45 +177,13 @@
                 };
             }
 
-            var wasCached = false;
-            var imgFormat = this.imaging.Get(format, quality);
-
-            var identifier = this.naming.FromFileName(file);
-            var versionName = this.naming.DynamicVersion(imgFormat.DefaultExtension, quality, width, height);
-            var cachedFileName = this.naming.FileName(identifier, versionName, imgFormat.DefaultExtension);
-
-            byte[] resized = null;
-            var streamer = this.store.Streamer;
-
-            if (cache)
-            {
-                resized = await streamer.GetBytes(cachedFileName);
-                wasCached = null != resized;
-            }
-
-            if (!wasCached)
-            {
-                var version = new ImageVersion
-                {
-                    Height = height,
-                    Width = width,
-                    Format = imgFormat,
-                };
-
-                var toResize = await streamer.GetBytes(file);
-                resized = this.imaging.Resize(toResize, version);
-            }
+            var data = await this.store.Resize(file, width, height, format, quality, cache);
 
             var response = new HttpResponseMessage
             {
-                Content = new StreamContent(new MemoryStream(resized)),
+                Content = new StreamContent(new MemoryStream(data.Raw)),
             };
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(imgFormat.MimeType);
-
-            if (cache && !wasCached)
-            {
-                await this.store.Save(cachedFileName, resized, versionName, imgFormat.MimeType, identifier, false, null, quality);
-            }
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(data.MimeType);
 
             return response;
         }

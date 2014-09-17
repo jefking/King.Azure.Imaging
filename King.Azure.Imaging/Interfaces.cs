@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging
 {
     using ImageProcessor.Imaging.Formats;
+    using King.Azure.Imaging.Models;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -190,6 +191,7 @@
         /// <param name="height">Height</param>
         /// <returns></returns>
         Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, int quality = 100, int width = 0, int height = 0);
+        Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = true);
         #endregion
     }
     #endregion

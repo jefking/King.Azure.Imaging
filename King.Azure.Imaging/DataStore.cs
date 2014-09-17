@@ -3,8 +3,6 @@
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
-    using Microsoft.WindowsAzure.Storage.Queue;
-    using Newtonsoft.Json;
     using System;
     using System.Threading.Tasks;
 
@@ -93,6 +91,9 @@
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Streamer
+        /// </summary>
         public virtual IStreamer Streamer
         {
             get
@@ -144,6 +145,49 @@
                     OriginalExtension = extension,
                 });
             }
+        }
+
+        public async Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = true)
+        {
+            var wasCached = false;
+            var imgFormat = this.imaging.Get(format, quality);
+
+            var data = new ImageData()
+            {
+                MimeType = imgFormat.MimeType,
+            };
+
+            var identifier = this.naming.FromFileName(file);
+            var versionName = this.naming.DynamicVersion(imgFormat.DefaultExtension, quality, width, height);
+            var cachedFileName = this.naming.FileName(identifier, versionName, imgFormat.DefaultExtension);
+
+            var streamer = this.Streamer;
+
+            if (cache)
+            {
+                data.Raw = await streamer.GetBytes(cachedFileName);
+                wasCached = null != data.Raw;
+            }
+
+            if (!wasCached)
+            {
+                var version = new ImageVersion
+                {
+                    Height = height,
+                    Width = width,
+                    Format = imgFormat,
+                };
+
+                var toResize = await streamer.GetBytes(file);
+                data.Raw = this.imaging.Resize(toResize, version);
+            }
+
+            if (cache && !wasCached)
+            {
+                await this.Save(cachedFileName, data.Raw, versionName, imgFormat.MimeType, identifier, false, null, quality);
+            }
+
+            return data;
         }
         #endregion
     }

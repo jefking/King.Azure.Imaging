@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Entities\ImageEntity.cs" />
     <Compile Include="ImageApiController.cs" />
+    <Compile Include="Models\ImageData.cs" />
     <Compile Include="Naming.cs" />
     <Compile Include="Preprocessor.cs" />
     <Compile Include="DataStore.cs" />
