@@ -9,8 +9,17 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    [TestFixture]
     public class DataStoreTests
     {
+        private const string connectionString = "UseDevelopmentStorage=true";
+
+        [Test]
+        public void Constructor()
+        {
+            new DataStore(connectionString);
+        }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorImagingNull()
@@ -64,6 +73,13 @@
             var table = Substitute.For<ITableStorage>();
             var queue = Substitute.For<IStorageQueue>();
             new DataStore(imaging, container, table, queue, null);
+        }
+
+        [Test]
+        public void Streamer()
+        {
+            var store = new DataStore(connectionString);
+            Assert.IsNotNull(store.Streamer);
         }
     }
 }
