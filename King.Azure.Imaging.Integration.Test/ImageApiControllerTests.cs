@@ -32,7 +32,6 @@
         }
 
         [Test]
-        [Ignore]
         public async Task Get()
         {
             var random = new Random();
@@ -43,11 +42,7 @@
 
             await this.container.Save(file, bytes, "image/jpeg");
 
-            var preProcessor = Substitute.For<IPreprocessor>();
-            var streamer = new Streamer(this.container);
-            var store = Substitute.For<IDataStore>();
-
-            var api = new ImageApiController(preProcessor, store);
+            var api = new ImageApiController(connectionString);
             var data = await api.Get(file);
 
             Assert.IsNotNull(data);
@@ -64,12 +59,7 @@
 
             await this.container.Save(file, bytes, "image/png");
 
-            var preProcessor = Substitute.For<IPreprocessor>();
-            var streamer = new Streamer(this.container);
-            var store = Substitute.For<IDataStore>();
-            store.Streamer.Returns(streamer);
-
-            var api = new ImageApiController(preProcessor, store);
+            var api = new ImageApiController(connectionString);
             var data = await api.Resize(file, 10);
 
             Assert.IsNotNull(data);

@@ -70,13 +70,17 @@
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.png", Guid.NewGuid());
             var store = Substitute.For<IDataStore>();
-            store.Save(Arg.Any<string>(), bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png");
+            store.Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png");
             var naming = Substitute.For<INaming>();
+            naming.Extension(fileName).Returns("png");
+            naming.FileName(Arg.Any<Guid>(), Naming.Original, "png").Returns("file.png");
 
             var ip = new Preprocessor(store, naming);
             await ip.Process(bytes, contentType, fileName);
 
-            store.Received().Save(Arg.Any<string>(), bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png");
+            naming.Received().Extension(fileName);
+            naming.Received().FileName(Arg.Any<Guid>(), Naming.Original, "png");
+            store.Received().Save("file.png", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png");
         }
 
         [Test]
@@ -86,13 +90,17 @@
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();
             var store = Substitute.For<IDataStore>();
-            store.Save(Arg.Any<string>(), bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
+            store.Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
             var naming = Substitute.For<INaming>();
+            naming.Extension(fileName).Returns("jpg");
+            naming.FileName(Arg.Any<Guid>(), Naming.Original, "jpg").Returns("file.jpg");
 
             var ip = new Preprocessor(store, naming);
             await ip.Process(bytes, contentType, fileName);
 
-            store.Received().Save(Arg.Any<string>(), bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
+            naming.Received().Extension(fileName);
+            naming.Received().FileName(Arg.Any<Guid>(), Naming.Original, "jpg");
+            store.Received().Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
         }
     }
 }
