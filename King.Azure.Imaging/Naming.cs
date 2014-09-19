@@ -36,26 +36,67 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Naming for dynamic versions, enforce file uniqueness
+        /// </summary>
+        /// <param name="extension">Extension</param>
+        /// <param name="quality">Quality</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <returns>Name</returns>
         public virtual string DynamicVersion(string extension, int quality, int width, int height)
         {
             return string.Format(DynamicVersionFormat, extension, quality, width, height).ToLowerInvariant();
         }
+
+        /// <summary>
+        /// File name
+        /// </summary>
+        /// <param name="identifier">Identifier</param>
+        /// <param name="version">Version</param>
+        /// <param name="extension">Extension</param>
+        /// <returns>Name</returns>
         public virtual string FileName(Guid identifier, string version, string extension)
         {
             return string.Format(FileNameFormat, identifier, version, extension).ToLowerInvariant();
         }
+
+        /// <summary>
+        /// Partial File Name
+        /// </summary>
+        /// <param name="identifier">Identifier</param>
+        /// <returns>Partial Name Format</returns>
         public virtual string FileNamePartial(Guid identifier)
         {
             return string.Format(FileNameFormat, identifier, "{0}", "{1}").ToLowerInvariant();
         }
-        public virtual Guid FromFileName(string file)
+
+        /// <summary>
+        /// Identifier From File Name
+        /// </summary>
+        /// <param name="fileName">File Name</param>
+        /// <returns>Identifier</returns>
+        public virtual Guid FromFileName(string fileName)
         {
-            return Guid.Parse(file.Substring(0, file.IndexOf('_')));
+            return Guid.Parse(fileName.Substring(0, fileName.IndexOf('_')));
         }
-        public virtual string Extension(string file)
+
+        /// <summary>
+        /// Extension
+        /// </summary>
+        /// <param name="fileName">File Name</param>
+        /// <returns>Extension</returns>
+        public virtual string Extension(string fileName)
         {
-            return file.Contains('.') ? file.Substring(file.LastIndexOf('.') + 1).ToLowerInvariant() : DefaultExtension;
+            return fileName.Contains('.') ? fileName.Substring(fileName.LastIndexOf('.') + 1).ToLowerInvariant() : DefaultExtension;
         }
+
+        /// <summary>
+        /// Relative Path
+        /// </summary>
+        /// <param name="folder">Folder</param>
+        /// <param name="file">File</param>
+        /// <returns>Relative Path</returns>
         public virtual string RelativePath(string folder, string file)
         {
             return string.Format(PathFormat, folder, file).ToLowerInvariant();
