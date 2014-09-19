@@ -1,10 +1,13 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
     using King.Azure.Data;
+    using King.Azure.Imaging.Entities;
+    using King.Azure.Imaging.Models;
     using NSubstitute;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -80,6 +83,109 @@
         {
             var store = new DataStore(connectionString);
             Assert.IsNotNull(store.Streamer);
+        }
+
+        [Test]
+        public async Task Save()
+        {
+            var random = new Random();
+            var fileName = Guid.NewGuid().ToString();
+            var content = new byte[32];
+            random.NextBytes(content);
+            var version = Guid.NewGuid().ToString();
+            var mimeType = Guid.NewGuid().ToString();
+            var identifier = Guid.NewGuid();
+            var queueForResize = false;
+            var extension = Guid.NewGuid().ToString();
+            var quality = 100;
+            var width = 122;
+            var height = 133;
+
+            var imaging = Substitute.For<IImaging>();
+            var container = Substitute.For<IContainer>();
+            container.Save(fileName, content, mimeType);
+            var table = Substitute.For<ITableStorage>();
+            table.InsertOrReplace(Arg.Any<ImageEntity>());
+            var queue = Substitute.For<IStorageQueue>();
+            var naming = Substitute.For<INaming>();
+
+            var store = new DataStore(imaging, container, table, queue, naming);
+            await store.Save(fileName, content, version, mimeType, identifier, queueForResize, extension, quality, width, height);
+
+            queue.Received(0).Save(Arg.Any<ImageQueued>());
+            container.Received().Save(fileName, content, mimeType);
+            table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
+        }
+
+        [Test]
+        public async Task SaveUnknownSize()
+        {
+            var random = new Random();
+            var fileName = Guid.NewGuid().ToString();
+            var content = new byte[32];
+            random.NextBytes(content);
+            var version = Guid.NewGuid().ToString();
+            var mimeType = Guid.NewGuid().ToString();
+            var identifier = Guid.NewGuid();
+            var queueForResize = false;
+            var extension = Guid.NewGuid().ToString();
+            var quality = 100;
+            var width = 0;
+            var height = 0;
+            var size = new Size()
+            {
+                Height = 99,
+                Width = 1000,
+            };
+
+            var imaging = Substitute.For<IImaging>();
+            imaging.Size(content).Returns(size);
+            var container = Substitute.For<IContainer>();
+            container.Save(fileName, content, mimeType);
+            var table = Substitute.For<ITableStorage>();
+            table.InsertOrReplace(Arg.Any<ImageEntity>());
+            var queue = Substitute.For<IStorageQueue>();
+            var naming = Substitute.For<INaming>();
+
+            var store = new DataStore(imaging, container, table, queue, naming);
+            await store.Save(fileName, content, version, mimeType, identifier, queueForResize, extension, quality, width, height);
+
+            imaging.Received().Size(content);
+            container.Received().Save(fileName, content, mimeType);
+            table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
+        }
+
+        [Test]
+        public async Task SaveQueue()
+        {
+            var random = new Random();
+            var fileName = Guid.NewGuid().ToString();
+            var content = new byte[32];
+            random.NextBytes(content);
+            var version = Guid.NewGuid().ToString();
+            var mimeType = Guid.NewGuid().ToString();
+            var identifier = Guid.NewGuid();
+            var queueForResize = true;
+            var extension = Guid.NewGuid().ToString();
+            var quality = 100;
+            var width = 122;
+            var height = 133;
+            
+            var imaging = Substitute.For<IImaging>();
+            var container = Substitute.For<IContainer>();
+            container.Save(fileName, content, mimeType);
+            var table = Substitute.For<ITableStorage>();
+            table.InsertOrReplace(Arg.Any<ImageEntity>());
+            var queue = Substitute.For<IStorageQueue>();
+            queue.Save(Arg.Any<ImageQueued>());
+            var naming = Substitute.For<INaming>();
+
+            var store = new DataStore(imaging, container, table, queue, naming);
+            await store.Save(fileName, content, version, mimeType, identifier, queueForResize, extension, quality, width, height);
+
+            queue.Received().Save(Arg.Any<ImageQueued>());
+            container.Received().Save(fileName, content, mimeType);
+            table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }
     }
 }
