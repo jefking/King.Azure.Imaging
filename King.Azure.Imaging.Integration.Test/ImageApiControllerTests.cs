@@ -55,7 +55,7 @@
         {
             var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
 
-            var file = Guid.NewGuid().ToString();
+            var file = Guid.NewGuid().ToString() + "_.png";
 
             await this.container.Save(file, bytes, "image/png");
 
