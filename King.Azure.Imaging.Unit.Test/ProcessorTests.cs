@@ -72,20 +72,26 @@
                 Format = new JpegFormat { Quality = 70 },
             };
             versions.Add("temp", version);
-            var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            container.Get(string.Format(data.FileNameFormat, Naming.Original)).Returns(Task.FromResult(bytes));
-            container.Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
+            var fileName = string.Format(data.FileNameFormat, "temp");
+            var original = string.Format(data.FileNameFormat, Naming.Original);
 
+            var imaging = Substitute.For<IImaging>();
+            imaging.Resize(bytes, version).Returns(bytes);
+            var streamer = Substitute.For<IStreamer>();
+            streamer.GetBytes(original).Returns(Task.FromResult(bytes));
             var store = Substitute.For<IDataStore>();
+            store.Streamer.Returns(streamer);
+            store.Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
 
             var ip = new Processor(imaging, store, versions);
             var result = await ip.Process(data);
 
             Assert.IsTrue(result);
 
-            container.Received().Get(string.Format(data.FileNameFormat, Naming.Original));
-            container.Received().Save(string.Format(data.FileNameFormat, "temp"), Arg.Any<byte[]>(), version.Format.MimeType);
+            imaging.Received().Resize(bytes, version);
+            streamer.Received().GetBytes(original);
+            var s = store.Streamer.Received();
+            store.Received().Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
         }
     }
 }
