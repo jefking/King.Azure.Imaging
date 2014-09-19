@@ -168,7 +168,7 @@
         /// </summary>
         /// <param name="extension">Extension</param>
         /// <returns>Image Format</returns>
-        ISupportedImageFormat Get(string extension = Naming.DefaultExtension, int quality = 100);
+        ISupportedImageFormat Get(string extension = Naming.DefaultExtension, int quality = 90);
         #endregion
     }
     #endregion

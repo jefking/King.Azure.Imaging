@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging
 {
     using ImageProcessor;
+    using ImageProcessor.Configuration;
     using ImageProcessor.Imaging.Formats;
     using System;
     using System.Collections.Generic;
@@ -17,7 +18,7 @@
         /// <summary>
         /// Image Formats
         /// </summary>
-        protected static readonly IEnumerable<ISupportedImageFormat> formats = new ISupportedImageFormat[] { new BitmapFormat(), new GifFormat(), new JpegFormat(), new PngFormat(), new TiffFormat() };
+        protected readonly IEnumerable<ISupportedImageFormat> formats = ImageProcessorBootstrapper.Instance.SupportedImageFormats;
         #endregion
 
         #region Methods
@@ -85,7 +86,7 @@
         /// <param name="extension">Extension</param>
         /// <param name="quality">Quality Settings</param>
         /// <returns>Image Format</returns>
-        public virtual ISupportedImageFormat Get(string extension = Naming.DefaultExtension, int quality = 100)
+        public virtual ISupportedImageFormat Get(string extension = Naming.DefaultExtension, int quality = 90)
         {
             if (string.IsNullOrWhiteSpace(extension))
             {
