@@ -1,14 +1,9 @@
 ﻿namespace King.Azure.Imaging.Integration.Test
 {
-    using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
-    using NSubstitute;
     using NUnit.Framework;
     using System;
     using System.IO;
-    using System.Net;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     [TestFixture]

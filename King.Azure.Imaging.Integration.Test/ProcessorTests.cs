@@ -9,6 +9,7 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -22,10 +23,10 @@
         [SetUp]
         public void Setup()
         {
-            var name = 'a' + Guid.NewGuid().ToString().Replace('-', 'a').ToLowerInvariant();
-            this.container = new Container(name, connectionString);
+            var elements = new StorageElements();
+            this.container = new Container(elements.Container, connectionString);
             this.container.CreateIfNotExists().Wait();
-            this.table = new TableStorage(name, connectionString);
+            this.table = new TableStorage(elements.Table, connectionString);
             this.table.CreateIfNotExists().Wait();
         }
 
@@ -39,25 +40,10 @@
         [Test]
         public async Task Process()
         {
-            var random = new Random();
-            var bytes = new byte[128];
-            random.NextBytes(bytes);
-
-            var resized = new byte[128];
-            random.NextBytes(resized);
-
-            var size = new Size()
-            {
-                Width = random.Next(),
-                Height = random.Next(),
-            };
+            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
 
             var versions = this.Versions();
             var version = versions.Values.First();
-
-            var imaging = Substitute.For<IImaging>();
-            imaging.Resize(Arg.Any<byte[]>(), version).Returns(resized);
-            imaging.Size(resized).Returns(size);
 
             var queued = new ImageQueued
             {
@@ -71,11 +57,11 @@
 
             var store = new DataStore(connectionString);
 
-            var processor = new Processor(imaging, store, versions);
+            var processor = new Processor(new Imaging(), new DataStore(connectionString), versions);
             await processor.Process(queued);
 
             var data = await this.container.Get(string.Format("{0}_test.gif", queued.Identifier));
-            Assert.AreEqual(resized, data);
+            Assert.IsNotNull(data);
 
             var entity = (from e in this.table.QueryByRow<ImageEntity>("test")
                           select e).FirstOrDefault();
@@ -83,12 +69,6 @@
             Assert.IsNotNull(entity);
             Assert.AreEqual(version.Format.MimeType, entity.ContentType);
             Assert.AreEqual(string.Format(Naming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
-            Assert.AreEqual(resized.LongLength, entity.FileSize);
-            Assert.AreEqual(size.Width, entity.Width);
-            Assert.AreEqual(size.Height, entity.Height);
-
-            imaging.Received().Size(resized);
-            imaging.Received().Resize(Arg.Any<byte[]>(), versions.Values.First());
         }
 
         private IDictionary<string, IImageVersion> Versions()

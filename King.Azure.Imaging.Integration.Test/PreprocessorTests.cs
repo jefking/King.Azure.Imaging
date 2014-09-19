@@ -8,6 +8,7 @@
     using NUnit.Framework;
     using System;
     using System.Drawing;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -22,12 +23,12 @@
         [SetUp]
         public void Setup()
         {
-            var name = 'a' + Guid.NewGuid().ToString().Replace('-', 'a').ToLowerInvariant();
-            this.container = new Container(name, connectionString);
+            var elements = new StorageElements();
+            this.container = new Container(elements.Container, connectionString);
             this.container.CreateIfNotExists().Wait();
-            this.table = new TableStorage(name, connectionString);
+            this.table = new TableStorage(elements.Table, connectionString);
             this.table.CreateIfNotExists().Wait();
-            this.queue = new StorageQueue(name, connectionString);
+            this.queue = new StorageQueue(elements.Queue, connectionString);
             this.queue.CreateIfNotExists().Wait();
         }
 
@@ -42,24 +43,15 @@
         [Test]
         public async Task Process()
         {
-            var random = new Random();
-            var bytes = new byte[128];
-            random.NextBytes(bytes);
+            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
             var fileName = Guid.NewGuid().ToString();
             var originalFileName = string.Format(Naming.FileNameFormat, fileName, Naming.Original, Naming.DefaultExtension);
             var contentType = "image/jpeg";
-            var size = new Size()
-            {
-                Width = random.Next(),
-                Height = random.Next(),
-            };
-
-            var imaging = Substitute.For<IImaging>();
-            imaging.Size(bytes).Returns(size);
 
             var preProcessor = new Preprocessor(connectionString);
             await preProcessor.Process(bytes, contentType, fileName);
 
+            //Table
             var entity = (from e in this.table.QueryByRow<ImageEntity>(Naming.Original)
                           select e).FirstOrDefault();
 
@@ -67,12 +59,12 @@
             Assert.AreEqual(contentType, entity.ContentType);
             Assert.AreEqual(string.Format(Naming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
             Assert.AreEqual(bytes.LongLength, entity.FileSize);
-            Assert.AreEqual(size.Width, entity.Width);
-            Assert.AreEqual(size.Height, entity.Height);
 
+            //Container
             var data = await this.container.Get(entity.FileName);
             Assert.AreEqual(bytes, data);
 
+            //Queue
             var queued = await this.queue.Get();
             Assert.IsNotNull(queued);
 
@@ -81,8 +73,6 @@
             Assert.AreEqual(Guid.Parse(entity.PartitionKey), imgQueued.Identifier);
             Assert.AreEqual(string.Format(Naming.FileNameFormat, entity.PartitionKey, "{0}", "{1}"), imgQueued.FileNameFormat);
             Assert.AreEqual(Naming.DefaultExtension, imgQueued.OriginalExtension);
-
-            imaging.Received().Size(bytes);
         }
     }
 }
