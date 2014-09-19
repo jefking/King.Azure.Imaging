@@ -31,6 +31,22 @@
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorDataStoreNull()
+        {
+            var naming = Substitute.For<INaming>();
+            new Preprocessor(null, naming);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorCNamingNull()
+        {
+            var store = Substitute.For<IDataStore>();
+            new Preprocessor(store, null);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task ProcessContentNull()
         {
             var ip = new Preprocessor(connectionString);
