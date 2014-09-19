@@ -20,7 +20,7 @@
         /// <remarks>
         /// Can be moved to a Worker Role (Azure)
         /// </remarks>
-        private readonly RoleTaskManager manager = new RoleTaskManager(new ImageTaskFactory("UseDevelopmentStorage=true"));
+        private readonly RoleTaskManager manager = new RoleTaskManager(new ImageTaskFactory("UseDevelopmentStorage=true;"));
         #endregion
 
         #region Methods

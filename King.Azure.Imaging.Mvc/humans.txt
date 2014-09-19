@@ -1,4 +1,4 @@
-﻿King.Azure.Imaging - Customizable Image Uploading Demo
+﻿King.Azure.Imaging - Scalable Image Uploading Demo
 
 Jef King
 GitHub: jefking
