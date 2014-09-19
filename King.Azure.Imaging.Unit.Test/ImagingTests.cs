@@ -176,5 +176,17 @@
                 Assert.AreEqual(expected.GetType(), format.GetType());
             }
         }
+
+        [Test]
+        public void GetNegativeQuality()
+        {
+            var expected = new GifFormat();
+            var i = new Imaging();
+            foreach (var extension in expected.FileExtensions)
+            {
+                var format = i.Get(extension, -45);
+                Assert.AreEqual(100, format.Quality);
+            }
+        }
     }
 }
