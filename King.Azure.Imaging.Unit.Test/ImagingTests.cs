@@ -80,8 +80,7 @@
         [Test]
         public void Resize()
         {
-            var file = Environment.CurrentDirectory + @"\icon.png";
-            var bytes = File.ReadAllBytes(file);
+            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
             var version = new ImageVersion()
             {
                 Format = new GifFormat(),
