@@ -20,8 +20,8 @@
         [SetUp]
         public void Setup()
         {
-            var name = 'a' + Guid.NewGuid().ToString().Replace('-', 'a').ToLowerInvariant();
-            this.container = new Container(name, connectionString);
+            var elements = new StorageElements();
+            this.container = new Container(elements.Container, connectionString);
             this.container.CreateIfNotExists().Wait();
         }
 
