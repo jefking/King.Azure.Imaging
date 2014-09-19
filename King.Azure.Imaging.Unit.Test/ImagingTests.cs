@@ -47,6 +47,7 @@
             var size = i.Size(bytes);
 
             Assert.IsNotNull(size);
+
             var bitMap = new Bitmap(file);
             Assert.AreEqual(bitMap.Width, size.Width);
             Assert.AreEqual(bitMap.Height, size.Height);
