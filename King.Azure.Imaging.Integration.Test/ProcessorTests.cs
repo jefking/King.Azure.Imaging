@@ -37,7 +37,6 @@
         }
 
         [Test]
-        [Ignore]
         public async Task Process()
         {
             var random = new Random();
@@ -70,24 +69,26 @@
 
             await this.container.Save(string.Format("{0}_original.jpeg", queued.Identifier), bytes);
 
-            //var processor = new ImagingProcessor(imaging, this.container, this.table, versions);
-            //await processor.Process(queued);
+            var store = new DataStore(connectionString);
 
-            //var data = await this.container.Get(string.Format("{0}_test.gif", queued.Identifier));
-            //Assert.AreEqual(resized, data);
+            var processor = new Processor(imaging, store, versions);
+            await processor.Process(queued);
 
-            //var entity = (from e in this.table.QueryByRow<ImageEntity>("test")
-            //              select e).FirstOrDefault();
+            var data = await this.container.Get(string.Format("{0}_test.gif", queued.Identifier));
+            Assert.AreEqual(resized, data);
 
-            //Assert.IsNotNull(entity);
-            //Assert.AreEqual(version.Format.MimeType, entity.ContentType);
-            //Assert.AreEqual(string.Format(ImageNaming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
-            //Assert.AreEqual(resized.LongLength, entity.FileSize);
-            //Assert.AreEqual(size.Width, entity.Width);
-            //Assert.AreEqual(size.Height, entity.Height);
+            var entity = (from e in this.table.QueryByRow<ImageEntity>("test")
+                          select e).FirstOrDefault();
 
-            //imaging.Received().Size(resized);
-            //imaging.Received().Resize(Arg.Any<byte[]>(), versions.Values.First());
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(version.Format.MimeType, entity.ContentType);
+            Assert.AreEqual(string.Format(Naming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
+            Assert.AreEqual(resized.LongLength, entity.FileSize);
+            Assert.AreEqual(size.Width, entity.Width);
+            Assert.AreEqual(size.Height, entity.Height);
+
+            imaging.Received().Size(resized);
+            imaging.Received().Resize(Arg.Any<byte[]>(), versions.Values.First());
         }
 
         private IDictionary<string, IImageVersion> Versions()
