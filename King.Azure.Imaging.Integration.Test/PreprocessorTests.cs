@@ -4,10 +4,8 @@
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using Newtonsoft.Json;
-    using NSubstitute;
     using NUnit.Framework;
     using System;
-    using System.Drawing;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;

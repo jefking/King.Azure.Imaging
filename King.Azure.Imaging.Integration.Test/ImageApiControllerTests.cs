@@ -11,6 +11,7 @@
     {
         private const string connectionString = "UseDevelopmentStorage=true";
         private IContainer container;
+        private ITableStorage table;
 
         [SetUp]
         public void Setup()
@@ -18,12 +19,15 @@
             var elements = new StorageElements();
             this.container = new Container(elements.Container, connectionString);
             this.container.CreateIfNotExists().Wait();
+            this.table = new TableStorage(elements.Table, connectionString);
+            this.table.CreateIfNotExists().Wait();
         }
 
         [TearDown]
         public void TearDown()
         {
             this.container.Delete().Wait();
+            this.table.Delete().Wait();
         }
 
         [Test]

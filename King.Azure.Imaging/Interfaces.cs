@@ -74,10 +74,24 @@
     #endregion
 
     #region IStreamer
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IStreamer
     {
         #region Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         Task<Stream> Get(string file);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         Task<byte[]> GetBytes(string file);
         #endregion
 
