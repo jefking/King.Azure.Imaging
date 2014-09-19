@@ -200,11 +200,52 @@
     public interface INaming
     {
         #region Methods
+        /// <summary>
+        /// Naming for dynamic versions, enforce file uniqueness
+        /// </summary>
+        /// <param name="extension">Extension</param>
+        /// <param name="quality">Quality</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <returns>Name</returns>
         string DynamicVersion(string extension, int quality, int width, int height);
+
+        /// <summary>
+        /// File name
+        /// </summary>
+        /// <param name="identifier">Identifier</param>
+        /// <param name="version">Version</param>
+        /// <param name="extension">Extension</param>
+        /// <returns>Name</returns>
         string FileName(Guid identifier, string version, string extension);
+
+        /// <summary>
+        /// Partial File Name
+        /// </summary>
+        /// <param name="identifier">Identifier</param>
+        /// <returns>Partial Name Format</returns>
         string FileNamePartial(Guid identifier);
+
+        /// <summary>
+        /// Identifier From File Name
+        /// </summary>
+        /// <param name="fileName">File Name</param>
+        /// <returns>Identifier</returns>
         Guid FromFileName(string file);
+
+        /// <summary>
+        /// Extension
+        /// </summary>
+        /// <param name="fileName">File Name</param>
+        /// <returns>Extension</returns>
         string Extension(string file);
+
+        /// <summary>
+        /// Relative Path
+        /// </summary>
+        /// <param name="folder">Folder</param>
+        /// <param name="file">File</param>
+        /// <returns>Relative Path</returns>
         string RelativePath(string folder, string file);
         #endregion
     }
