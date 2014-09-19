@@ -63,10 +63,10 @@
                 throw new ArgumentNullException("version");
             }
 
-            byte[] resized;
+            byte[] resized = null;
             using (var output = new MemoryStream())
             using (var input = new MemoryStream(data))
-            using (var image = new ImageFactory(preserveExifData: true))
+            using (var image = new ImageFactory(true))
             {
                 image.Load(input)
                     .Resize(new Size(version.Width, version.Height))
