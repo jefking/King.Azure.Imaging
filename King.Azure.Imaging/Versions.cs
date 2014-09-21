@@ -12,14 +12,14 @@
         /// <summary>
         /// Versions
         /// </summary>
-        protected readonly IDictionary<string, IImageVersion> versions = new Dictionary<string, IImageVersion>(3);
+        protected static readonly IDictionary<string, IImageVersion> versions = new Dictionary<string, IImageVersion>(3);
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public Versions()
+        static Versions()
         {
             var thumb = new ImageVersion
             {
@@ -52,7 +52,7 @@
         {
             get
             {
-                return this.versions;
+                return versions;
             }
         }
         #endregion
