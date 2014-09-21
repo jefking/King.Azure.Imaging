@@ -105,7 +105,7 @@
 
         #region Methods
         public virtual async Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false
-            , string extension = null, int quality = 100, int width = 0, int height = 0)
+            , string extension = null, int quality = Imaging.DefaultImageQuality, int width = 0, int height = 0)
         {
             fileName = fileName.ToLowerInvariant();
             version = version.ToLowerInvariant();
@@ -147,7 +147,7 @@
             }
         }
 
-        public async Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = true)
+        public async Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
         {
             var wasCached = false;
             var imgFormat = this.imaging.Get(format, quality);

@@ -77,7 +77,7 @@
             var extension = this.naming.Extension(fileName);
             var originalFileName = this.naming.FileName(id, Naming.Original, extension);
 
-            await this.store.Save(originalFileName, content, Naming.Original, contentType, id, true, extension);
+            await this.store.Save(originalFileName, content, Naming.Original, contentType, id, true, extension, 100);
 
             return id;
         }
