@@ -46,7 +46,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public async Task ProcessContentNull()
         {
             var ip = new Preprocessor(connectionString);

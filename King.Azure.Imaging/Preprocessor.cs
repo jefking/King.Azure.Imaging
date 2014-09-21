@@ -57,12 +57,12 @@
         /// <param name="content">Content</param>
         /// <param name="contentType">Content Type</param>
         /// <param name="fileName">File Name</param>
-        /// <returns>Task</returns>
-        public virtual async Task Process(byte[] content, string contentType, string fileName)
+        /// <returns>Identifier</returns>
+        public virtual async Task<Guid> Process(byte[] content, string contentType, string fileName)
         {
             if (null == content || !content.Any())
             {
-                throw new ArgumentNullException("content");
+                throw new ArgumentException("content");
             }
             if (string.IsNullOrWhiteSpace(contentType))
             {
@@ -78,6 +78,8 @@
             var originalFileName = this.naming.FileName(id, Naming.Original, extension);
 
             await this.store.Save(originalFileName, content, Naming.Original, contentType, id, true, extension);
+
+            return id;
         }
         #endregion
     }

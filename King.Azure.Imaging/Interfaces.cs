@@ -21,8 +21,8 @@
         /// <param name="content">Content</param>
         /// <param name="contentType">Content Type</param>
         /// <param name="fileName">File Name</param>
-        /// <returns>Task</returns>
-        Task Process(byte[] content, string contentType, string fileName);
+        /// <returns>Identifier</returns>
+        Task<Guid> Process(byte[] content, string contentType, string fileName);
         #endregion
     }
     #endregion
