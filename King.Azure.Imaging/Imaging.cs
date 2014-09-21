@@ -18,7 +18,15 @@
         /// <summary>
         /// Image Formats
         /// </summary>
+        /// <remarks>
+        /// Threading issues when made static
+        /// </remarks>
         protected readonly IEnumerable<ISupportedImageFormat> formats = ImageProcessorBootstrapper.Instance.SupportedImageFormats;
+
+        /// <summary>
+        /// Default Image Quality
+        /// </summary>
+        public const byte DefaultImageQuality = 85;
         #endregion
 
         #region Methods
@@ -86,7 +94,7 @@
         /// <param name="extension">Extension</param>
         /// <param name="quality">Quality Settings</param>
         /// <returns>Image Format</returns>
-        public virtual ISupportedImageFormat Get(string extension = Naming.DefaultExtension, int quality = 90)
+        public virtual ISupportedImageFormat Get(string extension = Naming.DefaultExtension, int quality = DefaultImageQuality)
         {
             if (string.IsNullOrWhiteSpace(extension))
             {
@@ -96,7 +104,7 @@
                 };
             }
 
-            quality = quality > 0 ? quality : 100;
+            quality = quality > 0 ? quality : DefaultImageQuality;
             extension = extension.ToLowerInvariant();
 
             foreach (var format in formats)

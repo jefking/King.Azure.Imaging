@@ -225,7 +225,7 @@
         /// <param name="quality">Quality</param>
         /// <param name="cache">Cache</param>
         /// <returns></returns>
-        Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = true);
+        Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true);
         #endregion
     }
     #endregion

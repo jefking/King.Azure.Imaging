@@ -38,6 +38,12 @@
         }
 
         [Test]
+        public void DefaultImageQuality()
+        {
+            Assert.AreEqual(85, Imaging.DefaultImageQuality);
+        }
+
+        [Test]
         public void Size()
         {
             var file = Environment.CurrentDirectory + @"\icon.png";
@@ -185,7 +191,7 @@
             foreach (var extension in expected.FileExtensions)
             {
                 var format = i.Get(extension, -45);
-                Assert.AreEqual(100, format.Quality);
+                Assert.AreEqual(Imaging.DefaultImageQuality, format.Quality);
             }
         }
     }
