@@ -62,9 +62,15 @@
     #endregion
 
     #region IVersions
+    /// <summary>
+    /// Image Versions Interface
+    /// </summary>
     public interface IVersions
     {
         #region Methods
+        /// <summary>
+        /// Image Versions to Generate
+        /// </summary>
         IDictionary<string, IImageVersion> Images
         {
             get;
@@ -75,27 +81,30 @@
 
     #region IStreamer
     /// <summary>
-    /// 
+    /// Content Streamer
     /// </summary>
     public interface IStreamer
     {
         #region Methods
         /// <summary>
-        /// 
+        /// Get File as Stream
         /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
+        /// <param name="file">File</param>
+        /// <returns>Data Stream</returns>
         Task<Stream> Get(string file);
 
         /// <summary>
-        /// 
+        /// Get File as Bytes[]
         /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
+        /// <param name="file">File</param>
+        /// <returns>Content</returns>
         Task<byte[]> GetBytes(string file);
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Content Type
+        /// </summary>
         string ContentType
         {
             get;
@@ -205,12 +214,26 @@
         /// <param name="height">Height</param>
         /// <returns></returns>
         Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, int quality = 100, int width = 0, int height = 0);
+
+        /// <summary>
+        /// Resize
+        /// </summary>
+        /// <param name="file">File</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <param name="format">Format</param>
+        /// <param name="quality">Quality</param>
+        /// <param name="cache">Cache</param>
+        /// <returns></returns>
         Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = 85, bool cache = true);
         #endregion
     }
     #endregion
 
     #region INaming
+    /// <summary>
+    /// File Naming Interface
+    /// </summary>
     public interface INaming
     {
         #region Methods
