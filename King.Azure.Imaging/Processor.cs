@@ -30,14 +30,18 @@
 
         #region Constructors
         /// <summary>
-        /// Mockable Constructor
+        /// Constructor
         /// </summary>
-        public Processor(IImaging imaging, IDataStore store, IDictionary<string, IImageVersion> versions)
+        public Processor(IDataStore store, IDictionary<string, IImageVersion> versions)
+            : this(store, versions, new Imaging())
         {
-            if (null == imaging)
-            {
-                throw new ArgumentNullException("imaging");
-            }
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Processor(IDataStore store, IDictionary<string, IImageVersion> versions, IImaging imaging)
+        {
             if (null == store)
             {
                 throw new ArgumentNullException("store");
@@ -46,10 +50,14 @@
             {
                 throw new ArgumentNullException("versions");
             }
+            if (null == imaging)
+            {
+                throw new ArgumentNullException("imaging");
+            }
 
-            this.imaging = imaging;
             this.store = store;
             this.versions = versions;
+            this.imaging = imaging;
         }
         #endregion
 

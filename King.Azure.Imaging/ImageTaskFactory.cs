@@ -90,10 +90,10 @@
             tasks.Add(new InitializeStorageTask(table));
             tasks.Add(new InitializeStorageTask(queue));
 
-            //Image Processor
-            var processor = new Processor(new Imaging(), new DataStore(connectionString), this.versions.Images);
             //Queue Poller
             var poller = new StorageQueuePoller<ImageQueued>(queue);
+            //Image Processor
+            var processor = new Processor(new DataStore(connectionString), this.versions.Images);
             //Image Processing Task
             tasks.Add(new BackoffRunner(new DequeueBatch<ImageQueued>(poller, processor)));
 

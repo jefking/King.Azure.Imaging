@@ -18,7 +18,7 @@
         {
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
-            new Processor(imaging, store, new Dictionary<string, IImageVersion>());
+            new Processor(store, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -26,7 +26,7 @@
         {
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
-            Assert.IsNotNull(new Processor(imaging, store, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
+            Assert.IsNotNull(new Processor(store, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
         }
 
         [Test]
@@ -34,7 +34,7 @@
         public void ConstructorImagingNull()
         {
             var store = Substitute.For<IDataStore>();
-            new Processor(null, store, new Dictionary<string, IImageVersion>());
+            new Processor(store, new Dictionary<string, IImageVersion>(), null);
         }
 
         [Test]
@@ -42,7 +42,7 @@
         public void ConstructorStoreeNull()
         {
             var imaging = Substitute.For<IImaging>();
-            new Processor(imaging, null, new Dictionary<string, IImageVersion>());
+            new Processor(null, new Dictionary<string, IImageVersion>());
         }
 
         [Test]
@@ -51,7 +51,7 @@
         {
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
-            new Processor(imaging, store, null);
+            new Processor(store, null);
         }
 
         [Test]
@@ -83,7 +83,7 @@
             store.Streamer.Returns(streamer);
             store.Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
 
-            var ip = new Processor(imaging, store, versions);
+            var ip = new Processor(store, versions, imaging);
             var result = await ip.Process(data);
 
             Assert.IsTrue(result);

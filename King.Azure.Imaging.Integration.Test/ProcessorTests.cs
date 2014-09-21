@@ -57,7 +57,7 @@
 
             var store = new DataStore(connectionString);
 
-            var processor = new Processor(new Imaging(), new DataStore(connectionString), versions);
+            var processor = new Processor(new DataStore(connectionString), versions);
             await processor.Process(queued);
 
             var data = await this.container.Get(string.Format("{0}_test.gif", queued.Identifier));
