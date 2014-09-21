@@ -1,7 +1,8 @@
 ﻿namespace King.Azure.Imaging
 {
-    using System;
-    using System.Linq;
+    using King.Azure.Imaging.Models;
+using System;
+using System.Linq;
 
     /// <summary>
     /// Image Naming Convensions
@@ -59,6 +60,15 @@
         public virtual string FileName(Guid identifier, string version, string extension)
         {
             return string.Format(FileNameFormat, identifier, version, extension).ToLowerInvariant();
+        }
+
+        public virtual string OriginalFileName(ImageQueued data)
+        {
+            return string.Format(data.FileNameFormat, Original, data.OriginalExtension).ToLowerInvariant();
+        }
+        public virtual string FileName(ImageQueued data, string key, string extension)
+        {
+            return string.Format(data.FileNameFormat, key, extension).ToLowerInvariant();
         }
 
         /// <summary>

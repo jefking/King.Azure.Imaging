@@ -26,6 +26,11 @@
         /// Imaging
         /// </summary>
         protected readonly IImaging imaging = null;
+
+        /// <summary>
+        /// Naming
+        /// </summary>
+        protected readonly INaming naming = null;
         #endregion
 
         #region Constructors
@@ -33,14 +38,14 @@
         /// Constructor
         /// </summary>
         public Processor(IDataStore store, IDictionary<string, IImageVersion> versions)
-            : this(store, versions, new Imaging())
+            : this(store, versions, new Imaging(), new Naming())
         {
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public Processor(IDataStore store, IDictionary<string, IImageVersion> versions, IImaging imaging)
+        public Processor(IDataStore store, IDictionary<string, IImageVersion> versions, IImaging imaging, INaming naming)
         {
             if (null == store)
             {
@@ -54,10 +59,15 @@
             {
                 throw new ArgumentNullException("imaging");
             }
+            if (null == naming)
+            {
+                throw new ArgumentNullException("naming");
+            }
 
             this.store = store;
             this.versions = versions;
             this.imaging = imaging;
+            this.naming = naming;
         }
         #endregion
 
@@ -69,14 +79,14 @@
         /// <returns>Successful</returns>
         public virtual async Task<bool> Process(ImageQueued data)
         {
-            var original = string.Format(data.FileNameFormat, Naming.Original, data.OriginalExtension).ToLowerInvariant();
+            var original = this.naming.OriginalFileName(data);
 
             var streamer = this.store.Streamer;
             var bytes = await streamer.GetBytes(original);
             foreach (var key in this.versions.Keys)
             {
                 var version = this.versions[key];
-                var filename = string.Format(data.FileNameFormat, key, version.Format.DefaultExtension).ToLowerInvariant();
+                var filename = this.naming.FileName(data, key, version.Format.DefaultExtension);
 
                 var resized = this.imaging.Resize(bytes, version);
 

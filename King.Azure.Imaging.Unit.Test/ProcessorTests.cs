@@ -24,8 +24,8 @@
         [Test]
         public void IsIProcessor()
         {
-            var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
+            var imaging = Substitute.For<IImaging>();
             Assert.IsNotNull(new Processor(store, new Dictionary<string, IImageVersion>()) as IProcessor<ImageQueued>);
         }
 
@@ -34,7 +34,17 @@
         public void ConstructorImagingNull()
         {
             var store = Substitute.For<IDataStore>();
-            new Processor(store, new Dictionary<string, IImageVersion>(), null);
+            var naming = Substitute.For<INaming>();
+            new Processor(store, new Dictionary<string, IImageVersion>(), null, naming);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ConstructorNamingNull()
+        {
+            var store = Substitute.For<IDataStore>();
+            var imaging = Substitute.For<IImaging>();
+            new Processor(store, new Dictionary<string, IImageVersion>(), imaging, null);
         }
 
         [Test]
@@ -77,18 +87,23 @@
 
             var imaging = Substitute.For<IImaging>();
             imaging.Resize(bytes, version).Returns(bytes);
+            var naming = Substitute.For<INaming>();
+            naming.OriginalFileName(data).Returns(original);
+            naming.FileName(data, "temp", version.Format.DefaultExtension).Returns(fileName);
             var streamer = Substitute.For<IStreamer>();
             streamer.GetBytes(original).Returns(Task.FromResult(bytes));
             var store = Substitute.For<IDataStore>();
             store.Streamer.Returns(streamer);
             store.Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
 
-            var ip = new Processor(store, versions, imaging);
+            var ip = new Processor(store, versions, imaging, naming);
             var result = await ip.Process(data);
 
             Assert.IsTrue(result);
 
             imaging.Received().Resize(bytes, version);
+            naming.Received().OriginalFileName(data);
+            naming.Received().FileName(data, "temp", version.Format.DefaultExtension);
             streamer.Received().GetBytes(original);
             var s = store.Streamer.Received();
             store.Received().Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);

@@ -233,6 +233,9 @@
         /// <returns>Name</returns>
         string FileName(Guid identifier, string version, string extension);
 
+        string OriginalFileName(ImageQueued data);
+        string FileName(ImageQueued data, string key, string extension);
+
         /// <summary>
         /// Partial File Name
         /// </summary>
