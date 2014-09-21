@@ -13,7 +13,8 @@
         {
             get
             {
-                return "images";
+                const string name = "images";
+                return name;
             }
         }
 
@@ -24,7 +25,8 @@
         {
             get
             {
-                return "imaging";
+                const string name = "imaging";
+                return name;
             }
         }
 
@@ -35,7 +37,8 @@
         {
             get
             {
-                return "imaging";
+                const string name = "imaging";
+                return name;
             }
         }
         #endregion
