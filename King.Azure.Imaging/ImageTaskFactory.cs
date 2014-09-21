@@ -34,31 +34,39 @@
         /// Constructor
         /// </summary>
         public ImageTaskFactory(string connectionString)
-            : this(connectionString, new StorageElements(), new Versions())
+            : this(connectionString, new Versions(), new StorageElements())
+        {
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ImageTaskFactory(string connectionString, IVersions versions)
+            : this(connectionString, versions, new StorageElements())
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageTaskFactory(string connectionString, IStorageElements elements, IVersions versions)
+        public ImageTaskFactory(string connectionString, IVersions versions, IStorageElements elements)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
                 throw new ArgumentException("connectionString");
             }
-            if (null == elements)
-            {
-                throw new ArgumentNullException("elements");
-            }
             if (null == versions)
             {
                 throw new ArgumentNullException("versions");
             }
+            if (null == elements)
+            {
+                throw new ArgumentNullException("elements");
+            }
 
             this.connectionString = connectionString;
-            this.elements = elements;
             this.versions = versions;
+            this.elements = elements;
         }
         #endregion
 

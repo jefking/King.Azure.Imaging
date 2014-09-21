@@ -34,7 +34,7 @@
         public void ConstructorStorageElementsNull()
         {
             var versions = Substitute.For<IVersions>();
-            new ImageTaskFactory(Guid.NewGuid().ToString(), null, versions);
+            new ImageTaskFactory(Guid.NewGuid().ToString(), versions, null);
         }
 
         [Test]
@@ -42,7 +42,7 @@
         public void ConstructorVersionsNull()
         {
             var elements = Substitute.For<IStorageElements>();
-            new ImageTaskFactory(Guid.NewGuid().ToString(), elements, null);
+            new ImageTaskFactory(Guid.NewGuid().ToString(), null, elements);
         }
 
         [Test]
@@ -56,7 +56,7 @@
 
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var factory = new ImageTaskFactory(connectionString, versions, elements);
             var tasks = factory.Tasks(null);
 
             Assert.IsNotNull(tasks);
@@ -72,7 +72,7 @@
             elements.Queue.Returns(Guid.NewGuid().ToString());
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var factory = new ImageTaskFactory(connectionString, versions, elements);
             var tasks = factory.Tasks(null);
 
             Assert.IsNotNull(tasks);
@@ -89,7 +89,7 @@
             elements.Queue.Returns(Guid.NewGuid().ToString());
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var factory = new ImageTaskFactory(connectionString, versions, elements);
             var tasks = factory.Tasks(null);
 
             Assert.IsNotNull(tasks);
@@ -110,7 +110,7 @@
             elements.Queue.Returns(Guid.NewGuid().ToString());
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, elements, versions);
+            var factory = new ImageTaskFactory(connectionString, versions, elements);
             var tasks = factory.Tasks(null);
 
             Assert.IsNotNull(tasks);
