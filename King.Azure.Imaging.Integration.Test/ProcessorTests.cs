@@ -4,11 +4,9 @@
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
-    using NSubstitute;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -63,8 +61,7 @@
             var data = await this.container.Get(string.Format("{0}_test.gif", queued.Identifier));
             Assert.IsNotNull(data);
 
-            var entity = (from e in this.table.QueryByRow<ImageEntity>("test")
-                          select e).FirstOrDefault();
+            var entity = this.table.QueryByRow<ImageEntity>("test").FirstOrDefault();
 
             Assert.IsNotNull(entity);
             Assert.AreEqual(version.Format.MimeType, entity.ContentType);
