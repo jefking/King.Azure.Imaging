@@ -86,7 +86,7 @@
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.png", Guid.NewGuid());
             var store = Substitute.For<IDataStore>();
-            store.Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png");
+            store.Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png", 100);
             var naming = Substitute.For<INaming>();
             naming.Extension(fileName).Returns("png");
             naming.FileName(Arg.Any<Guid>(), Naming.Original, "png").Returns("file.png");
@@ -96,7 +96,7 @@
 
             naming.Received().Extension(fileName);
             naming.Received().FileName(Arg.Any<Guid>(), Naming.Original, "png");
-            store.Received().Save("file.png", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png");
+            store.Received().Save("file.png", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "png", 100);
         }
 
         [Test]
@@ -106,7 +106,7 @@
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();
             var store = Substitute.For<IDataStore>();
-            store.Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
+            store.Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg", 100);
             var naming = Substitute.For<INaming>();
             naming.Extension(fileName).Returns("jpg");
             naming.FileName(Arg.Any<Guid>(), Naming.Original, "jpg").Returns("file.jpg");
@@ -116,7 +116,7 @@
 
             naming.Received().Extension(fileName);
             naming.Received().FileName(Arg.Any<Guid>(), Naming.Original, "jpg");
-            store.Received().Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg");
+            store.Received().Save("file.jpg", bytes, Naming.Original, contentType, Arg.Any<Guid>(), true, "jpg", 100);
         }
     }
 }
