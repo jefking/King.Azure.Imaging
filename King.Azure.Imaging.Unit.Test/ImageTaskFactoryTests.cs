@@ -10,6 +10,8 @@
     [TestFixture]
     public class ImageTaskFactoryTests
     {
+        private const string connectionString = "UseDevelopmentStorage=true;";
+
         [Test]
         public void Constructor()
         {
@@ -48,7 +50,6 @@
         [Test]
         public void TasksNull()
         {
-            var connectionString = "UseDevelopmentStorage=true";
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
@@ -65,7 +66,6 @@
         [Test]
         public void Tasks()
         {
-            var connectionString = "UseDevelopmentStorage=true";
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
@@ -82,7 +82,6 @@
         [Test]
         public void HasBackoffRunner()
         {
-            var connectionString = "UseDevelopmentStorage=true";
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
@@ -103,7 +102,6 @@
         [Test]
         public void InitializeStorageTask()
         {
-            var connectionString = "UseDevelopmentStorage=true";
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
