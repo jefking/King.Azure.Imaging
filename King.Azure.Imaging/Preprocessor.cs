@@ -55,18 +55,18 @@
         /// Preprocess uploaded image
         /// </summary>
         /// <param name="content">Content</param>
-        /// <param name="contentType">Content Type</param>
+        /// <param name="mimeType">Mime Type</param>
         /// <param name="fileName">File Name</param>
         /// <returns>Identifier</returns>
-        public virtual async Task<Guid> Process(byte[] content, string contentType, string fileName)
+        public virtual async Task<Guid> Process(byte[] content, string mimeType, string fileName)
         {
             if (null == content || !content.Any())
             {
                 throw new ArgumentException("content");
             }
-            if (string.IsNullOrWhiteSpace(contentType))
+            if (string.IsNullOrWhiteSpace(mimeType))
             {
-                throw new ArgumentException("contentType");
+                throw new ArgumentException("mimeType");
             }
             if (string.IsNullOrWhiteSpace(fileName))
             {
@@ -77,7 +77,7 @@
             var extension = this.naming.Extension(fileName);
             var originalFileName = this.naming.FileName(id, Naming.Original, extension);
 
-            await this.store.Save(originalFileName, content, Naming.Original, contentType, id, true, extension, 100);
+            await this.store.Save(originalFileName, content, Naming.Original, mimeType, id, true, extension, 100);
 
             return id;
         }

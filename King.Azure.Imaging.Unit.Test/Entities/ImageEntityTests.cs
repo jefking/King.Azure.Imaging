@@ -19,10 +19,10 @@
             var expected = Guid.NewGuid().ToString();
             var data = new ImageEntity()
             {
-                ContentType = expected
+                MimeType = expected
             };
 
-            Assert.AreEqual(expected, data.ContentType);
+            Assert.AreEqual(expected, data.MimeType);
         }
 
         [Test]

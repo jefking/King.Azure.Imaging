@@ -54,7 +54,7 @@
                           select e).FirstOrDefault();
 
             Assert.IsNotNull(entity);
-            Assert.AreEqual(contentType, entity.ContentType);
+            Assert.AreEqual(contentType, entity.MimeType);
             Assert.AreEqual(string.Format(Naming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
             Assert.AreEqual(bytes.LongLength, entity.FileSize);
 

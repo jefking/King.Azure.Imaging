@@ -111,7 +111,7 @@
                 Content = new StreamContent(stream),
             };
 
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.ContentType);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.MimeType);
             return response;
         }
 

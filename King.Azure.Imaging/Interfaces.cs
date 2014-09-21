@@ -19,10 +19,10 @@
         /// Preprocess uploaded image
         /// </summary>
         /// <param name="content">Content</param>
-        /// <param name="contentType">Content Type</param>
+        /// <param name="mimeType">Mime Type</param>
         /// <param name="fileName">File Name</param>
         /// <returns>Identifier</returns>
-        Task<Guid> Process(byte[] content, string contentType, string fileName);
+        Task<Guid> Process(byte[] content, string mimeType, string fileName);
         #endregion
     }
     #endregion
@@ -103,9 +103,9 @@
 
         #region Properties
         /// <summary>
-        /// Content Type
+        /// Mime Type
         /// </summary>
-        string ContentType
+        string MimeType
         {
             get;
         }

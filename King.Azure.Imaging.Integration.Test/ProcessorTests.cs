@@ -64,7 +64,7 @@
             var entity = this.table.QueryByRow<ImageEntity>("test").FirstOrDefault();
 
             Assert.IsNotNull(entity);
-            Assert.AreEqual(version.Format.MimeType, entity.ContentType);
+            Assert.AreEqual(version.Format.MimeType, entity.MimeType);
             Assert.AreEqual(string.Format(Naming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
         }
 

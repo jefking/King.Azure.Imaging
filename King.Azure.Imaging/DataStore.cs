@@ -127,7 +127,7 @@
                 PartitionKey = identifier.ToString(),
                 RowKey = version,
                 FileName = fileName,
-                ContentType = mimeType,
+                MimeType = mimeType,
                 FileSize = content.LongLength,
                 Width = width,
                 Height = height,

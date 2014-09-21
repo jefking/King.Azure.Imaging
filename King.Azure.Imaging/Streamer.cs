@@ -52,7 +52,7 @@
             ms.Position = 0;
 
             var properties = await container.Properties(file);
-            this.ContentType = properties.ContentType;
+            this.MimeType = properties.ContentType;
 
             return ms;
         }
@@ -77,7 +77,7 @@
                 bytes = await container.Get(file);
 
                 var properties = await container.Properties(file);
-                this.ContentType = properties.ContentType;
+                this.MimeType = properties.ContentType;
             }
 
             return bytes;
@@ -86,9 +86,9 @@
 
         #region Properties
         /// <summary>
-        /// Content Type
+        /// Mime Type
         /// </summary>
-        public virtual string ContentType
+        public virtual string MimeType
         {
             private set;
             get;

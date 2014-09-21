@@ -9,9 +9,9 @@
     {
         #region Properties
         /// <summary>
-        /// Content Type
+        /// Mime Type
         /// </summary>
-        public string ContentType
+        public string MimeType
         {
             get;
             set;
