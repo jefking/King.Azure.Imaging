@@ -233,7 +233,20 @@
         /// <returns>Name</returns>
         string FileName(Guid identifier, string version, string extension);
 
+        /// <summary>
+        /// Original File Name
+        /// </summary>
+        /// <param name="data">Image Queued</param>
+        /// <returns>Original File Name</returns>
         string OriginalFileName(ImageQueued data);
+
+        /// <summary>
+        /// File Name for Image Queued
+        /// </summary>
+        /// <param name="data">Image Queued</param>
+        /// <param name="key">Version Key</param>
+        /// <param name="extension">Extension</param>
+        /// <returns>File Name</returns>
         string FileName(ImageQueued data, string key, string extension);
 
         /// <summary>

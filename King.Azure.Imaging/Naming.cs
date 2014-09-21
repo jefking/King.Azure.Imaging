@@ -62,10 +62,23 @@ using System.Linq;
             return string.Format(FileNameFormat, identifier, version, extension).ToLowerInvariant();
         }
 
+        /// <summary>
+        /// Original File Name
+        /// </summary>
+        /// <param name="data">Image Queued</param>
+        /// <returns>Original File Name</returns>
         public virtual string OriginalFileName(ImageQueued data)
         {
             return string.Format(data.FileNameFormat, Original, data.OriginalExtension).ToLowerInvariant();
         }
+
+        /// <summary>
+        /// File Name for Image Queued
+        /// </summary>
+        /// <param name="data">Image Queued</param>
+        /// <param name="key">Version Key</param>
+        /// <param name="extension">Extension</param>
+        /// <returns>File Name</returns>
         public virtual string FileName(ImageQueued data, string key, string extension)
         {
             return string.Format(data.FileNameFormat, key, extension).ToLowerInvariant();
