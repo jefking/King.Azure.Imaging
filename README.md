@@ -1,4 +1,4 @@
-# Initial Version
+# King.Azure.Imaging
 
 Scalable image uploading and processing for Azure
 + Upload images to blob storage
@@ -7,6 +7,7 @@ Scalable image uploading and processing for Azure
 + Dynamically resize images
 + Azure CDN images
 + Scalable architecture
++ Uses [ImageProcessor](https://github.com/JimBobSquarePants/ImageProcessor) for image maniputlation
 
 ## NuGet
 [Add via NuGet](https://www.nuget.org/packages/King.Azure.Imaging)
