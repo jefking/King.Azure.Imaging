@@ -49,9 +49,7 @@
             var properties = await container.Properties(file);
             this.MimeType = properties.ContentType;
 
-            var stream = await container.Stream(file);
-            stream.Position = 0;
-            return stream;
+            return await container.Stream(file);
         }
 
         /// <summary>

@@ -46,7 +46,7 @@
     </Reference>
     <Reference Include="King.Azure, Version=1.0.0.14, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\King.Azure.1.0.13\lib\net451\King.Azure.dll</HintPath>
+      <HintPath>..\packages\King.Azure.1.0.14\lib\net451\King.Azure.dll</HintPath>
     </Reference>
     <Reference Include="King.Service, Version=1.4.1.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
