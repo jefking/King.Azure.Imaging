@@ -29,7 +29,7 @@
         {
             var container = Substitute.For<IContainer>();
             var istreamer = new Streamer(container);
-            await istreamer.Get(null);
+            await istreamer.Stream(null);
         }
 
         [Test]
@@ -38,7 +38,7 @@
         {
             var container = Substitute.For<IContainer>();
             var istreamer = new Streamer(container);
-            await istreamer.GetBytes(null);
+            await istreamer.Bytes(null);
         }
     }
 }

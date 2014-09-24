@@ -165,7 +165,7 @@
 
             if (cache)
             {
-                data.Raw = await streamer.GetBytes(cachedFileName);
+                data.Raw = await streamer.Bytes(cachedFileName);
                 wasCached = null != data.Raw;
             }
 
@@ -178,7 +178,7 @@
                     Format = imgFormat,
                 };
 
-                var toResize = await streamer.GetBytes(file);
+                var toResize = await streamer.Bytes(file);
                 data.Raw = this.imaging.Resize(toResize, version);
             }
 

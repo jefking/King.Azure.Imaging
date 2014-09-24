@@ -91,14 +91,14 @@
         /// </summary>
         /// <param name="file">File</param>
         /// <returns>Data Stream</returns>
-        Task<Stream> Get(string file);
+        Task<Stream> Stream(string file);
 
         /// <summary>
         /// Get File as Bytes[]
         /// </summary>
         /// <param name="file">File</param>
         /// <returns>Content</returns>
-        Task<byte[]> GetBytes(string file);
+        Task<byte[]> Bytes(string file);
         #endregion
 
         #region Properties

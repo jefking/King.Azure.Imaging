@@ -105,10 +105,9 @@
             }
 
             var streamer = this.store.Streamer;
-            var stream = await streamer.Get(file);
             var response = new HttpResponseMessage
             {
-                Content = new StreamContent(stream),
+                Content = new StreamContent(await streamer.Stream(file)),
             };
 
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.MimeType);

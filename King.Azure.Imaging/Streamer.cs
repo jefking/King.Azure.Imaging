@@ -35,52 +35,47 @@
 
         #region Methods
         /// <summary>
-        /// Get File
+        /// Get File Stream
         /// </summary>
         /// <param name="file">File</param>
         /// <returns>Stream</returns>
-        public virtual async Task<Stream> Get(string file)
+        public virtual async Task<Stream> Stream(string file)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
                 throw new ArgumentException("file");
             }
-
-            var bytes = await container.Get(file);
-            var ms = new MemoryStream();
-            await ms.WriteAsync(bytes, 0, bytes.Length);
-            ms.Position = 0;
 
             var properties = await container.Properties(file);
             this.MimeType = properties.ContentType;
 
-            return ms;
+            var stream = await container.Stream(file);
+            stream.Position = 0;
+            return stream;
         }
 
         /// <summary>
-        /// Get File
+        /// Get File Bytes
         /// </summary>
         /// <param name="file">File</param>
         /// <returns>Byte[]</returns>
-        public virtual async Task<byte[]> GetBytes(string file)
+        public virtual async Task<byte[]> Bytes(string file)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
                 throw new ArgumentException("file");
             }
 
-            byte[] bytes = null;
-            
             var exists = await this.container.Exists(file);
             if (exists)
             {
-                bytes = await container.Get(file);
-
                 var properties = await container.Properties(file);
                 this.MimeType = properties.ContentType;
+
+                return await container.Get(file);
             }
 
-            return bytes;
+            return null;
         }
         #endregion
 

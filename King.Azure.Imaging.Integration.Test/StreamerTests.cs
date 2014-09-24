@@ -38,7 +38,7 @@
             await this.container.Save(fileName, bytes, contentType);
 
             var streamer = new Streamer(this.container);
-            using (var stream = await streamer.Get(fileName))
+            using (var stream = await streamer.Stream(fileName))
             {
                 var ms = stream as MemoryStream;
                 Assert.IsNotNull(ms);

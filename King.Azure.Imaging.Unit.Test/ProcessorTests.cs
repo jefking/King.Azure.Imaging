@@ -91,7 +91,7 @@
             naming.OriginalFileName(data).Returns(original);
             naming.FileName(data, "temp", version.Format.DefaultExtension).Returns(fileName);
             var streamer = Substitute.For<IStreamer>();
-            streamer.GetBytes(original).Returns(Task.FromResult(bytes));
+            streamer.Bytes(original).Returns(Task.FromResult(bytes));
             var store = Substitute.For<IDataStore>();
             store.Streamer.Returns(streamer);
             store.Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
@@ -104,7 +104,7 @@
             imaging.Received().Resize(bytes, version);
             naming.Received().OriginalFileName(data);
             naming.Received().FileName(data, "temp", version.Format.DefaultExtension);
-            streamer.Received().GetBytes(original);
+            streamer.Received().Bytes(original);
             var s = store.Streamer.Received();
             store.Received().Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
         }

@@ -82,7 +82,7 @@
             var original = this.naming.OriginalFileName(data);
 
             var streamer = this.store.Streamer;
-            var bytes = await streamer.GetBytes(original);
+            var bytes = await streamer.Bytes(original);
             foreach (var key in this.versions.Keys)
             {
                 var version = this.versions[key];
