@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Imaging Task
+    /// Imaging Task Processor
     /// </summary>
     public class Processor : IProcessor<ImageQueued>
     {
