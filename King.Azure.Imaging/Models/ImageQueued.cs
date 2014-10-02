@@ -11,7 +11,7 @@
         /// <summary>
         /// File Name Format
         /// </summary>
-        public string FileNameFormat
+        public virtual string FileNameFormat
         {
             get;
             set;
@@ -20,7 +20,7 @@
         /// <summary>
         /// Original File Extension
         /// </summary>
-        public string OriginalExtension
+        public virtual string OriginalExtension
         {
             get;
             set;
@@ -29,7 +29,7 @@
         /// <summary>
         /// Identifier
         /// </summary>
-        public Guid Identifier
+        public virtual Guid Identifier
         {
             get;
             set;

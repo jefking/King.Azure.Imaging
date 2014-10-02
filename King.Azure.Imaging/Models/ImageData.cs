@@ -9,7 +9,7 @@
         /// <summary>
         /// Raw Data
         /// </summary>
-        public byte[] Raw
+        public virtual byte[] Raw
         {
             get;
             set;
@@ -18,7 +18,7 @@
         /// <summary>
         /// Mime Type
         /// </summary>
-        public string MimeType
+        public virtual string MimeType
         {
             get;
             set;
