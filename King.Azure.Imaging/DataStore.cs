@@ -104,6 +104,20 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="fileName">File Name</param>
+        /// <param name="content">Content</param>
+        /// <param name="version">Version</param>
+        /// <param name="mimeType">Mime Type</param>
+        /// <param name="identifier">Identifier</param>
+        /// <param name="queueForResize">Queue For Resize</param>
+        /// <param name="extension">Extension</param>
+        /// <param name="quality">Quality</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <returns>Task</returns>
         public virtual async Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false
             , string extension = null, int quality = Imaging.DefaultImageQuality, int width = 0, int height = 0)
         {
@@ -147,6 +161,16 @@
             }
         }
 
+        /// <summary>
+        /// Resize Image
+        /// </summary>
+        /// <param name="file">File</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <param name="format">Format</param>
+        /// <param name="quality">Quality</param>
+        /// <param name="cache">Cache</param>
+        /// <returns>Image Data</returns>
         public async Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
         {
             var wasCached = false;
