@@ -50,7 +50,7 @@
             await preProcessor.Process(bytes, contentType, fileName);
 
             //Table
-            var entity = (from e in this.table.QueryByRow<ImageEntity>(Naming.Original)
+            var entity = (from e in await this.table.QueryByRow<ImageEntity>(Naming.Original)
                           select e).FirstOrDefault();
 
             Assert.IsNotNull(entity);
