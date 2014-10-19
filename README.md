@@ -16,6 +16,7 @@ PM> Install-Package King.Azure.Imaging
 ```
 
 ### [Wiki](https://github.com/jefking/King.Azure.Imaging/wiki)
+View the wiki to learn how to use this.
 
 ### [Demo](https://github.com/jefking/King.Azure.Imaging/tree/master/King.Azure.Imaging.Mvc)
 Check out the demo MVC/Web API project to help you get started!
