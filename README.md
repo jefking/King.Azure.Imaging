@@ -15,5 +15,7 @@ Scalable image uploading and processing for Azure
 PM> Install-Package King.Azure.Imaging
 ```
 
+### [Wiki](https://github.com/jefking/King.Azure.Imaging/wiki)
+
 ### [Demo](https://github.com/jefking/King.Azure.Imaging/tree/master/King.Azure.Imaging.Mvc)
 Check out the demo MVC/Web API project to help you get started!
