@@ -9,8 +9,7 @@ Scalable image uploading and processing for Azure
 + Scalable architecture
 + Uses [ImageProcessor](https://github.com/JimBobSquarePants/ImageProcessor) for image maniputlation
 
-## NuGet
-[Add via NuGet](https://www.nuget.org/packages/King.Azure.Imaging)
+## [NuGet](https://www.nuget.org/packages/King.Azure.Imaging)
 ```
 PM> Install-Package King.Azure.Imaging
 ```
