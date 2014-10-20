@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/jefking/King.Azure.Imaging/master/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Scalable image uploading and processing for Azure.</description>
-    <summary>Simplified Azure Imaging Framework.</summary>
+    <summary>Scalable image uploading and processing for Azure</summary>
     <releaseNotes>Ready, many seamless tweaks to make impelementation a breeze.</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
