@@ -1,4 +1,4 @@
-Scalable image uploading and processing for Azure
+### Scalable image uploading and processing for Azure
 + Upload images to blob storage
 + Queue images for background processing
 + Store structured metadata about images
@@ -8,7 +8,7 @@ Scalable image uploading and processing for Azure
 + Extensible
 + Uses [ImageProcessor](https://github.com/JimBobSquarePants/ImageProcessor) for image maniputlation
 
-## [NuGet](https://www.nuget.org/packages/King.Azure.Imaging)
+### [NuGet](https://www.nuget.org/packages/King.Azure.Imaging)
 ```
 PM> Install-Package King.Azure.Imaging
 ```
