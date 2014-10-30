@@ -6,8 +6,9 @@
 + Azure CDN images
 + Scalable architecture
 + Extensible
-+ Uses [King.Azure](https://github.com/jefking/King.Azure) for Azure Storage access
 + Uses [ImageProcessor](https://github.com/JimBobSquarePants/ImageProcessor) for image maniputlation
++ Uses [King.Service](https://github.com/jefking/King.Service) for background processing
++ Uses [King.Azure](https://github.com/jefking/King.Azure) for Azure Storage access
 
 ### [NuGet](https://www.nuget.org/packages/King.Azure.Imaging)
 ```
