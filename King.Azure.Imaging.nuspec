@@ -15,7 +15,7 @@
     <releaseNotes>Azure CDN Cache Control http header.</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
-    <tags>King.Azure.Imaging Azure Image Jpg Png CDN Cache-Control image resize crop rotate jpeg jpg gif png server-safe-imaging imaging Cloud Blob Image Imaging ASP Performance Processing Resize AutoRotate Rotate RoundedCorners Flip Crop Filter Effects Quality Watermark Alpha Vignette Saturation Brightness Contrast Gif Jpg Jpeg Bitmap Png WebP Fluent GDI Gaussian Blur Sharpen Tint Quantizer Animated EXIF</tags>
+    <tags>King.Azure.Imaging Azure Image Jpg Png CDN Cache-Control image resize crop rotate jpeg jpg gif png server-safe-imaging imaging Cloud Blob Image Imaging ASP Performance Processing Resize AutoRotate Rotate RoundedCorners Flip Crop Filter Effects Quality Watermark Alpha Vignette Saturation Brightness Contrast Gif Jpg Jpeg Bitmap Png WebP Fluent GDI Gaussian Blur Sharpen Tint Quantizer Animated EXIF King.Azure King.Service ImageProcessor</tags>
     <dependencies>
       <dependency id="King.Service" />
       <dependency id="ImageProcessor" />
