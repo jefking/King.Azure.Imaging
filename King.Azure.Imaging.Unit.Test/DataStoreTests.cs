@@ -98,20 +98,23 @@
             var quality = 100;
             var width = 122;
             var height = 133;
+            var duration = random.Next(1, 31536000);
 
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             container.Save(fileName, content, mimeType);
+            container.SetCacheControl(fileName, duration);
             var table = Substitute.For<ITableStorage>();
             table.InsertOrReplace(Arg.Any<ImageEntity>());
             var queue = Substitute.For<IStorageQueue>();
             var naming = Substitute.For<INaming>();
 
-            var store = new DataStore(imaging, container, table, queue, naming);
+            var store = new DataStore(imaging, container, table, queue, naming, duration);
             await store.Save(fileName, content, version, mimeType, identifier, queueForResize, extension, quality, width, height);
 
             queue.Received(0).Save(Arg.Any<ImageQueued>());
             container.Received().Save(fileName, content, mimeType);
+            container.Received().SetCacheControl(fileName, duration);
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }
 
@@ -140,6 +143,7 @@
             imaging.Size(content).Returns(size);
             var container = Substitute.For<IContainer>();
             container.Save(fileName, content, mimeType);
+            container.SetCacheControl(fileName, 31536000);
             var table = Substitute.For<ITableStorage>();
             table.InsertOrReplace(Arg.Any<ImageEntity>());
             var queue = Substitute.For<IStorageQueue>();
@@ -150,6 +154,7 @@
 
             imaging.Received().Size(content);
             container.Received().Save(fileName, content, mimeType);
+            container.Received().SetCacheControl(fileName, 31536000);
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }
 
@@ -172,6 +177,7 @@
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             container.Save(fileName, content, mimeType);
+            container.SetCacheControl(fileName, 31536000);
             var table = Substitute.For<ITableStorage>();
             table.InsertOrReplace(Arg.Any<ImageEntity>());
             var queue = Substitute.For<IStorageQueue>();
@@ -183,6 +189,7 @@
 
             queue.Received().Save(Arg.Any<ImageQueued>());
             container.Received().Save(fileName, content, mimeType);
+            container.Received().SetCacheControl(fileName, 31536000);
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
         }
 

@@ -36,30 +36,34 @@
         /// Image Naming
         /// </summary>
         protected readonly INaming naming = null;
+
+        /// <summary>
+        /// Cache Control Duration
+        /// </summary>
+        protected readonly int cacheControlDuration = 31536000;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="connectionString">Connection String</param>
-        public DataStore(string connectionString)
-            : this(connectionString, new StorageElements())
+        public DataStore(string connectionString, int cacheControlDuration = 31536000)
+            : this(connectionString, new StorageElements(), cacheControlDuration)
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public DataStore(string connectionString, IStorageElements elements)
-            : this(new Imaging(), new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString), new Naming())
+        public DataStore(string connectionString, IStorageElements elements, int cacheControlDuration = 31536000)
+            : this(new Imaging(), new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString), new Naming(), cacheControlDuration)
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public DataStore(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue, INaming naming)
+        public DataStore(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue, INaming naming, int cacheControlDuration = 31536000)
         {
             if (null == imaging)
             {
@@ -87,6 +91,7 @@
             this.table = table;
             this.queue = queue;
             this.naming = naming;
+            this.cacheControlDuration = cacheControlDuration < 0 ? 31536000 : cacheControlDuration;
         }
         #endregion
 
@@ -127,6 +132,7 @@
 
             //Store in Blob
             await this.container.Save(fileName, content, mimeType);
+            await this.container.SetCacheControl(fileName, this.cacheControlDuration);
 
             if (0 >= width || 0 >= height)
             {
