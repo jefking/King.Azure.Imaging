@@ -20,7 +20,7 @@
         /// <remarks>
         /// Can be moved to a Worker Role (Azure)
         /// </remarks>
-        private readonly RoleTaskManager manager = new RoleTaskManager(new ImageTaskFactory("UseDevelopmentStorage=true;"));
+        private readonly IRoleTaskManager<IStorageElements> manager = new RoleTaskManager<IStorageElements>(new ImageTaskFactory("UseDevelopmentStorage=true;"));
         #endregion
 
         #region Methods
@@ -47,7 +47,7 @@
                 process.WaitForExit();
             }
 
-            this.manager.OnStart();
+            this.manager.OnStart(new StorageElements());
             this.manager.Run();
         }
 

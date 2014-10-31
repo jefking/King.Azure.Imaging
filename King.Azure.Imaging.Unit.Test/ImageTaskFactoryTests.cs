@@ -21,7 +21,7 @@
         [Test]
         public void IsITaskFactory()
         {
-            Assert.IsNotNull(new ImageTaskFactory(Guid.NewGuid().ToString()) as ITaskFactory<object>);
+            Assert.IsNotNull(new ImageTaskFactory(Guid.NewGuid().ToString()) as ITaskFactory<IStorageElements>);
         }
 
         [Test]
@@ -33,18 +33,9 @@
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorStorageElementsNull()
-        {
-            var versions = Substitute.For<IVersions>();
-            new ImageTaskFactory(Guid.NewGuid().ToString(), versions, null);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorVersionsNull()
         {
-            var elements = Substitute.For<IStorageElements>();
-            new ImageTaskFactory(Guid.NewGuid().ToString(), null, elements);
+            new ImageTaskFactory(Guid.NewGuid().ToString(), null);
         }
 
         [Test]
@@ -57,8 +48,8 @@
 
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, versions, elements);
-            var tasks = factory.Tasks(null);
+            var factory = new ImageTaskFactory(connectionString, versions);
+            var tasks = factory.Tasks(elements);
 
             Assert.IsNotNull(tasks);
         }
@@ -72,8 +63,8 @@
             elements.Queue.Returns(Guid.NewGuid().ToString());
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, versions, elements);
-            var tasks = factory.Tasks(null);
+            var factory = new ImageTaskFactory(connectionString, versions);
+            var tasks = factory.Tasks(elements);
 
             Assert.IsNotNull(tasks);
             Assert.AreEqual(4, tasks.Count());
@@ -88,8 +79,8 @@
             elements.Queue.Returns(Guid.NewGuid().ToString());
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, versions, elements);
-            var tasks = factory.Tasks(null);
+            var factory = new ImageTaskFactory(connectionString, versions);
+            var tasks = factory.Tasks(elements);
 
             Assert.IsNotNull(tasks);
             var task = (from t in tasks
@@ -108,8 +99,8 @@
             elements.Queue.Returns(Guid.NewGuid().ToString());
             var versions = Substitute.For<IVersions>();
 
-            var factory = new ImageTaskFactory(connectionString, versions, elements);
-            var tasks = factory.Tasks(null);
+            var factory = new ImageTaskFactory(connectionString, versions);
+            var tasks = factory.Tasks(elements);
 
             Assert.IsNotNull(tasks);
             var inits = from t in tasks

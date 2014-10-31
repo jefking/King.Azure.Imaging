@@ -10,18 +10,13 @@
     /// <summary>
     /// Image Task Factory
     /// </summary>
-    public class ImageTaskFactory : ITaskFactory<object>
+    public class ImageTaskFactory : ITaskFactory<IStorageElements>
     {
         #region Methods
         /// <summary>
         /// Connection String
         /// </summary>
         protected readonly string connectionString = null;
-
-        /// <summary>
-        /// Storage Elements
-        /// </summary>
-        protected readonly IStorageElements elements = null;
 
         /// <summary>
         /// Versions
@@ -34,22 +29,14 @@
         /// Constructor
         /// </summary>
         public ImageTaskFactory(string connectionString)
-            : this(connectionString, new Versions(), new StorageElements())
-        {
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public ImageTaskFactory(string connectionString, IVersions versions)
-            : this(connectionString, versions, new StorageElements())
+            : this(connectionString, new Versions())
         {
         }
 
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageTaskFactory(string connectionString, IVersions versions, IStorageElements elements)
+        public ImageTaskFactory(string connectionString, IVersions versions)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
@@ -59,14 +46,9 @@
             {
                 throw new ArgumentNullException("versions");
             }
-            if (null == elements)
-            {
-                throw new ArgumentNullException("elements");
-            }
 
             this.connectionString = connectionString;
             this.versions = versions;
-            this.elements = elements;
         }
         #endregion
 
@@ -76,28 +58,24 @@
         /// </summary>
         /// <param name="passthrough">passthrough</param>
         /// <returns>Runnable Tasks</returns>
-        public virtual IEnumerable<IRunnable> Tasks(object passthrough)
+        public virtual IEnumerable<IRunnable> Tasks(IStorageElements elements)
         {
-            var tasks = new List<IRunnable>();
-
             //Storage
             var container = new Container(elements.Container, connectionString, true);
             var table = new TableStorage(elements.Table, connectionString);
             var queue = new StorageQueue(elements.Queue, connectionString);
 
             //Initialization Tasks
-            tasks.Add(new InitializeStorageTask(container));
-            tasks.Add(new InitializeStorageTask(table));
-            tasks.Add(new InitializeStorageTask(queue));
+            yield return new InitializeStorageTask(container);
+            yield return new InitializeStorageTask(table);
+            yield return new InitializeStorageTask(queue);
 
             //Queue Poller
             var poller = new StorageQueuePoller<ImageQueued>(queue);
             //Image Processor
             var processor = new Processor(new DataStore(connectionString), this.versions.Images);
             //Image Processing Task
-            tasks.Add(new BackoffRunner(new DequeueBatch<ImageQueued>(poller, processor)));
-
-            return tasks;
+            yield return new BackoffRunner(new DequeueBatch<ImageQueued>(poller, processor));
         }
         #endregion
     }
