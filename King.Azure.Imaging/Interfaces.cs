@@ -67,11 +67,11 @@
     /// </summary>
     public interface IVersions
     {
-        #region Methods
+        #region Properties
         /// <summary>
         /// Image Versions to Generate
         /// </summary>
-        IDictionary<string, IImageVersion> Images
+        IReadOnlyDictionary<string, IImageVersion> Images
         {
             get;
         }

@@ -7,6 +7,7 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -69,7 +70,7 @@
             Assert.AreEqual(string.Format(Naming.PathFormat, this.container.Name, entity.FileName), entity.RelativePath);
         }
 
-        private IDictionary<string, IImageVersion> Versions()
+        private IReadOnlyDictionary<string, IImageVersion> Versions()
         {
             var versions = new Dictionary<string, IImageVersion>();
             var thumb = new ImageVersion
@@ -78,7 +79,7 @@
                 Format = new GifFormat { Quality = 10 },
             };
             versions.Add("test", thumb);
-            return versions;
+            return new ReadOnlyDictionary<string, IImageVersion>(versions);
         }
     }
 }

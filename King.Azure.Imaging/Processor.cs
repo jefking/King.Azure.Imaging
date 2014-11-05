@@ -15,7 +15,7 @@
         /// <summary>
         /// Versions
         /// </summary>
-        protected readonly IDictionary<string, IImageVersion> versions = null;
+        protected readonly IReadOnlyDictionary<string, IImageVersion> versions = null;
 
         /// <summary>
         /// Image Store
@@ -37,7 +37,7 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        public Processor(IDataStore store, IDictionary<string, IImageVersion> versions)
+        public Processor(IDataStore store, IReadOnlyDictionary<string, IImageVersion> versions)
             : this(store, versions, new Imaging(), new Naming())
         {
         }
@@ -45,7 +45,7 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        public Processor(IDataStore store, IDictionary<string, IImageVersion> versions, IImaging imaging, INaming naming)
+        public Processor(IDataStore store, IReadOnlyDictionary<string, IImageVersion> versions, IImaging imaging, INaming naming)
         {
             if (null == store)
             {

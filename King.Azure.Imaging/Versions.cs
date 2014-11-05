@@ -2,6 +2,7 @@
 {
     using ImageProcessor.Imaging.Formats;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Versions
@@ -12,35 +13,38 @@
         /// <summary>
         /// Versions
         /// </summary>
-        protected static readonly IDictionary<string, IImageVersion> versions = new Dictionary<string, IImageVersion>(3);
+        protected readonly IReadOnlyDictionary<string, IImageVersion> versions = null;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default Constructor
         /// </summary>
-        static Versions()
+        public Versions()
         {
+            var dictionary = new Dictionary<string, IImageVersion>(3);
             var thumb = new ImageVersion
             {
                 Width = 100,
                 Format = new GifFormat { Quality = 50 },
             };
-            versions.Add("thumb", thumb);
+            dictionary.Add("thumb", thumb);
 
             var medium = new ImageVersion
             {
                 Width = 640,
                 Format = new JpegFormat { Quality = 70 },
             };
-            versions.Add("medium", medium);
+            dictionary.Add("medium", medium);
 
             var large = new ImageVersion
             {
                 Width = 1080,
                 Format = new JpegFormat { Quality = 85 },
             };
-            versions.Add("large", large);
+            dictionary.Add("large", large);
+
+            this.versions = new ReadOnlyDictionary<string, IImageVersion>(dictionary);
         }
         #endregion
 
@@ -48,7 +52,7 @@
         /// <summary>
         /// Image Versions
         /// </summary>
-        public virtual IDictionary<string, IImageVersion> Images
+        public virtual IReadOnlyDictionary<string, IImageVersion> Images
         {
             get
             {
