@@ -4,6 +4,7 @@
     using King.Azure.Imaging.Entities;
     using System.Configuration;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
 
     /// <summary>
@@ -29,42 +30,42 @@
             return View();
         }
 
-        public ActionResult Thumbs()
+        public async Task<ActionResult> Thumbs()
         {
             var table = new TableStorage(elements.Table, connection);
-            var data = table.QueryByRow<ImageEntity>("thumb");
+            var data = await table.QueryByRow<ImageEntity>("thumb");
 
             return View(data);
         }
 
-        public ActionResult Originals()
+        public async Task<ActionResult> Originals()
         {
             var table = new TableStorage(elements.Table, connection);
-            var data = table.QueryByRow<ImageEntity>(Naming.Original);
+            var data = await table.QueryByRow<ImageEntity>(Naming.Original);
 
             return View(data);
         }
 
-        public ActionResult Large()
+        public async Task<ActionResult> Large()
         {
             var table = new TableStorage(elements.Table, connection);
-            var data = table.QueryByRow<ImageEntity>("large");
+            var data = await table.QueryByRow<ImageEntity>("large");
 
             return View(data);
         }
 
-        public ActionResult Medium()
+        public async Task<ActionResult> Medium()
         {
             var table = new TableStorage(elements.Table, connection);
-            var data = table.QueryByRow<ImageEntity>("medium");
+            var data = await table.QueryByRow<ImageEntity>("medium");
 
             return View(data);
         }
 
-        public ActionResult Dynamic()
+        public async Task<ActionResult> Dynamic()
         {
             var table = new TableStorage(elements.Table, connection);
-            var data = table.QueryByRow<ImageEntity>(Naming.Original);
+            var data = await table.QueryByRow<ImageEntity>(Naming.Original);
 
             return View(data);
         }
