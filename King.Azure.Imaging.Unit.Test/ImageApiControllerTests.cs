@@ -3,6 +3,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Net.Http;
@@ -166,6 +167,52 @@
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
             preProcessor.Received().Process(bytes, "image/jpeg", "myFilename.jpg");
+        }
+
+        [Test]
+        public async Task PostMultiple()
+        {
+            var random = new Random();
+            var count = random.Next(2, 5);
+            var files = new List<string>(count);
+
+            var preProcessor = Substitute.For<IPreprocessor>();
+
+            var content = new MultipartContent();
+
+            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            for (var i = 0; i < count; i++)
+            {
+                var fileName = Guid.NewGuid().ToString();
+                var fileContent = new ByteArrayContent(bytes);
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = fileName
+                };
+                preProcessor.Process(bytes, "image/jpeg", fileName);
+
+                content.Add(fileContent);
+                files.Add(fileName);
+            }
+
+            var store = Substitute.For<IDataStore>();
+
+            var api = new ImageApiController(preProcessor, store)
+            {
+                Request = new HttpRequestMessage(),
+            };
+            api.Request.Content = content;
+
+            var response = await api.Post();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+            foreach (var file in files)
+            {
+                preProcessor.Received().Process(bytes, "image/jpeg", file);
+            }
         }
 
         [Test]
