@@ -106,6 +106,17 @@
                 return new Streamer(this.container);
             }
         }
+
+        /// <summary>
+        /// Cache Control Duration
+        /// </summary>
+        public virtual int CacheDuration
+        {
+            get
+            {
+                return this.cacheControlDuration;
+            }
+        }
         #endregion
 
         #region Methods
