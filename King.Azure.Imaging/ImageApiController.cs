@@ -32,7 +32,6 @@
         public ImageApiController(string connectionString)
             : this(connectionString, new Preprocessor(connectionString), new StorageElements())
         {
-
         }
 
         /// <summary>

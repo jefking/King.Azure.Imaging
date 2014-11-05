@@ -1,8 +1,8 @@
 ﻿namespace King.Azure.Imaging
 {
     using King.Azure.Imaging.Models;
-using System;
-using System.Linq;
+    using System;
+    using System.Linq;
 
     /// <summary>
     /// Image Naming Convensions
