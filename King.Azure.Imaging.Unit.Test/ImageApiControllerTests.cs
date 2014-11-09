@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
+    using King.Azure.Imaging.Models;
     using NSubstitute;
     using NUnit.Framework;
     using System;

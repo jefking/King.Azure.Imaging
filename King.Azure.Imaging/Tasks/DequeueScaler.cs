@@ -6,13 +6,24 @@
     using King.Service.Data;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Dequeue Auto Scaler
+    /// </summary>
     public class DequeueScaler : AutoScaler<ITaskConfiguration>
     {
+        #region Constructors
         public DequeueScaler(ITaskConfiguration configuration)
             : base(configuration)
         {
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Scale Unit (Dequeue)
+        /// </summary>
+        /// <param name="config">Configruation</param>
+        /// <returns>Scalable Tasks</returns>
         public override IEnumerable<IScalable> ScaleUnit(ITaskConfiguration config)
         {
             var elements = config.StorageElements;
@@ -25,5 +36,6 @@
             //Image Processing Task
             yield return new BackoffRunner(new DequeueBatch<ImageQueued>(poller, processor));
         }
+        #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
+    using King.Azure.Imaging.Models;
     using King.Service;
     using King.Service.Data;
     using NSubstitute;
@@ -15,27 +16,13 @@
         [Test]
         public void Constructor()
         {
-            new ImageTaskFactory(Guid.NewGuid().ToString());
+            new ImageTaskFactory();
         }
 
         [Test]
         public void IsITaskFactory()
         {
-            Assert.IsNotNull(new ImageTaskFactory(Guid.NewGuid().ToString()) as ITaskFactory<IStorageElements>);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ConstructorConnectionStringNull()
-        {
-            new ImageTaskFactory(null);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorVersionsNull()
-        {
-            new ImageTaskFactory(Guid.NewGuid().ToString(), null);
+            Assert.IsNotNull(new ImageTaskFactory() as ITaskFactory<ITaskConfiguration>);
         }
 
         [Test]
@@ -45,11 +32,15 @@
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
             elements.Queue.Returns(Guid.NewGuid().ToString());
+            var config = new TaskConfiguration
+            {
+                StorageElements = elements,
+                Versions = Substitute.For<IVersions>(),
+                ConnectionString = connectionString,
+            };
 
-            var versions = Substitute.For<IVersions>();
-
-            var factory = new ImageTaskFactory(connectionString, versions);
-            var tasks = factory.Tasks(elements);
+            var factory = new ImageTaskFactory();
+            var tasks = factory.Tasks(config);
 
             Assert.IsNotNull(tasks);
         }
@@ -61,10 +52,15 @@
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
             elements.Queue.Returns(Guid.NewGuid().ToString());
-            var versions = Substitute.For<IVersions>();
+            var config = new TaskConfiguration
+            {
+                StorageElements = elements,
+                Versions = Substitute.For<IVersions>(),
+                ConnectionString = connectionString,
+            };
 
-            var factory = new ImageTaskFactory(connectionString, versions);
-            var tasks = factory.Tasks(elements);
+            var factory = new ImageTaskFactory();
+            var tasks = factory.Tasks(config);
 
             Assert.IsNotNull(tasks);
             Assert.AreEqual(4, tasks.Count());
@@ -77,10 +73,15 @@
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
             elements.Queue.Returns(Guid.NewGuid().ToString());
-            var versions = Substitute.For<IVersions>();
+            var config = new TaskConfiguration
+            {
+                StorageElements = elements,
+                Versions = Substitute.For<IVersions>(),
+                ConnectionString = connectionString,
+            };
 
-            var factory = new ImageTaskFactory(connectionString, versions);
-            var tasks = factory.Tasks(elements);
+            var factory = new ImageTaskFactory();
+            var tasks = factory.Tasks(config);
 
             Assert.IsNotNull(tasks);
             var task = (from t in tasks
@@ -97,10 +98,15 @@
             elements.Container.Returns(Guid.NewGuid().ToString());
             elements.Table.Returns(Guid.NewGuid().ToString());
             elements.Queue.Returns(Guid.NewGuid().ToString());
-            var versions = Substitute.For<IVersions>();
+            var config = new TaskConfiguration
+            {
+                StorageElements = elements,
+                Versions = Substitute.For<IVersions>(),
+                ConnectionString = connectionString,
+            };
 
-            var factory = new ImageTaskFactory(connectionString, versions);
-            var tasks = factory.Tasks(elements);
+            var factory = new ImageTaskFactory();
+            var tasks = factory.Tasks(config);
 
             Assert.IsNotNull(tasks);
             var inits = from t in tasks

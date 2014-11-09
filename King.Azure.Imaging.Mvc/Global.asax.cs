@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Mvc
 {
+    using King.Azure.Imaging.Models;
     using King.Service;
     using System.Configuration;
     using System.Diagnostics;
@@ -20,7 +21,7 @@
         /// <remarks>
         /// Can be moved to a Worker Role (Azure)
         /// </remarks>
-        private readonly IRoleTaskManager<IStorageElements> manager = new RoleTaskManager<IStorageElements>(new ImageTaskFactory("UseDevelopmentStorage=true;"));
+        private readonly IRoleTaskManager<ITaskConfiguration> manager = new RoleTaskManager<ITaskConfiguration>(new ImageTaskFactory());
         #endregion
 
         #region Methods
@@ -47,7 +48,14 @@
                 process.WaitForExit();
             }
 
-            this.manager.OnStart(new StorageElements());
+            var config = new TaskConfiguration
+            {
+                ConnectionString = "UseDevelopmentStorage=true;",
+                StorageElements = new StorageElements(),
+                Versions = new Versions(),
+            };
+
+            this.manager.OnStart(config);
             this.manager.Run();
         }
 

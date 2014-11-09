@@ -2,6 +2,7 @@
 {
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
+    using King.Azure.Imaging.Models;
     using System.Configuration;
     using System.Linq;
     using System.Threading.Tasks;
