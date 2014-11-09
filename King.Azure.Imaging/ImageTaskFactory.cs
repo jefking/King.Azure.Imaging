@@ -2,6 +2,7 @@
 {
     using King.Azure.Data;
     using King.Azure.Imaging.Models;
+    using King.Azure.Imaging.Tasks;
     using King.Service;
     using King.Service.Data;
     using System;
@@ -65,17 +66,21 @@
             var table = new TableStorage(elements.Table, connectionString);
             var queue = new StorageQueue(elements.Queue, connectionString);
 
+            //Task Configuration
+            var config = new TaskConfiguration
+            {
+                StorageElements = elements,
+                ConnectionString = connectionString,
+                Versions = this.versions,
+            };
+
             //Initialization Tasks
             yield return new InitializeStorageTask(container);
             yield return new InitializeStorageTask(table);
             yield return new InitializeStorageTask(queue);
 
-            //Queue Poller
-            var poller = new StorageQueuePoller<ImageQueued>(queue);
-            //Image Processor
-            var processor = new Processor(new DataStore(connectionString), this.versions.Images);
-            //Image Processing Task
-            yield return new BackoffRunner(new DequeueBatch<ImageQueued>(poller, processor));
+            //Dequeue, Image Processor
+            yield return new DequeueScaler(config);
         }
         #endregion
     }

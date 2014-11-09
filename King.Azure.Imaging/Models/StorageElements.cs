@@ -1,4 +1,4 @@
-﻿namespace King.Azure.Imaging
+﻿namespace King.Azure.Imaging.Models
 {
     /// <summary>
     /// Storage Elements
