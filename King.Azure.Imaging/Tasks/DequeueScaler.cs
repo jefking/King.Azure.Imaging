@@ -26,11 +26,8 @@
         /// <returns>Scalable Tasks</returns>
         public override IEnumerable<IScalable> ScaleUnit(ITaskConfiguration config)
         {
-            var elements = config.StorageElements;
-            var queue = new StorageQueue(elements.Queue, config.ConnectionString);
-
             //Queue Poller
-            var poller = new StorageQueuePoller<ImageQueued>(queue);
+            var poller = new StorageQueuePoller<ImageQueued>(config.StorageElements.Queue, config.ConnectionString);
             //Image Processor
             var processor = new Processor(new DataStore(config.ConnectionString), config.Versions.Images);
             //Image Processing Task
