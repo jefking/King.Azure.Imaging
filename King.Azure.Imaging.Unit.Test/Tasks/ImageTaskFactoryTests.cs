@@ -68,7 +68,7 @@
         }
 
         [Test]
-        public void HasBackoffRunner()
+        public void HasDequeueScaler()
         {
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
@@ -86,7 +86,7 @@
 
             Assert.IsNotNull(tasks);
             var task = (from t in tasks
-                        where t.GetType() == typeof(BackoffRunner)
+                        where t.GetType() == typeof(DequeueScaler)
                         select t).FirstOrDefault();
 
             Assert.IsNotNull(task);
