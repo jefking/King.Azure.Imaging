@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging.Mvc
 {
     using King.Azure.Imaging.Models;
+    using King.Azure.Imaging.Tasks;
     using King.Service;
     using System.Configuration;
     using System.Diagnostics;
