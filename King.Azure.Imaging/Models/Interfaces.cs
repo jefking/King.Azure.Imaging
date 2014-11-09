@@ -1,22 +1,38 @@
 ﻿namespace King.Azure.Imaging.Models
 {
+    #region ITaskConfiguration
+    /// <summary>
+    /// Task Configuration Interface
+    /// </summary>
     public interface ITaskConfiguration
     {
+        #region Properties
+        /// <summary>
+        /// Storage Elements
+        /// </summary>
         IStorageElements StorageElements
         {
             get;
         }
 
+        /// <summary>
+        /// Image Versions
+        /// </summary>
         IVersions Versions
         {
             get;
         }
 
+        /// <summary>
+        /// Storage Connection String
+        /// </summary>
         string ConnectionString
         {
             get;
         }
+        #endregion
     }
+    #endregion
 
     #region IStorageElements
     /// <summary>

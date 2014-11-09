@@ -1,4 +1,4 @@
-﻿namespace King.Azure.Imaging
+﻿namespace King.Azure.Imaging.Tasks
 {
     using King.Azure.Data;
     using King.Azure.Imaging.Models;

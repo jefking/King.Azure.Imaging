@@ -99,7 +99,7 @@
     <Compile Include="Preprocessor.cs" />
     <Compile Include="DataStore.cs" />
     <Compile Include="Streamer.cs" />
-    <Compile Include="ImageTaskFactory.cs" />
+    <Compile Include="Tasks\ImageTaskFactory.cs" />
     <Compile Include="Imaging.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Interfaces.cs" />

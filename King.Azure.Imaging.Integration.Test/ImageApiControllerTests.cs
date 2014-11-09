@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging.Integration.Test
 {
     using King.Azure.Data;
+    using King.Azure.Imaging.Models;
     using NUnit.Framework;
     using System;
     using System.IO;

@@ -1,23 +1,37 @@
 ﻿namespace King.Azure.Imaging.Models
 {
+    /// <summary>
+    /// Task Configuration
+    /// </summary>
     public class TaskConfiguration : ITaskConfiguration
     {
-        public IStorageElements StorageElements
+        #region Properties
+        /// <summary>
+        /// Storage Elements
+        /// </summary>
+        public virtual IStorageElements StorageElements
         {
             get;
             set;
         }
 
-        public IVersions Versions
+        /// <summary>
+        /// Image Versions
+        /// </summary>
+        public virtual IVersions Versions
         {
             get;
             set;
         }
 
-        public string ConnectionString
+        /// <summary>
+        /// Storage Connection String
+        /// </summary>
+        public virtual string ConnectionString
         {
             get;
             set;
         }
+        #endregion
     }
 }
