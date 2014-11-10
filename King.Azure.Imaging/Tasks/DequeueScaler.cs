@@ -12,6 +12,10 @@
     public class DequeueScaler : AutoScaler<ITaskConfiguration>
     {
         #region Constructors
+        /// <summary>
+        /// Mockable Constructor
+        /// </summary>
+        /// <param name="configuration">Configuration</param>
         public DequeueScaler(ITaskConfiguration configuration)
             : base(configuration)
         {

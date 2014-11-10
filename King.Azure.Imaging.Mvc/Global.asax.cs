@@ -85,6 +85,19 @@
                 RedirectStandardOutput = true,
             };
         }
+
+        /// <summary>
+        /// Dispose Manager
+        /// </summary>
+        public override void Dispose()
+        {
+            if (null != this.manager)
+            {
+                this.manager.Dispose();
+            }
+
+            base.Dispose();
+        }
         #endregion
     }
 }
