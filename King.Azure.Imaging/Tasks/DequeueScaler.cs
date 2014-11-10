@@ -4,6 +4,7 @@
     using King.Azure.Imaging.Models;
     using King.Service;
     using King.Service.Data;
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
