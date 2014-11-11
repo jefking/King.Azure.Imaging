@@ -49,6 +49,7 @@
                 process.WaitForExit();
             }
 
+            //Load your configuration
             var config = new TaskConfiguration
             {
                 ConnectionString = "UseDevelopmentStorage=true;",
