@@ -20,7 +20,7 @@
         /// Role Task Manager
         /// </summary>
         /// <remarks>
-        /// Can be moved to a Worker Role (Azure)
+        /// Can be moved to a Worker Role (Azure) or WebJob
         /// </remarks>
         private readonly IRoleTaskManager<ITaskConfiguration> manager = new RoleTaskManager<ITaskConfiguration>(new ImageTaskFactory());
         #endregion
