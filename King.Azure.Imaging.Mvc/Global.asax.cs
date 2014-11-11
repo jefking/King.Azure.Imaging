@@ -52,8 +52,8 @@
             var config = new TaskConfiguration
             {
                 ConnectionString = "UseDevelopmentStorage=true;",
-                StorageElements = new StorageElements(),
-                Versions = new Versions(),
+                StorageElements = new StorageElements(), // Modify for different storage names
+                Versions = new Versions(), // Modify for custom sizing/formats
             };
 
             this.manager.OnStart(config);
