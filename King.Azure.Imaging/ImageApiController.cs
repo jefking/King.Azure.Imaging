@@ -117,9 +117,6 @@
         /// <summary>
         /// Resize Image on the fly
         /// </summary>
-        /// <remarks>
-        /// Format and Cache are not wired in yet, soon
-        /// </remarks>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
         public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
