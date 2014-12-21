@@ -3,6 +3,7 @@
     using King.Azure.Imaging.Models;
     using King.Azure.Imaging.Tasks;
     using King.Service;
+    using King.Service.Data;
     using System.Configuration;
     using System.Diagnostics;
     using System.Web.Http;
@@ -37,24 +38,13 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Load storage emulator for Blob/Queue/Table storage
-            var emulator = ConfigurationManager.AppSettings["AzureEmulator"];
-
-            //This is only for testing, and can be removed when using Azure Storage
-            using (var process = new Process())
-            {
-                process.StartInfo = CreateProcessStartInfo(emulator, "start");
-                process.Start();
-
-                process.WaitForExit();
-            }
-
             //Load your configuration
             var config = new TaskConfiguration
             {
                 ConnectionString = "UseDevelopmentStorage=true;",
                 StorageElements = new StorageElements(), // Modify for different storage names
                 Versions = new Versions(), // Modify for custom sizing/formats
+                Priority = QueuePriority.Medium, // Modify to change cost/throughput ratio
             };
 
             this.manager.OnStart(config);
@@ -67,24 +57,6 @@
         protected void Application_End()
         {
             this.manager.OnStop();
-        }
-
-        /// <summary>
-        /// Start process
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="arguments"></param>
-        /// <returns></returns>
-        private static ProcessStartInfo CreateProcessStartInfo(string fileName, string arguments)
-        {
-            return new ProcessStartInfo(fileName, arguments)
-            {
-                UseShellExecute = false,
-                ErrorDialog = false,
-                CreateNoWindow = true,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true,
-            };
         }
 
         /// <summary>

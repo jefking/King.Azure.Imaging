@@ -56,6 +56,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Azure.1.1.16\lib\net451\King.Azure.dll</HintPath>
     </Reference>
+    <Reference Include="King.Azure.Imaging, Version=1.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\King.Azure.Imaging.1.3.5\lib\net451\King.Azure.Imaging.dll</HintPath>
+    </Reference>
     <Reference Include="King.Service, Version=1.5.2.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Service.1.9.3\lib\net451\King.Service.dll</HintPath>
@@ -246,12 +250,6 @@
     <Content Include="Views\Home\Medium.cshtml" />
     <Content Include="Views\Home\Large.cshtml" />
     <Content Include="Views\Home\Dynamic.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\King.Azure.Imaging\King.Azure.Imaging.csproj">
-      <Project>{b46d9e63-ef4b-4fa7-83e0-babf2249d6eb}</Project>
-      <Name>King.Azure.Imaging</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
