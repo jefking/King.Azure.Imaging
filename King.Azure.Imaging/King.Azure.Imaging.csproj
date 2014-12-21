@@ -111,7 +111,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StorageElements.cs" />
     <Compile Include="ImageVersion.cs" />
-    <Compile Include="Tasks\DequeueScaler.cs" />
     <Compile Include="Versions.cs" />
   </ItemGroup>
   <ItemGroup>

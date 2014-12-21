@@ -118,7 +118,6 @@
     <Compile Include="PreprocessorTests.cs" />
     <Compile Include="DataStoreTests.cs" />
     <Compile Include="StreamerTests.cs" />
-    <Compile Include="Tasks\DequeueScalerTests.cs" />
     <Compile Include="Tasks\ImageTaskFactoryTests.cs" />
     <Compile Include="ProcessorTests.cs" />
     <Compile Include="ImagingTests.cs" />
