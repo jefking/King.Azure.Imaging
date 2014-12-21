@@ -39,7 +39,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void ConstructorImagePreprocessorNull()
         {
             var elements = Substitute.For<IStorageElements>();
