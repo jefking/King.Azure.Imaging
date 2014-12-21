@@ -1,4 +1,5 @@
-﻿namespace King.Azure.Imaging.Models
+﻿using King.Service.Data;
+namespace King.Azure.Imaging.Models
 {
     #region ITaskConfiguration
     /// <summary>
@@ -27,6 +28,14 @@
         /// Storage Connection String
         /// </summary>
         string ConnectionString
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Priority
+        /// </summary>
+        QueuePriority Priority
         {
             get;
         }

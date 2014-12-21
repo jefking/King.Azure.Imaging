@@ -68,7 +68,7 @@
         }
 
         [Test]
-        public void HasDequeueScaler()
+        public void HasQueueAutoScaler()
         {
             var elements = Substitute.For<IStorageElements>();
             elements.Container.Returns(Guid.NewGuid().ToString());
@@ -86,7 +86,7 @@
 
             Assert.IsNotNull(tasks);
             var task = (from t in tasks
-                        where t.GetType() == typeof(DequeueScaler)
+                        where t.GetType() == typeof(QueueAutoScaler<ImageQueued>)
                         select t).FirstOrDefault();
 
             Assert.IsNotNull(task);
