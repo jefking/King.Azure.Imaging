@@ -30,7 +30,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorConnectionStringNull()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
@@ -39,7 +39,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorImagePreprocessorNull()
         {
             var elements = Substitute.For<IStorageElements>();

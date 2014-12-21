@@ -45,13 +45,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ImageProcessor.2.1.0.0\lib\net45\ImageProcessor.dll</HintPath>
     </Reference>
-    <Reference Include="King.Azure, Version=1.0.1.16, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="King.Azure, Version=1.0.1.24, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\King.Azure.1.1.14\lib\net451\King.Azure.dll</HintPath>
+      <HintPath>..\packages\King.Azure.1.1.16\lib\net451\King.Azure.dll</HintPath>
     </Reference>
-    <Reference Include="King.Service, Version=1.5.0.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="King.Service, Version=1.5.2.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\King.Service.1.8.8\lib\net451\King.Service.dll</HintPath>
+      <HintPath>..\packages\King.Service.1.9.3\lib\net451\King.Service.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.6.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,8 +80,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NSubstitute.1.8.0.0\lib\net45\NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
