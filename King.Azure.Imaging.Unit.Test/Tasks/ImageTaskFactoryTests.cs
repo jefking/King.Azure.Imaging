@@ -21,9 +21,9 @@
         }
 
         [Test]
-        public void IsITaskFactory()
+        public void IsEasyTaskFactory()
         {
-            Assert.IsNotNull(new ImageTaskFactory() as ITaskFactory<ITaskConfiguration>);
+            Assert.IsNotNull(new ImageTaskFactory() as EasyTaskFactory<ITaskConfiguration>);
         }
 
         [Test]
