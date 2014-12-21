@@ -1,4 +1,5 @@
-﻿namespace King.Azure.Imaging.Models
+﻿using King.Service.Data;
+namespace King.Azure.Imaging.Models
 {
     /// <summary>
     /// Task Configuration
@@ -28,6 +29,15 @@
         /// Storage Connection String
         /// </summary>
         public virtual string ConnectionString
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Queue Priority
+        /// </summary>
+        public virtual QueuePriority Priority
         {
             get;
             set;
