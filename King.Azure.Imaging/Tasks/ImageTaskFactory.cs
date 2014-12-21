@@ -2,7 +2,6 @@
 {
     using King.Azure.Data;
     using King.Azure.Imaging.Models;
-    using King.Azure.Imaging.Tasks;
     using King.Service;
     using King.Service.Data;
     using System.Collections.Generic;
@@ -10,7 +9,7 @@
     /// <summary>
     /// Image Task Factory
     /// </summary>
-    public class ImageTaskFactory : ITaskFactory<ITaskConfiguration>
+    public class ImageTaskFactory : EasyTaskFactory<ITaskConfiguration>
     {
         #region Methods
         /// <summary>
@@ -18,22 +17,18 @@
         /// </summary>
         /// <param name="passthrough">passthrough</param>
         /// <returns>Runnable Tasks</returns>
-        public virtual IEnumerable<IRunnable> Tasks(ITaskConfiguration config)
+        public override IEnumerable<IRunnable> Tasks(ITaskConfiguration config)
         {
             var elements = config.StorageElements;
 
-            //Storage
-            var container = new Container(elements.Container, config.ConnectionString, true);
-            var table = new TableStorage(elements.Table, config.ConnectionString);
-            var queue = new StorageQueue(elements.Queue, config.ConnectionString);
-
             //Initialization Tasks
-            yield return new InitializeStorageTask(container);
-            yield return new InitializeStorageTask(table);
-            yield return new InitializeStorageTask(queue);
+            yield return base.InitializeStorage(new Container(elements.Container, config.ConnectionString, true));
+            yield return base.InitializeStorage(new TableStorage(elements.Table, config.ConnectionString));
 
-            //Dequeue, Image Processor (dynamic scale)
-            yield return new DequeueScaler(config);
+            foreach (var t in new StorageDequeueFactory<ImageQueued>().Tasks(new ImageDequeueSetup(config)))
+            {
+                yield return t;
+            }
         }
         #endregion
     }
