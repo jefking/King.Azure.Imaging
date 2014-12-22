@@ -9,7 +9,7 @@
     /// <summary>
     /// Image Task Factory
     /// </summary>
-    public class ImageTaskFactory : EasyTaskFactory<ITaskConfiguration>
+    public class ImageTaskFactory : ITaskFactory<ITaskConfiguration>
     {
         #region Methods
         /// <summary>
@@ -17,13 +17,13 @@
         /// </summary>
         /// <param name="passthrough">passthrough</param>
         /// <returns>Runnable Tasks</returns>
-        public override IEnumerable<IRunnable> Tasks(ITaskConfiguration config)
+        public virtual IEnumerable<IRunnable> Tasks(ITaskConfiguration config)
         {
             var elements = config.StorageElements;
 
             //Initialization Tasks
-            yield return base.InitializeStorage(new Container(elements.Container, config.ConnectionString, true));
-            yield return base.InitializeStorage(new TableStorage(elements.Table, config.ConnectionString));
+            yield return new InitializeStorageTask(new Container(elements.Container, config.ConnectionString, true));
+            yield return new InitializeStorageTask(new TableStorage(elements.Table, config.ConnectionString));
 
             foreach (var t in new StorageDequeueFactory<ImageQueued>().Tasks(new ImageDequeueSetup(config)))
             {

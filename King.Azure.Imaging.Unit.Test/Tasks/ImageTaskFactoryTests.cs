@@ -23,7 +23,7 @@
         [Test]
         public void IsEasyTaskFactory()
         {
-            Assert.IsNotNull(new ImageTaskFactory() as EasyTaskFactory<ITaskConfiguration>);
+            Assert.IsNotNull(new ImageTaskFactory() as ITaskFactory<ITaskConfiguration>);
         }
 
         [Test]
