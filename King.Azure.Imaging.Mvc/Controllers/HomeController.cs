@@ -4,7 +4,6 @@
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using System.Configuration;
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
@@ -23,6 +22,11 @@
         /// Connection String
         /// </summary>
         private static readonly string connection = ConfigurationManager.AppSettings["StorageAccount"];
+
+        /// <summary>
+        /// Table Storage (Image Meta-Data)
+        /// </summary>
+        private readonly ITableStorage table = new TableStorage(elements.Table, connection);
         #endregion
 
         #region Methods
@@ -33,40 +37,35 @@
 
         public async Task<ActionResult> Thumbs()
         {
-            var table = new TableStorage(elements.Table, connection);
-            var data = await table.QueryByRow<ImageEntity>("thumb");
+            var data = await this.table.QueryByRow<ImageEntity>("thumb");
 
             return View(data);
         }
 
         public async Task<ActionResult> Originals()
         {
-            var table = new TableStorage(elements.Table, connection);
-            var data = await table.QueryByRow<ImageEntity>(Naming.Original);
+            var data = await this.table.QueryByRow<ImageEntity>(Naming.Original);
 
             return View(data);
         }
 
         public async Task<ActionResult> Large()
         {
-            var table = new TableStorage(elements.Table, connection);
-            var data = await table.QueryByRow<ImageEntity>("large");
+            var data = await this.table.QueryByRow<ImageEntity>("large");
 
             return View(data);
         }
 
         public async Task<ActionResult> Medium()
         {
-            var table = new TableStorage(elements.Table, connection);
-            var data = await table.QueryByRow<ImageEntity>("medium");
+            var data = await this.table.QueryByRow<ImageEntity>("medium");
 
             return View(data);
         }
 
         public async Task<ActionResult> Dynamic()
         {
-            var table = new TableStorage(elements.Table, connection);
-            var data = await table.QueryByRow<ImageEntity>(Naming.Original);
+            var data = await this.table.QueryByRow<ImageEntity>(Naming.Original);
 
             return View(data);
         }
