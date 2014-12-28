@@ -166,6 +166,7 @@
 
             Assert.IsNotNull(response);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(response.Content);
 
             preProcessor.Received().Process(bytes, "image/jpeg", "myFilename.jpg");
         }
@@ -209,6 +210,7 @@
 
             Assert.IsNotNull(response);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(response.Content);
 
             foreach (var file in files)
             {
