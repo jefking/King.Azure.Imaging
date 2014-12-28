@@ -1,11 +1,14 @@
 ﻿namespace King.Azure.Imaging
 {
     using King.Azure.Imaging.Models;
+    using Newtonsoft.Json;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
 
@@ -78,14 +81,19 @@
             var provider = new MultipartMemoryStreamProvider();
             await this.Request.Content.ReadAsMultipartAsync(provider);
 
+            var ids = new List<Guid>(provider.Contents.Count);
             foreach (var file in provider.Contents)
             {
                 var bytes = await file.ReadAsByteArrayAsync();
 
-                await this.preprocessor.Process(bytes, file.Headers.ContentType.MediaType, file.Headers.ContentDisposition.FileName.Trim('\"'));
+                var id = await this.preprocessor.Process(bytes, file.Headers.ContentType.MediaType, file.Headers.ContentDisposition.FileName.Trim('\"'));
+                ids.Add(id);
             }
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json"),
+            };
         }
 
         /// <summary>
