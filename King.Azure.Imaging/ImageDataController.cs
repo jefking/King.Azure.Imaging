@@ -6,6 +6,7 @@
     using King.Mapper;
     using Newtonsoft.Json;
     using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Text;
@@ -62,7 +63,7 @@
         public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string fileName = null)
         {
             var images = await this.table.QueryByPartition<ImageEntity>(id.ToString());
-            var data = images.Map<object>();
+            var data = images.Select(i => i.Map<ImageMetaData>());
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {

@@ -1,13 +1,44 @@
-﻿namespace King.Azure.Imaging.Entities
+﻿namespace King.Azure.Imaging.Models
 {
-    using Microsoft.WindowsAzure.Storage.Table;
+    using King.Azure.Data;
+    using King.Mapper;
+    using System;
 
     /// <summary>
-    /// Image Entity
+    /// Image Meta Data
     /// </summary>
-    public class ImageEntity : TableEntity
+    public class ImageMetaData
     {
         #region Properties
+        /// <summary>
+        /// Identifier
+        /// </summary>
+        [ActionName(TableStorage.PartitionKey)]
+        public virtual Guid Identifier
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ActionName(TableStorage.RowKey)]
+        public virtual string Version
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ActionName(TableStorage.Timestamp)]
+        public virtual string CreatedOn
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// Mime Type
         /// </summary>
