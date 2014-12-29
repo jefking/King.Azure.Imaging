@@ -97,37 +97,11 @@
         }
 
         /// <summary>
-        /// Get a specific file from Blob storage
-        /// </summary>
-        /// <param name="file">file name</param>
-        /// <returns>File</returns>
-        [HttpGet]
-        public virtual async Task<HttpResponseMessage> Get(string file)
-        {
-            if (string.IsNullOrWhiteSpace(file))
-            {
-                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
-                {
-                    ReasonPhrase = "file must be specified",
-                };
-            }
-
-            var streamer = this.store.Streamer;
-            var response = new HttpResponseMessage
-            {
-                Content = new StreamContent(await streamer.Stream(file)),
-            };
-
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.MimeType);
-            return response;
-        }
-
-        /// <summary>
-        /// Resize Image on the fly
+        /// Get a specific file from Blob storage; resize as needed
         /// </summary>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
+        public virtual async Task<HttpResponseMessage> Get(string file, int width = 0, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -136,37 +110,51 @@
                     ReasonPhrase = "file must be specified",
                 };
             }
-            if (0 > width)
+            if (0 == width && 0 == height)
             {
-                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                var streamer = this.store.Streamer;
+                var response = new HttpResponseMessage
                 {
-                    ReasonPhrase = "width less than 0",
+                    Content = new StreamContent(await streamer.Stream(file)),
                 };
+
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.MimeType);
+                return response;
             }
-            if (0 > height)
+            else
             {
-                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                if (0 > width)
                 {
-                    ReasonPhrase = "height less than 0",
-                };
-            }
-            if (0 >= width && 0 >= height)
-            {
-                return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                    return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                    {
+                        ReasonPhrase = "width less than 0",
+                    };
+                }
+                if (0 > height)
                 {
-                    ReasonPhrase = "width and height less than or equal to 0",
+                    return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                    {
+                        ReasonPhrase = "height less than 0",
+                    };
+                }
+                if (0 >= width && 0 >= height)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
+                    {
+                        ReasonPhrase = "width and height less than or equal to 0",
+                    };
+                }
+
+                var data = await this.store.Resize(file, width, height, format, quality, cache);
+
+                var response = new HttpResponseMessage
+                {
+                    Content = new StreamContent(new MemoryStream(data.Raw)),
                 };
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(data.MimeType);
+
+                return response;
             }
-
-            var data = await this.store.Resize(file, width, height, format, quality, cache);
-
-            var response = new HttpResponseMessage
-            {
-                Content = new StreamContent(new MemoryStream(data.Raw)),
-            };
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(data.MimeType);
-
-            return response;
         }
         #endregion
     }

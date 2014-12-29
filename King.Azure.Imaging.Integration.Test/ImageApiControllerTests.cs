@@ -60,7 +60,7 @@
             await this.container.Save(file, bytes, "image/png");
 
             var api = new ImageApiController(connectionString);
-            var data = await api.Resize(file, 10);
+            var data = await api.Get(file, 10);
 
             Assert.IsNotNull(data);
             var resized = await data.Content.ReadAsByteArrayAsync();

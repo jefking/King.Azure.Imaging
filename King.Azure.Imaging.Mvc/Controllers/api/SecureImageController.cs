@@ -35,16 +35,9 @@
 
         [HttpGet]
         [Authorize(Roles = "Users")]
-        public override async Task<HttpResponseMessage> Get(string file)
+        public override async Task<HttpResponseMessage> Get(string file, int width = 0, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
         {
-            return await base.Get(file);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Users")]
-        public override async Task<HttpResponseMessage> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
-        {
-            return await base.Resize(file, width, height, format, quality, cache);
+            return await base.Get(file, width, height, format, quality, cache);
         }
         #endregion
     }
