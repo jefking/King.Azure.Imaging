@@ -110,6 +110,7 @@
                     ReasonPhrase = "file must be specified",
                 };
             }
+
             if (0 == width && 0 == height)
             {
                 var streamer = this.store.Streamer;
