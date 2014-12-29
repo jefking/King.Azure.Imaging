@@ -86,32 +86,6 @@
         }
 
         [Test]
-        public async Task ResizeWidthInvalid()
-        {
-            var preprocessor = Substitute.For<IPreprocessor>();
-            var store = Substitute.For<IDataStore>();
-
-            var api = new ImageApiController(preprocessor, store);
-            var response =  await api.Get(Guid.NewGuid().ToString(), -1, 100);
-
-            Assert.IsNotNull(response);
-            Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
-        }
-
-        [Test]
-        public async Task ResizeHeightInvalid()
-        {
-            var preprocessor = Substitute.For<IPreprocessor>();
-            var store = Substitute.For<IDataStore>();
-
-            var api = new ImageApiController(preprocessor, store);
-            var response = await api.Get(Guid.NewGuid().ToString(), 100, -1);
-
-            Assert.IsNotNull(response);
-            Assert.AreEqual(HttpStatusCode.PreconditionFailed, response.StatusCode);
-        }
-
-        [Test]
         public async Task Post()
         {
             var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");

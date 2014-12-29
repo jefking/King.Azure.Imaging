@@ -53,7 +53,7 @@
         public void FileSize()
         {
             var random = new Random();
-            var expected = (uint)random.Next(uint.MinValue, uint.MaxValue);
+            var expected = (uint)random.Next(0, (int)uint.MaxValue);
 
             var data = new ImageEntity()
             {
@@ -67,7 +67,7 @@
         public void Width()
         {
             var random = new Random();
-            var expected = (ushort)random.Next(ushort.MinValue, ushort.MaxValue);
+            var expected = (ushort)random.Next(0, ushort.MaxValue);
 
             var data = new ImageEntity()
             {
