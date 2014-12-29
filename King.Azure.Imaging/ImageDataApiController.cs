@@ -1,13 +1,10 @@
 ﻿namespace King.Azure.Imaging
 {
     using King.Azure.Data;
-    using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
-    using King.Mapper;
     using Microsoft.WindowsAzure.Storage.Table;
     using Newtonsoft.Json;
     using System;
-    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Text;
@@ -61,9 +58,22 @@
         /// Get image data
         /// </summary>
         /// <returns>Image Data</returns>
-        public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string fileName = null)
+        public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string version = null, string fileName = null)
         {
             var query = new TableQuery();
+            if (id.HasValue)
+            {
+                query.Where(TableQuery.GenerateFilterCondition(TableStorage.PartitionKey, QueryComparisons.Equal, id.Value.ToString()));
+            }
+            if (!string.IsNullOrWhiteSpace(version))
+            {
+                query.Where(TableQuery.GenerateFilterCondition(TableStorage.RowKey, QueryComparisons.Equal, version));
+            }
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                query.Where(TableQuery.GenerateFilterCondition("FileName", QueryComparisons.Equal, fileName));
+            }
+
             var images = await this.table.Query(query);
             foreach (var data in images)
             {
