@@ -4,6 +4,7 @@
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using King.Mapper;
+    using Microsoft.WindowsAzure.Storage.Table;
     using Newtonsoft.Json;
     using System;
     using System.Linq;
@@ -16,7 +17,7 @@
     /// <summary>
     /// Image Meta Data Controller
     /// </summary>
-    public class ImageDataController : ApiController
+    public class ImageDataApiController : ApiController
     {
         #region Members
         /// <summary>
@@ -30,7 +31,7 @@
         /// Constructor
         /// </summary>
         /// <param name="connectionString">Table Storage Connection String</param>
-        public ImageDataController(string connectionString)
+        public ImageDataApiController(string connectionString)
             : this(connectionString, new StorageElements())
         {
         }
@@ -40,7 +41,7 @@
         /// </summary>
         /// <param name="connectionString">Table Storage Connection String</param>
         /// <param name="elements">Storage Elements</param>
-        public ImageDataController(string connectionString, IStorageElements elements)
+        public ImageDataApiController(string connectionString, IStorageElements elements)
             :this(new TableStorage(elements.Table, connectionString))
         {
         }
@@ -49,7 +50,7 @@
         /// Mockable Constructor
         /// </summary>
         /// <param name="table">Table</param>
-        public ImageDataController(ITableStorage table)
+        public ImageDataApiController(ITableStorage table)
         {
             this.table = table;
         }
@@ -62,28 +63,28 @@
         /// <returns>Image Data</returns>
         public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string fileName = null)
         {
-            var images = await this.table.QueryByPartition<ImageEntity>(id.ToString());
-            var data = images.Select(i => i.ToDictionary());
-            foreach (var d in data)
+            var query = new TableQuery();
+            var images = await this.table.Query(query);
+            foreach (var data in images)
             {
-                d.Remove(TableStorage.ETag);
-                
-                var temp = d[TableStorage.PartitionKey];
-                d.Remove(TableStorage.PartitionKey);
-                d.Add("Identifier", temp);
-                
-                temp = d[TableStorage.RowKey];
-                d.Remove(TableStorage.RowKey);
-                d.Add("Version", temp);
+                data.Remove(TableStorage.ETag);
 
-                temp = d[TableStorage.Timestamp];
-                d.Remove(TableStorage.Timestamp);
-                d.Add("CreatedOn", temp);
+                var temp = data[TableStorage.PartitionKey];
+                data.Remove(TableStorage.PartitionKey);
+                data.Add("Identifier", temp);
+
+                temp = data[TableStorage.RowKey];
+                data.Remove(TableStorage.RowKey);
+                data.Add("Version", temp);
+
+                temp = data[TableStorage.Timestamp];
+                data.Remove(TableStorage.Timestamp);
+                data.Add("CreatedOn", temp);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"),
+                Content = new StringContent(JsonConvert.SerializeObject(images), Encoding.UTF8, "application/json"),
             };
         }
         #endregion
