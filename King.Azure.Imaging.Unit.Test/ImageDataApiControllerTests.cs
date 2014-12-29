@@ -25,8 +25,7 @@
         [Test]
         public void ConstructorElements()
         {
-            var elements = Substitute.For<IStorageElements>();
-            new ImageDataApiController(connectionString, elements);
+            new ImageDataApiController(connectionString, new StorageElements());
         }
 
         [Test]
