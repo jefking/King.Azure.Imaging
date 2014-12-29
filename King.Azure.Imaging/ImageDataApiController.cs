@@ -65,6 +65,7 @@
         public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string version = null, string file = null)
         {
             var images = await this.dataStore.Query(id, version, file);
+
             return null == images || !images.Any()
                 ? new HttpResponseMessage(HttpStatusCode.NotFound)
                 : new HttpResponseMessage(HttpStatusCode.OK)

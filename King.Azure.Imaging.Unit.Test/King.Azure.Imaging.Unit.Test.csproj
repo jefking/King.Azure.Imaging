@@ -117,10 +117,12 @@
   <ItemGroup>
     <Compile Include="Entities\ImageEntityTests.cs" />
     <Compile Include="ImageApiControllerTests.cs" />
+    <Compile Include="ImageDataApiControllerTests.cs" />
     <Compile Include="Models\ImageDataTests.cs" />
     <Compile Include="NamingTests.cs" />
     <Compile Include="PreprocessorTests.cs" />
     <Compile Include="DataStoreTests.cs" />
+    <Compile Include="QueryDataStoreTests.cs" />
     <Compile Include="StreamerTests.cs" />
     <Compile Include="Tasks\ImageDequeueSetupTests.cs" />
     <Compile Include="Tasks\ImageTaskFactoryTests.cs" />
