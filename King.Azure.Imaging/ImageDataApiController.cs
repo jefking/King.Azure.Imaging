@@ -10,6 +10,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using System.Linq;
 
     /// <summary>
     /// Image Meta Data Controller
@@ -58,38 +59,37 @@
         /// Get image data
         /// </summary>
         /// <returns>Image Data</returns>
-        public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string version = null, string fileName = null)
+        public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string version = null, string file = null)
         {
+            var partitionFilter = id.HasValue ? TableQuery.GenerateFilterCondition(TableStorage.PartitionKey, QueryComparisons.Equal, id.Value.ToString()) : null;
+            var rowFilter = !string.IsNullOrWhiteSpace(version) ? TableQuery.GenerateFilterCondition(TableStorage.RowKey, QueryComparisons.Equal, version) : null;
+
             var query = new TableQuery();
-            if (id.HasValue)
+            if (null != partitionFilter && null != rowFilter)
             {
-                query.Where(TableQuery.GenerateFilterCondition(TableStorage.PartitionKey, QueryComparisons.Equal, id.Value.ToString()));
+                query = query.Where(TableQuery.CombineFilters(partitionFilter, TableOperators.And, rowFilter));
             }
-            if (!string.IsNullOrWhiteSpace(version))
+            else if (null != partitionFilter)
             {
-                query.Where(TableQuery.GenerateFilterCondition(TableStorage.RowKey, QueryComparisons.Equal, version));
+                query.Where(partitionFilter);
             }
-            if (!string.IsNullOrWhiteSpace(fileName))
+            else if (null != rowFilter)
             {
-                query.Where(TableQuery.GenerateFilterCondition("FileName", QueryComparisons.Equal, fileName));
+                query.Where(rowFilter);
             }
 
             var images = await this.table.Query(query);
+            images = images.Where(i => string.IsNullOrWhiteSpace(file) || file == (string)i["FileName"]);
             foreach (var data in images)
             {
-                data.Remove(TableStorage.ETag);
+                data.Add("Identifier", data[TableStorage.PartitionKey]);
+                data.Add("Version", data[TableStorage.RowKey]);
+                data.Add("CreatedOn", data[TableStorage.Timestamp]);
 
-                var temp = data[TableStorage.PartitionKey];
                 data.Remove(TableStorage.PartitionKey);
-                data.Add("Identifier", temp);
-
-                temp = data[TableStorage.RowKey];
-                data.Remove(TableStorage.RowKey);
-                data.Add("Version", temp);
-
-                temp = data[TableStorage.Timestamp];
                 data.Remove(TableStorage.Timestamp);
-                data.Add("CreatedOn", temp);
+                data.Remove(TableStorage.RowKey);
+                data.Remove(TableStorage.ETag);
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK)
