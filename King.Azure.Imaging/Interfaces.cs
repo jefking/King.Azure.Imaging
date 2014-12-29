@@ -269,4 +269,23 @@
         #endregion
     }
     #endregion
+
+    #region IDataStore
+    /// <summary>
+    /// Query Data Store Interface
+    /// </summary>
+    public interface IQueryDataStore
+    {
+        #region Methods
+        /// <summary>
+        /// Query Table Storage
+        /// </summary>
+        /// <param name="identifier">Identifier</param>
+        /// <param name="version">Version</param>
+        /// <param name="fileName">File Name</param>
+        /// <returns></returns>
+        Task<IEnumerable<IDictionary<string, object>>> Query(Guid? identifier = null, string version = null, string fileName = null);
+        #endregion
+    }
+    #endregion
 }

@@ -106,6 +106,7 @@
     <Compile Include="Naming.cs" />
     <Compile Include="Preprocessor.cs" />
     <Compile Include="DataStore.cs" />
+    <Compile Include="QueryDataStore.cs" />
     <Compile Include="Streamer.cs" />
     <Compile Include="Tasks\ImageDequeueSetup.cs" />
     <Compile Include="Tasks\ImageTaskFactory.cs" />
