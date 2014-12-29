@@ -94,7 +94,7 @@
             streamer.Bytes(original).Returns(Task.FromResult(bytes));
             var store = Substitute.For<IDataStore>();
             store.Streamer.Returns(streamer);
-            store.Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
+            store.Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, (byte)version.Format.Quality);
 
             var ip = new Processor(store, versions, imaging, naming);
             var result = await ip.Process(data);
@@ -106,7 +106,7 @@
             naming.Received().FileName(data, "temp", version.Format.DefaultExtension);
             streamer.Received().Bytes(original);
             var s = store.Streamer.Received();
-            store.Received().Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
+            store.Received().Save(fileName, bytes, "temp", version.Format.MimeType, data.Identifier, false, null, (byte)version.Format.Quality);
         }
     }
 }

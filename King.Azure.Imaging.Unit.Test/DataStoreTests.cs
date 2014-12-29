@@ -135,9 +135,9 @@
             var identifier = Guid.NewGuid();
             var queueForResize = false;
             var extension = Guid.NewGuid().ToString();
-            var quality = 100;
-            var width = 122;
-            var height = 133;
+            var quality = (byte)100;
+            var width = (ushort)122;
+            var height = (ushort)133;
             var duration = random.Next(1, 31536000);
 
             var imaging = Substitute.For<IImaging>();
@@ -170,9 +170,9 @@
             var identifier = Guid.NewGuid();
             var queueForResize = false;
             var extension = Guid.NewGuid().ToString();
-            var quality = 100;
-            var width = 0;
-            var height = 0;
+            var quality = (byte)100;
+            var width = (ushort)0;
+            var height = (ushort)0;
             var size = new Size()
             {
                 Height = 99,
@@ -210,9 +210,9 @@
             var identifier = Guid.NewGuid();
             var queueForResize = true;
             var extension = Guid.NewGuid().ToString();
-            var quality = 100;
-            var width = 122;
-            var height = 133;
+            var quality = (byte)100;
+            var width = (ushort)122;
+            var height = (ushort)133;
 
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
@@ -237,7 +237,7 @@
         public async Task Resize()
         {
             var fileName = Guid.NewGuid().ToString();
-            var width = 122;
+            var width = (ushort)122;
             var format = new JpegFormat();
             var id = Guid.NewGuid();
             var versionName = Guid.NewGuid().ToString();
@@ -272,7 +272,7 @@
         public async Task ResizeCache()
         {
             var fileName = Guid.NewGuid().ToString();
-            var width = 122;
+            var width = (ushort)122;
             var format = new JpegFormat();
             var id = Guid.NewGuid();
             var versionName = Guid.NewGuid().ToString();

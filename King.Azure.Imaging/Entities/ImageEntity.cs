@@ -38,7 +38,7 @@
         /// <summary>
         /// File Size
         /// </summary>
-        public virtual uint FileSize
+        public virtual long FileSize
         {
             get;
             set;
@@ -47,7 +47,7 @@
         /// <summary>
         /// Image Width
         /// </summary>
-        public virtual ushort Width
+        public virtual int Width
         {
             get;
             set;
@@ -56,7 +56,7 @@
         /// <summary>
         /// Image Height
         /// </summary>
-        public virtual ushort Height
+        public virtual int Height
         {
             get;
             set;
@@ -65,7 +65,7 @@
         /// <summary>
         /// Image Quality
         /// </summary>
-        public virtual byte Quality
+        public virtual int Quality
         {
             get;
             set;
