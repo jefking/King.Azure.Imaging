@@ -63,7 +63,23 @@
         public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string fileName = null)
         {
             var images = await this.table.QueryByPartition<ImageEntity>(id.ToString());
-            var data = images.Select(i => i.Map<ImageMetaData>());
+            var data = images.Select(i => i.ToDictionary());
+            foreach (var d in data)
+            {
+                d.Remove(TableStorage.ETag);
+                
+                var temp = d[TableStorage.PartitionKey];
+                d.Remove(TableStorage.PartitionKey);
+                d.Add("Identifier", temp);
+                
+                temp = d[TableStorage.RowKey];
+                d.Remove(TableStorage.RowKey);
+                d.Add("Version", temp);
+
+                temp = d[TableStorage.Timestamp];
+                d.Remove(TableStorage.Timestamp);
+                d.Add("CreatedOn", temp);
+            }
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
