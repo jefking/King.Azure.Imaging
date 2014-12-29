@@ -1,8 +1,6 @@
 ﻿namespace King.Azure.Imaging
 {
-    using King.Azure.Data;
     using King.Azure.Imaging.Models;
-    using Microsoft.WindowsAzure.Storage.Table;
     using Newtonsoft.Json;
     using System;
     using System.Linq;
@@ -67,17 +65,12 @@
         public virtual async Task<HttpResponseMessage> Get(Guid? id = null, string version = null, string file = null)
         {
             var images = await this.dataStore.Query(id, version, file);
-            if (null == images || !images.Any())
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
-            }
-            else
-            {
-                return new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(JsonConvert.SerializeObject(images), Encoding.UTF8, "application/json"),
-                };
-            }
+            return null == images || !images.Any()
+                ? new HttpResponseMessage(HttpStatusCode.NotFound)
+                : new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(images), Encoding.UTF8, "application/json"),
+                    };
         }
         #endregion
     }
