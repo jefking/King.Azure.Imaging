@@ -14,6 +14,30 @@
         }
 
         [Test]
+        public void Identifier()
+        {
+            var expected = Guid.NewGuid();
+            var data = new ImageMetaData()
+            {
+                Identifier = expected
+            };
+
+            Assert.AreEqual(expected, data.Identifier);
+        }
+
+        [Test]
+        public void Version()
+        {
+            var expected = Guid.NewGuid().ToString();
+            var data = new ImageMetaData()
+            {
+                Version = expected
+            };
+
+            Assert.AreEqual(expected, data.Version);
+        }
+
+        [Test]
         public void ContentType()
         {
             var expected = Guid.NewGuid().ToString();
@@ -23,6 +47,18 @@
             };
 
             Assert.AreEqual(expected, data.MimeType);
+        }
+
+        [Test]
+        public void CreatedOn()
+        {
+            var expected = DateTime.UtcNow;
+            var data = new ImageMetaData()
+            {
+                CreatedOn = expected
+            };
+
+            Assert.AreEqual(expected, data.CreatedOn);
         }
 
         [Test]
