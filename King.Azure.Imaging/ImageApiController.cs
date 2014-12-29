@@ -101,7 +101,7 @@
         /// </summary>
         /// <returns>Image (Resized)</returns>
         [HttpGet]
-        public virtual async Task<HttpResponseMessage> Get(string file, int width = 0, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
+        public virtual async Task<HttpResponseMessage> Get(string file, ushort width = 0, ushort height = 0, string format = Naming.DefaultExtension, byte quality = Imaging.DefaultImageQuality, bool cache = true)
         {
             if (string.IsNullOrWhiteSpace(file))
             {

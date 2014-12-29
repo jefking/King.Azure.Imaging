@@ -101,6 +101,7 @@
     <Compile Include="ImageApiController.cs" />
     <Compile Include="ImageDataController.cs" />
     <Compile Include="Models\ImageData.cs" />
+    <Compile Include="Models\ImageMetaData.cs" />
     <Compile Include="Models\Interfaces.cs" />
     <Compile Include="Models\TaskConfiguration.cs" />
     <Compile Include="Naming.cs" />

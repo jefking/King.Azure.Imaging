@@ -179,7 +179,7 @@
         /// <param name="width">Width</param>
         /// <param name="height">Height</param>
         /// <returns></returns>
-        Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, int quality = Imaging.DefaultImageQuality, int width = 0, int height = 0);
+        Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, byte quality = Imaging.DefaultImageQuality, ushort width = 0, ushort height = 0);
 
         /// <summary>
         /// Resize
@@ -191,7 +191,7 @@
         /// <param name="quality">Quality</param>
         /// <param name="cache">Cache</param>
         /// <returns></returns>
-        Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true);
+        Task<ImageData> Resize(string file, ushort width, ushort height = 0, string format = Naming.DefaultExtension, byte quality = Imaging.DefaultImageQuality, bool cache = true);
         #endregion
     }
     #endregion

@@ -90,7 +90,7 @@
 
                 var resized = this.imaging.Resize(bytes, version);
 
-                await this.store.Save(filename, resized, key, version.Format.MimeType, data.Identifier, false, null, version.Format.Quality);
+                await this.store.Save(filename, resized, key, version.Format.MimeType, data.Identifier, false, null, (byte)version.Format.Quality);
             }
 
             return true;

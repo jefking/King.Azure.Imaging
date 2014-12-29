@@ -135,7 +135,7 @@
         /// <param name="height">Height</param>
         /// <returns>Task</returns>
         public virtual async Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null
-            , int quality = Imaging.DefaultImageQuality, int width = 0, int height = 0)
+            , byte quality = Imaging.DefaultImageQuality, ushort width = 0, ushort height = 0)
         {
             fileName = fileName.ToLowerInvariant();
             version = version.ToLowerInvariant();
@@ -148,8 +148,8 @@
             if (0 >= width || 0 >= height)
             {
                 var size = this.imaging.Size(content);
-                width = size.Width;
-                height = size.Height;
+                width = (ushort)size.Width;
+                height = (ushort)size.Height;
             }
 
             //Store in Table
@@ -159,7 +159,7 @@
                 RowKey = version,
                 FileName = fileName,
                 MimeType = mimeType,
-                FileSize = content.LongLength,
+                FileSize = (uint)content.LongLength,
                 Width = width,
                 Height = height,
                 Quality = quality,
@@ -188,7 +188,7 @@
         /// <param name="quality">Quality</param>
         /// <param name="cache">Cache</param>
         /// <returns>Image Data</returns>
-        public async Task<ImageData> Resize(string file, int width, int height = 0, string format = Naming.DefaultExtension, int quality = Imaging.DefaultImageQuality, bool cache = true)
+        public async Task<ImageData> Resize(string file, ushort width, ushort height = 0, string format = Naming.DefaultExtension, byte quality = Imaging.DefaultImageQuality, bool cache = true)
         {
             var wasCached = false;
             var imgFormat = this.imaging.Get(format, quality);

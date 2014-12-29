@@ -118,6 +118,7 @@
     <Compile Include="Entities\ImageEntityTests.cs" />
     <Compile Include="ImageApiControllerTests.cs" />
     <Compile Include="Models\ImageDataTests.cs" />
+    <Compile Include="Models\ImageMetaDataTests.cs" />
     <Compile Include="NamingTests.cs" />
     <Compile Include="PreprocessorTests.cs" />
     <Compile Include="DataStoreTests.cs" />
