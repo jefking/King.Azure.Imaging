@@ -84,17 +84,20 @@
 
             var images = await this.table.Query(query);
 
-            images = images.Where(i => string.IsNullOrWhiteSpace(fileName) || fileName == (string)i["FileName"]);
-            foreach (var data in images)
+            if (null != images)
             {
-                data.Add("Identifier", data[TableStorage.PartitionKey]);
-                data.Add("Version", data[TableStorage.RowKey]);
-                data.Add("CreatedOn", data[TableStorage.Timestamp]);
+                images = images.Where(i => string.IsNullOrWhiteSpace(fileName) || fileName == (string)i["FileName"]);
+                foreach (var data in images)
+                {
+                    data.Add("Identifier", data[TableStorage.PartitionKey]);
+                    data.Add("Version", data[TableStorage.RowKey]);
+                    data.Add("CreatedOn", data[TableStorage.Timestamp]);
 
-                data.Remove(TableStorage.PartitionKey);
-                data.Remove(TableStorage.Timestamp);
-                data.Remove(TableStorage.RowKey);
-                data.Remove(TableStorage.ETag);
+                    data.Remove(TableStorage.PartitionKey);
+                    data.Remove(TableStorage.Timestamp);
+                    data.Remove(TableStorage.RowKey);
+                    data.Remove(TableStorage.ETag);
+                }
             }
 
             return images;
