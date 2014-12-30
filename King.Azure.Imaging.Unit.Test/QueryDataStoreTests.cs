@@ -188,5 +188,39 @@
 
             table.Received().Query(Arg.Any<TableQuery>());
         }
+
+        [Test]
+        public async Task QueryNoPartitionReturnsNull()
+        {
+            var version = Guid.NewGuid().ToString();
+            var fileName = Guid.NewGuid().ToString();
+
+            var table = Substitute.For<ITableStorage>();
+            table.Query(Arg.Any<TableQuery>()).Returns(Task.FromResult<IEnumerable<IDictionary<string, object>>>(null));
+
+            var store = new QueryDataStore(table);
+            var r = await store.Query(null, version, fileName);
+
+            Assert.IsNull(r);
+
+            table.Received().Query(Arg.Any<TableQuery>());
+        }
+
+        [Test]
+        public async Task QueryNoRowReturnsNull()
+        {
+            var id = Guid.NewGuid();
+            var fileName = Guid.NewGuid().ToString();
+
+            var table = Substitute.For<ITableStorage>();
+            table.Query(Arg.Any<TableQuery>()).Returns(Task.FromResult<IEnumerable<IDictionary<string, object>>>(null));
+
+            var store = new QueryDataStore(table);
+            var r = await store.Query(id, null, fileName);
+
+            Assert.IsNull(r);
+
+            table.Received().Query(Arg.Any<TableQuery>());
+        }
     }
 }
