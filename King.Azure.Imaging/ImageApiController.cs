@@ -124,28 +124,6 @@
             }
             else
             {
-                if (0 > width)
-                {
-                    return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
-                    {
-                        ReasonPhrase = "width less than 0",
-                    };
-                }
-                if (0 > height)
-                {
-                    return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
-                    {
-                        ReasonPhrase = "height less than 0",
-                    };
-                }
-                if (0 >= width && 0 >= height)
-                {
-                    return new HttpResponseMessage(HttpStatusCode.PreconditionFailed)
-                    {
-                        ReasonPhrase = "width and height less than or equal to 0",
-                    };
-                }
-
                 var data = await this.store.Resize(file, width, height, format, quality, cache);
 
                 var response = new HttpResponseMessage
