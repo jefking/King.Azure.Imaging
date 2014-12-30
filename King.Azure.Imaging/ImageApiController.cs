@@ -116,8 +116,9 @@
 
             if (0 == width && 0 == height)
             {
-                stream = await this.store.Streamer.Stream(file);
-                mimeType = this.store.Streamer.MimeType;
+                var streamer = this.store.Streamer;
+                stream = await streamer.Stream(file);
+                mimeType = streamer.MimeType;
             }
             else
             {
