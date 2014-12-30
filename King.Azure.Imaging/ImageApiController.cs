@@ -111,29 +111,28 @@
                 };
             }
 
+            string mimeType = null;
+            Stream stream = null;
+
             if (0 == width && 0 == height)
             {
-                var streamer = this.store.Streamer;
-                var response = new HttpResponseMessage
-                {
-                    Content = new StreamContent(await streamer.Stream(file)),
-                };
-
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(streamer.MimeType);
-                return response;
+                stream = await this.store.Streamer.Stream(file);
+                mimeType = this.store.Streamer.MimeType;
             }
             else
             {
                 var data = await this.store.Resize(file, width, height, format, quality, cache);
-
-                var response = new HttpResponseMessage
-                {
-                    Content = new StreamContent(new MemoryStream(data.Raw)),
-                };
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(data.MimeType);
-
-                return response;
+                stream = new MemoryStream(data.Raw);
+                mimeType = data.MimeType;
             }
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(stream),
+            };
+
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
+            return response;
         }
         #endregion
     }
