@@ -113,7 +113,7 @@
             var response = await api.Post();
 
             Assert.IsNotNull(response);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
             Assert.IsNotNull(response.Content);
 
             preProcessor.Received().Process(bytes, "image/jpeg", "myFilename.jpg");
@@ -157,7 +157,7 @@
             var response = await api.Post();
 
             Assert.IsNotNull(response);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
             Assert.IsNotNull(response.Content);
 
             foreach (var file in files)
@@ -204,7 +204,7 @@
             var response = await api.Post();
 
             Assert.IsNotNull(response);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
     }
 }

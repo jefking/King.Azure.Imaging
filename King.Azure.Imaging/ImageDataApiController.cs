@@ -66,8 +66,7 @@
         {
             var images = await this.dataStore.Query(id, version, file);
 
-            return null == images || !images.Any()
-                ? new HttpResponseMessage(HttpStatusCode.NotFound)
+            return null == images || !images.Any() ? new HttpResponseMessage(HttpStatusCode.NoContent)
                 : new HttpResponseMessage(HttpStatusCode.OK)
                     {
                         Content = new StringContent(JsonConvert.SerializeObject(images), Encoding.UTF8, "application/json"),

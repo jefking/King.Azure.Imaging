@@ -83,7 +83,7 @@
             var r = await c.Get(id, version, file);
 
             Assert.IsNotNull(r);
-            Assert.AreEqual(r.StatusCode, HttpStatusCode.NotFound);
+            Assert.AreEqual(HttpStatusCode.NoContent, r.StatusCode);
 
             dataStore.Received().Query(id, version, file);
         }

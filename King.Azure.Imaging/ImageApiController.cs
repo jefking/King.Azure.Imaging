@@ -91,7 +91,7 @@
                 ids.Add(id);
             }
 
-            return new HttpResponseMessage(HttpStatusCode.OK)
+            return new HttpResponseMessage(HttpStatusCode.Created)
             {
                 Content = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json"),
             };
