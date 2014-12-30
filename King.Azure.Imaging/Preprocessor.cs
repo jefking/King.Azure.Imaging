@@ -57,8 +57,8 @@
         /// <param name="content">Content</param>
         /// <param name="mimeType">Mime Type</param>
         /// <param name="fileName">File Name</param>
-        /// <returns>Identifier</returns>
-        public virtual async Task<Guid> Process(byte[] content, string mimeType, string fileName)
+        /// <returns>Relative Path</returns>
+        public virtual async Task<string> Process(byte[] content, string mimeType, string fileName)
         {
             if (null == content || !content.Any())
             {
@@ -77,9 +77,7 @@
             var extension = this.naming.Extension(fileName);
             var originalFileName = this.naming.FileName(id, Naming.Original, extension);
 
-            await this.store.Save(originalFileName, content, Naming.Original, mimeType, id, true, extension, 100);
-
-            return id;
+            return await this.store.Save(originalFileName, content, Naming.Original, mimeType, id, true, extension, 100);
         }
         #endregion
     }

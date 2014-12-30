@@ -81,12 +81,13 @@
             var provider = new MultipartMemoryStreamProvider();
             await this.Request.Content.ReadAsMultipartAsync(provider);
 
-            var ids = new List<Guid>(provider.Contents.Count);
+            var ids = new List<string>(provider.Contents.Count);
             foreach (var file in provider.Contents)
             {
                 var bytes = await file.ReadAsByteArrayAsync();
 
                 var id = await this.preprocessor.Process(bytes, file.Headers.ContentType.MediaType, file.Headers.ContentDisposition.FileName.Trim('\"'));
+
                 ids.Add(id);
             }
 

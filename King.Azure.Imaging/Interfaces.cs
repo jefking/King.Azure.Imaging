@@ -21,8 +21,8 @@
         /// <param name="content">Content</param>
         /// <param name="mimeType">Mime Type</param>
         /// <param name="fileName">File Name</param>
-        /// <returns>Identifier</returns>
-        Task<Guid> Process(byte[] content, string mimeType, string fileName);
+        /// <returns>Relative Path</returns>
+        Task<string> Process(byte[] content, string mimeType, string fileName);
         #endregion
     }
     #endregion
@@ -178,8 +178,8 @@
         /// <param name="quality">Quality</param>
         /// <param name="width">Width</param>
         /// <param name="height">Height</param>
-        /// <returns></returns>
-        Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, byte quality = Imaging.DefaultImageQuality, ushort width = 0, ushort height = 0);
+        /// <returns>Relative Path</returns>
+        Task<string> Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null, byte quality = Imaging.DefaultImageQuality, ushort width = 0, ushort height = 0);
 
         /// <summary>
         /// Resize

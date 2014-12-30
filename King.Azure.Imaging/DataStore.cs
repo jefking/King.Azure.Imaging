@@ -133,8 +133,8 @@
         /// <param name="quality">Quality</param>
         /// <param name="width">Width</param>
         /// <param name="height">Height</param>
-        /// <returns>Task</returns>
-        public virtual async Task Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null
+        /// <returns>Relative Path</returns>
+        public virtual async Task<string> Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null
             , byte quality = Imaging.DefaultImageQuality, ushort width = 0, ushort height = 0)
         {
             fileName = fileName.ToLowerInvariant();
@@ -152,8 +152,7 @@
                 height = (ushort)size.Height;
             }
 
-            //Store in Table
-            await this.table.InsertOrReplace(new ImageEntity
+            var ie = new ImageEntity
             {
                 PartitionKey = identifier.ToString(),
                 RowKey = version,
@@ -164,11 +163,12 @@
                 Height = height,
                 Quality = quality,
                 RelativePath = this.naming.RelativePath(container.Name, fileName),
-            });
+            };
 
+            await this.table.InsertOrReplace(ie);
+            
             if (queueForResize)
             {
-                //Queue for Processing
                 await this.queue.Save(new ImageQueued
                 {
                     Identifier = identifier,
@@ -176,6 +176,8 @@
                     OriginalExtension = extension,
                 });
             }
+
+            return ie.RelativePath;
         }
 
         /// <summary>
