@@ -56,6 +56,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Azure.1.1.16\lib\net451\King.Azure.dll</HintPath>
     </Reference>
+    <Reference Include="King.Azure.Imaging, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\King.Azure.Imaging.1.4.0\lib\net451\King.Azure.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="King.Mapper, Version=1.3.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\King.Mapper.1.7.13\lib\net451\King.Mapper.dll</HintPath>
+    </Reference>
     <Reference Include="King.Service, Version=1.5.2.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Service.1.9.4\lib\net451\King.Service.dll</HintPath>
@@ -250,12 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\King.Azure.Imaging\King.Azure.Imaging.csproj">
-      <Project>{b46d9e63-ef4b-4fa7-83e0-babf2249d6eb}</Project>
-      <Name>King.Azure.Imaging</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
