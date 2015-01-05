@@ -4,8 +4,6 @@
     using King.Azure.Imaging.Tasks;
     using King.Service;
     using King.Service.Data;
-    using System.Configuration;
-    using System.Diagnostics;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
