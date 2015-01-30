@@ -49,8 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Azure.1.1.16\lib\net451\King.Azure.dll</HintPath>
     </Reference>
-    <Reference Include="King.Mapper">
-      <HintPath>..\packages\King.Mapper.1.7.13\lib\net451\King.Mapper.dll</HintPath>
+    <Reference Include="King.Mapper, Version=1.3.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\King.Mapper.1.7.14\lib\net45\King.Mapper.dll</HintPath>
     </Reference>
     <Reference Include="King.Service, Version=1.5.2.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
