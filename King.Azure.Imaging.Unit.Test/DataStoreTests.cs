@@ -89,24 +89,10 @@
         }
 
         [Test]
-        public void CacheDurationNegative()
-        {
-            var random = new Random();
-            var duration = random.Next() * -1;
-            var imaging = Substitute.For<IImaging>();
-            var container = Substitute.For<IContainer>();
-            var table = Substitute.For<ITableStorage>();
-            var queue = Substitute.For<IStorageQueue>();
-            var naming = Substitute.For<INaming>();
-            var ds = new DataStore(imaging, container, table, queue, naming, duration);
-            Assert.AreEqual(31536000, ds.CacheDuration);
-        }
-
-        [Test]
         public void CacheDuration()
         {
             var random = new Random();
-            var duration = random.Next() + 1;
+            uint duration = (uint)random.Next() + 1;
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();
             var table = Substitute.For<ITableStorage>();
@@ -138,7 +124,7 @@
             var quality = (byte)100;
             var width = (ushort)122;
             var height = (ushort)133;
-            var duration = random.Next(1, 31536000);
+            uint duration = (uint)random.Next(1, 31536000);
 
             var imaging = Substitute.For<IImaging>();
             var container = Substitute.For<IContainer>();

@@ -40,14 +40,14 @@
         /// <summary>
         /// Cache Control Duration
         /// </summary>
-        protected readonly int cacheControlDuration = 31536000;
+        protected readonly uint cacheControlDuration = 31536000;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Constructor
         /// </summary>
-        public DataStore(string connectionString, int cacheControlDuration = 31536000)
+        public DataStore(string connectionString, uint cacheControlDuration = 31536000)
             : this(connectionString, new StorageElements(), cacheControlDuration)
         {
         }
@@ -55,7 +55,7 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public DataStore(string connectionString, IStorageElements elements, int cacheControlDuration = 31536000)
+        public DataStore(string connectionString, IStorageElements elements, uint cacheControlDuration = 31536000)
             : this(new Imaging(), new Container(elements.Container, connectionString), new TableStorage(elements.Table, connectionString), new StorageQueue(elements.Queue, connectionString), new Naming(), cacheControlDuration)
         {
         }
@@ -63,7 +63,7 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public DataStore(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue, INaming naming, int cacheControlDuration = 31536000)
+        public DataStore(IImaging imaging, IContainer container, ITableStorage table, IStorageQueue queue, INaming naming, uint cacheControlDuration = 31536000)
         {
             if (null == imaging)
             {
@@ -110,7 +110,7 @@
         /// <summary>
         /// Cache Control Duration
         /// </summary>
-        public virtual int CacheDuration
+        public virtual uint CacheDuration
         {
             get
             {
