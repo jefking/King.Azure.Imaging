@@ -1,13 +1,13 @@
 ﻿namespace King.Azure.Imaging.Mvc
 {
-    using King.Azure.Imaging.Models;
-    using King.Azure.Imaging.Tasks;
-    using King.Service;
-    using King.Service.Data;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using King.Azure.Imaging.Models;
+    using King.Azure.Imaging.Tasks;
+    using King.Service;
+    using King.Service.Data;
 
     /// <summary>
     /// MVC Application
@@ -26,7 +26,7 @@
 
         #region Methods
         /// <summary>
-        /// Load site
+        /// Application Start
         /// </summary>
         protected void Application_Start()
         {
