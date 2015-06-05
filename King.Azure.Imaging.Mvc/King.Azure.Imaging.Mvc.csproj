@@ -63,8 +63,8 @@
     <Reference Include="King.Mapper">
       <HintPath>..\packages\King.Mapper.1.7.15\lib\net45\King.Mapper.dll</HintPath>
     </Reference>
-    <Reference Include="King.Service, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Service.1.10.0\lib\net45\King.Service.dll</HintPath>
+    <Reference Include="King.Service, Version=1.5.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Service.1.10.1\lib\net45\King.Service.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
