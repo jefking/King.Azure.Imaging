@@ -1,14 +1,14 @@
 ﻿namespace King.Azure.Imaging.Integration.Test
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using Newtonsoft.Json;
     using NUnit.Framework;
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     [TestFixture]
     public class PreprocessorTests
