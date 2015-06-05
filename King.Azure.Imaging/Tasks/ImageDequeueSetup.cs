@@ -1,16 +1,18 @@
 ﻿namespace King.Azure.Imaging.Tasks
 {
+    using System;
+    using System.Collections.Generic;
     using King.Azure.Data;
     using King.Azure.Imaging.Models;
     using King.Service.Data;
-    using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Image Dequeue Setup
     /// </summary>
     public class ImageDequeueSetup : QueueSetup<ImageQueued>
     {
+        protected readonly string connectionString;
+
         #region Constructors
         /// <summary>
         /// Image Dequeue Setup
@@ -24,9 +26,9 @@
             }
             
             this.Images = config.Versions.Images;
-            this.ConnectionString = config.ConnectionString;
             this.Name = config.StorageElements.Queue;
             this.Priority = config.Priority;
+            this.connectionString = config.ConnectionString;
         }
         #endregion
 
@@ -39,16 +41,13 @@
             get;
             set;
         }
-        #endregion
 
-        #region Methods
-        /// <summary>
-        /// Get Processor
-        /// </summary>
-        /// <returns>Image Processor</returns>
-        public override IProcessor<ImageQueued> Get()
+        public override Func<IProcessor<ImageQueued>> Processor
         {
-            return new Processor(new DataStore(this.ConnectionString), this.Images);
+            get
+            {
+                return () => { return new Processor(new DataStore(this.connectionString), this.Images); };
+            }
         }
         #endregion
     }

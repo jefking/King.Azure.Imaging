@@ -40,7 +40,7 @@
             };
 
             var setup = new ImageDequeueSetup(config);
-            var p = setup.Get();
+            var p = setup.Processor();
 
             Assert.IsNotNull(p as Processor);
         }

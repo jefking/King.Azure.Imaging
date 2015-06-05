@@ -25,7 +25,8 @@
             yield return new InitializeStorageTask(new Container(elements.Container, config.ConnectionString, true));
             yield return new InitializeStorageTask(new TableStorage(elements.Table, config.ConnectionString));
 
-            foreach (var t in new StorageDequeueFactory<ImageQueued>().Tasks(new ImageDequeueSetup(config)))
+            var factory = new StorageDequeueFactory(config.ConnectionString);
+            foreach (var t in factory.Tasks<ImageQueued>(new ImageDequeueSetup(config)))
             {
                 yield return t;
             }
