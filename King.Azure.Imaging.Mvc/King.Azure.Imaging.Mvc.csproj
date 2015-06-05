@@ -58,7 +58,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Azure.Imaging, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Azure.Imaging.1.4.3\lib\net451\King.Azure.Imaging.dll</HintPath>
+      <HintPath>..\packages\King.Azure.Imaging.1.4.4\lib\net45\King.Azure.Imaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Mapper">
