@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>King.Azure.Imaging.Integration.Test</RootNamespace>
     <AssemblyName>King.Azure.Imaging.Integration.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -53,8 +53,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Mapper.1.7.15\lib\net45\King.Mapper.dll</HintPath>
     </Reference>
-    <Reference Include="King.Service, Version=1.5.3.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Service.1.10.1\lib\net45\King.Service.dll</HintPath>
+    <Reference Include="King.Service, Version=1.5.3.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Service.1.10.4\lib\net45\King.Service.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
