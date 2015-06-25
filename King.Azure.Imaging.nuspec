@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>King.Azure.Imaging</id>
-    <version>1.4.4</version>
+    <version>1.4.5</version>
     <title>King.Azure.Imaging</title>
     <authors>Jef King</authors>
     <owners>Jef King</owners>
