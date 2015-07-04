@@ -37,7 +37,6 @@ namespace King.Azure.Imaging.WebJob
     // TODO: Open app.config and paste your Storage connection string into the AzureWebJobsDashboard and
     //      AzureWebJobsStorage connection string settings.
     //*****************************************************************************************************
-
     class Program
     {
         static void Main()
@@ -47,9 +46,7 @@ namespace King.Azure.Imaging.WebJob
                 Console.ReadLine();
                 return;
             }
-
-            CreateDemoData();
-
+            
             JobHost host = new JobHost();
             host.RunAndBlock();
         }
@@ -67,29 +64,6 @@ namespace King.Azure.Imaging.WebJob
 
             }
             return configOK;
-        }
-
-        private static void CreateDemoData()
-        {
-            Console.WriteLine("Creating Demo data");
-            Console.WriteLine("Functions will store logs in the 'azure-webjobs-hosts' container in the specified Azure storage account. The functions take in a TextWriter parameter for logging.");
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ConnectionString);
-
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            CloudQueue queue = queueClient.GetQueueReference("initialorder");
-            CloudQueue queue2 = queueClient.GetQueueReference("initialorderproperty");
-            queue.CreateIfNotExists();
-            queue2.CreateIfNotExists();
-
-            Order person = new Order()
-            {
-                Name = "Alex",
-                OrderId = Guid.NewGuid().ToString("N").ToLower()
-            };
-
-            queue.AddMessage(new CloudQueueMessage(JsonConvert.SerializeObject(person)));
-            queue2.AddMessage(new CloudQueueMessage(JsonConvert.SerializeObject(person)));
         }
     }
 }

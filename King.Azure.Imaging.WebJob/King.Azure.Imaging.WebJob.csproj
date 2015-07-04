@@ -7,8 +7,8 @@
     <ProjectGuid>{4C26EBE3-05D6-40F8-AB0E-E6C780DFA39E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ComputeWebJobsSDKQueue</RootNamespace>
-    <AssemblyName>ComputeWebJobsSDKQueue</AssemblyName>
+    <RootNamespace>King.Azure.Imaging.WebJob</RootNamespace>
+    <AssemblyName>King.Azure.Imaging.WebJob</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
