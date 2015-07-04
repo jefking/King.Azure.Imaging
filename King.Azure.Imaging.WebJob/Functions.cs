@@ -14,23 +14,24 @@
 // places, or events is intended or should be inferred.
 //----------------------------------------------------------------------------------
 
-using System;
-using System.IO;
+using King.Azure.Imaging.Models;
 using Microsoft.Azure.WebJobs;
-using King.Azure.Imaging;
 
 namespace King.Azure.Imaging.WebJob
 {
     public class Functions
     {
+        private static readonly IVersions versions = new Versions();
+        private static readonly string connectionString = "";
+
         /// <summary>
-        /// Reads an Order object from the "initialorder" queue
-        /// Creates a blob for the specified order which contains the order details
-        /// The message in "orders" will be picked up by "QueueToBlob"
+        /// Image Processing
         /// </summary>
-        public static void MultipleOutput([QueueTrigger("initialorder")] object image)
+        /// <param name="image">image</param>
+        public static void ImageProcessing([QueueTrigger("imaging")] ImageQueued image)
         {
-            //var processor = new Processor();
+            var processor = new Processor(new DataStore(connectionString), versions.Images);
+            processor.Process(image).Wait();
         }
     }
 }
