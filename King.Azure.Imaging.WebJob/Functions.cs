@@ -28,7 +28,7 @@ namespace King.Azure.Imaging.WebJob
         /// Creates a blob for the specified order which contains the order details
         /// The message in "orders" will be picked up by "QueueToBlob"
         /// </summary>
-        public static void MultipleOutput([QueueTrigger("initialorder")] ImageQueued image)
+        public static void MultipleOutput([QueueTrigger("initialorder")] object image)
         {
             //var processor = new Processor();
         }
