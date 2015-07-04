@@ -1,10 +1,10 @@
 ﻿namespace King.Azure.Imaging
 {
-    using King.Azure.Data;
-    using King.Azure.Imaging.Models;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using King.Azure.Data;
+    using King.Azure.Imaging.Models;
 
     /// <summary>
     /// Imaging Task Processor

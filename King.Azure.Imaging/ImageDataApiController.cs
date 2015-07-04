@@ -1,7 +1,5 @@
 ﻿namespace King.Azure.Imaging
 {
-    using King.Azure.Imaging.Models;
-    using Newtonsoft.Json;
     using System;
     using System.Linq;
     using System.Net;
@@ -9,6 +7,8 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using King.Azure.Imaging.Models;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Image Meta Data Controller

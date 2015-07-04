@@ -1,13 +1,13 @@
 ﻿namespace King.Azure.Imaging
 {
-    using ImageProcessor;
-    using ImageProcessor.Configuration;
-    using ImageProcessor.Imaging.Formats;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using ImageProcessor;
+    using ImageProcessor.Configuration;
+    using ImageProcessor.Imaging.Formats;
 
     /// <summary>
     /// Imaging, wrapper for ImageProcessor tasks

@@ -1,8 +1,8 @@
 ﻿namespace King.Azure.Imaging
 {
-    using ImageProcessor.Imaging.Formats;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using ImageProcessor.Imaging.Formats;
 
     /// <summary>
     /// Versions

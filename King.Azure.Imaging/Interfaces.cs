@@ -1,12 +1,12 @@
 ﻿namespace King.Azure.Imaging
 {
-    using ImageProcessor.Imaging.Formats;
-    using King.Azure.Imaging.Models;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
     using System.Threading.Tasks;
+    using ImageProcessor.Imaging.Formats;
+    using King.Azure.Imaging.Models;
 
     #region IPreprocessor
     /// <summary>

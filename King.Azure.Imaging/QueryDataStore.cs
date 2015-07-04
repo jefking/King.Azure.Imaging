@@ -1,12 +1,12 @@
 ﻿namespace King.Azure.Imaging
 {
-    using King.Azure.Data;
-    using King.Azure.Imaging.Models;
-    using Microsoft.WindowsAzure.Storage.Table;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using King.Azure.Data;
+    using King.Azure.Imaging.Models;
+    using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
     /// Query Data Store
