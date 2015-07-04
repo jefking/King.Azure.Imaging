@@ -21,8 +21,17 @@ namespace King.Azure.Imaging.WebJob
 {
     public class Functions
     {
+        #region Members
+        /// <summary>
+        /// Image Versions
+        /// </summary>
         private static readonly IVersions versions = new Versions();
-        private static readonly string connectionString = "";
+
+        /// <summary>
+        /// Connection String
+        /// </summary>
+        private static readonly string connectionString = new Microsoft.Azure.WebJobs.JobHostConfiguration().StorageConnectionString;
+        #endregion
 
         /// <summary>
         /// Image Processing
