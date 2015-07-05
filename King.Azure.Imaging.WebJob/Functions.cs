@@ -30,9 +30,10 @@ namespace King.Azure.Imaging.WebJob
         /// <summary>
         /// Connection String
         /// </summary>
-        private static readonly string connectionString = new Microsoft.Azure.WebJobs.JobHostConfiguration().StorageConnectionString;
+        private static readonly string connectionString = new JobHostConfiguration().StorageConnectionString;
         #endregion
 
+        #region Methods
         /// <summary>
         /// Image Processing
         /// </summary>
@@ -42,5 +43,6 @@ namespace King.Azure.Imaging.WebJob
             var processor = new Processor(new DataStore(connectionString), versions.Images);
             processor.Process(image).Wait();
         }
+        #endregion
     }
 }
