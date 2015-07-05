@@ -29,8 +29,8 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="King.Azure.Imaging.WebJob\bin\Release\*.dll" target="App_Data\jobs\triggered\imaging\" />
-    <file src="King.Azure.Imaging.WebJob\bin\Release\*.exe" target="App_Data\jobs\triggered\imaging\" />
+    <file src="King.Azure.Imaging.WebJob\bin\Release\*.dll" target="content\App_Data\jobs\triggered\imaging\" />
+    <file src="King.Azure.Imaging.WebJob\bin\Release\*.exe" target="content\App_Data\jobs\triggered\imaging\" />
     <file src="King.Azure.Imaging\bin\Release\King.Azure.Imaging.dll" target="lib\net45\King.Azure.Imaging.dll" />
   </files>
 </package>
