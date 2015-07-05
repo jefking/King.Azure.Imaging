@@ -13,7 +13,6 @@
             
             if (string.IsNullOrWhiteSpace(webJobsDashboard) || string.IsNullOrWhiteSpace(webJobsStorage))
             {
-                configOK = false;
                 Console.WriteLine("Please add the Azure Storage account credentials in App.config");
                 Console.Read();
                 return;
