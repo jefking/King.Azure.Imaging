@@ -33,7 +33,8 @@
     <file src="King.Azure.Imaging.WebJob\bin\Release\*.dll" target="content\App_Data\jobs\triggered\imaging\" />
     <file src="King.Azure.Imaging.WebJob\bin\Release\*.exe" target="content\App_Data\jobs\triggered\imaging\" />
     <!--API Source Code-->
-    <file src="King.Azure.Imaging.Mvc\Controllers\api\*.cs" target="content\Controllers\Imaging" />
+    <file src="King.Azure.Imaging.Mvc\Controllers\api\DataController.cs" target="content\Controllers\Imaging\DataController.cs" />
+    <file src="King.Azure.Imaging.Mvc\Controllers\api\ImageController.cs" target="content\Controllers\Imaging\ImageController.cs" />
     <!--DLL-->
     <file src="King.Azure.Imaging\bin\Release\King.Azure.Imaging.dll" target="lib\net45\King.Azure.Imaging.dll" />
   </files>
