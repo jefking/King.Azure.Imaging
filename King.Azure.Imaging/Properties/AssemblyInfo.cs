@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("King.Azure.Imaging")]
-[assembly: AssemblyCopyright("Copyright © Jef King 2014")]
+[assembly: AssemblyCopyright("Copyright © Jef King 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
