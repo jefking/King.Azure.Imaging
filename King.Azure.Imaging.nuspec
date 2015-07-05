@@ -15,7 +15,7 @@
     <releaseNotes>.NET 4.5 now supported.</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
-    <tags>King.Azure.Imaging Azure Image Jpg Png CDN Cache-Control image resize crop rotate jpeg jpg gif png server-safe-imaging imaging Cloud Blob Imaging ASP Performance Processing Resize AutoRotate Rotate RoundedCorners Flip Crop Filter Effects Quality Watermark Alpha Vignette Saturation Brightness Contrast Gif Jpeg Bitmap WebP Fluent GDI Gaussian Blur Sharpen Tint Quantizer Animated EXIF King.Azure King.Service King.Mapper ImageProcessor</tags>
+    <tags>King.Azure.Imaging Azure Image Jpg Png CDN Cache-Control WebJob image resize crop rotate jpeg jpg gif png server-safe-imaging imaging Cloud Blob Imaging ASP Performance Processing Resize AutoRotate Rotate RoundedCorners Flip Crop Filter Effects Quality Watermark Alpha Vignette Saturation Brightness Contrast Gif Jpeg Bitmap WebP Fluent GDI Gaussian Blur Sharpen Tint Quantizer Animated EXIF King.Azure King.Service King.Mapper ImageProcessor</tags>
     <dependencies>
       <dependency id="King.Service" />
       <dependency id="King.Mapper" />
@@ -29,7 +29,8 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="App_Data\jobs\triggered\imaging\_._" target="App_Data\jobs\triggered\imaging\_._" />
+    <file src="King.Azure.Imaging.WebJob\bin\Release\*.dll" target="App_Data\jobs\triggered\imaging\" />
+    <file src="King.Azure.Imaging.WebJob\bin\Release\*.exe" target="App_Data\jobs\triggered\imaging\" />
     <file src="King.Azure.Imaging\bin\Release\King.Azure.Imaging.dll" target="lib\net45\King.Azure.Imaging.dll" />
   </files>
 </package>
