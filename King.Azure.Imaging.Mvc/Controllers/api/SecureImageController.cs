@@ -15,9 +15,6 @@
     [Authorize(Roles = "Users")]
     public class SecureImageController : ImageApiController
     {
-        /// <summary>
-        /// Connection String
-        /// </summary>
         private static readonly string connection = ConfigurationManager.AppSettings["StorageAccount"];
 
         public SecureImageController()
@@ -25,7 +22,6 @@
         {
         }
 
-        #region Methods
         [HttpPost]
         [Authorize(Roles = "Users")]
         public override async Task<HttpResponseMessage> Post()
@@ -39,6 +35,5 @@
         {
             return await base.Get(file, width, height, format, quality, cache);
         }
-        #endregion
     }
 }
