@@ -1,10 +1,10 @@
 ﻿namespace King.Azure.Imaging
 {
+    using System;
+    using System.Threading.Tasks;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
-    using System;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Image Data Store

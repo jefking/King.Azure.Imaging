@@ -18,7 +18,7 @@
         protected readonly IReadOnlyDictionary<string, IImageVersion> versions = null;
 
         /// <summary>
-        /// Image Store
+        /// Image Data Store
         /// </summary>
         protected readonly IDataStore store = null;
 
@@ -43,7 +43,7 @@
         }
 
         /// <summary>
-        /// Constructor
+        /// Mockable Constructor
         /// </summary>
         public Processor(IDataStore store, IReadOnlyDictionary<string, IImageVersion> versions, IImaging imaging, INaming naming)
         {
