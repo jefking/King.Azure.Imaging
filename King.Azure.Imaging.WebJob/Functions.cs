@@ -3,6 +3,9 @@
     using King.Azure.Imaging.Models;
     using Microsoft.Azure.WebJobs;
 
+    /// <summary>
+    /// Web Job Functions
+    /// </summary>
     public class Functions
     {
         #region Members
