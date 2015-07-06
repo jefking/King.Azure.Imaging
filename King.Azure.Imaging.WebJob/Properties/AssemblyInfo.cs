@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("ComputeWebJobsSDKQueue")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("King.Azure.Imaging.WebJob")]
+[assembly: AssemblyDescription("Scalable image uploading and processing for Azure.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ComputeWebJobsSDKQueue")]
+[assembly: AssemblyProduct("King.Azure.Imaging")]
 [assembly: AssemblyCopyright("Copyright © Jef King 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
