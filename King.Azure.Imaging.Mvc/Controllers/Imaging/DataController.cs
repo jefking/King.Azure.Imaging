@@ -2,9 +2,6 @@
 {
     using System.Configuration;
 
-    /// <summary>
-    /// Data Controller
-    /// </summary>
     public class DataController : ImageDataApiController
     {
         private static readonly string connection = ConfigurationManager.AppSettings["StorageAccount"];
