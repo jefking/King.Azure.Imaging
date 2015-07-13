@@ -1,10 +1,10 @@
 ﻿namespace King.Azure.Imaging.Tasks
 {
+    using System.Collections.Generic;
     using King.Azure.Data;
     using King.Azure.Imaging.Models;
     using King.Service;
     using King.Service.Data;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Image Task Factory
@@ -15,7 +15,7 @@
         /// <summary>
         /// Load Tasks
         /// </summary>
-        /// <param name="passthrough">passthrough</param>
+        /// <param name="config">Task Configuration</param>
         /// <returns>Runnable Tasks</returns>
         public virtual IEnumerable<IRunnable> Tasks(ITaskConfiguration config)
         {

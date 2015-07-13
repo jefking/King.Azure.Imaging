@@ -49,16 +49,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="ImageProcessor, Version=2.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImageProcessor.2.2.6.0\lib\net45\ImageProcessor.dll</HintPath>
+    <Reference Include="ImageProcessor, Version=2.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ImageProcessor.2.2.7.0\lib\net45\ImageProcessor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Azure, Version=1.0.1.27, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\King.Azure.1.1.18\lib\net45\King.Azure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="King.Azure.Imaging, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Azure.Imaging.1.4.5\lib\net45\King.Azure.Imaging.dll</HintPath>
+    <Reference Include="King.Azure.Imaging, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Azure.Imaging.2.0.9\lib\net45\King.Azure.Imaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Mapper">
@@ -177,10 +178,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\api\DataController.cs" />
-    <Compile Include="Controllers\api\SecureImageController.cs" />
-    <Compile Include="Controllers\api\ImageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Imaging\DataController.cs" />
+    <Compile Include="Controllers\Imaging\ImageController.cs" />
+    <Compile Include="Controllers\Imaging\SecureImageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +189,22 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\jobs\triggered\imaging\ImageProcessor.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\King.Azure.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\King.Azure.Imaging.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\King.Azure.Imaging.WebJob.exe" />
+    <Content Include="App_Data\jobs\triggered\imaging\King.Service.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Microsoft.Azure.WebJobs.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Microsoft.Azure.WebJobs.Host.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Microsoft.Data.Edm.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Microsoft.Data.OData.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Microsoft.Data.Services.Client.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\Newtonsoft.Json.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\System.Net.Http.Formatting.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\System.Spatial.dll" />
+    <Content Include="App_Data\jobs\triggered\imaging\System.Web.Http.dll" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -211,6 +228,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="App_Data\jobs\triggered\imaging\King.Azure.Imaging.WebJob.exe.config" />
+    <None Include="Properties\PublishProfiles\AzureImaging.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />

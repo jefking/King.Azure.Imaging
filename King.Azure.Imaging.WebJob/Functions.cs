@@ -2,6 +2,7 @@
 {
     using King.Azure.Imaging.Models;
     using Microsoft.Azure.WebJobs;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Web Job Functions
@@ -25,8 +26,9 @@
         /// Image Processing
         /// </summary>
         /// <param name="image">image</param>
-        public static void ImageProcessing([QueueTrigger("imaging")] ImageQueued image)
+        public static void ImageProcessing([QueueTrigger("imaging")] string img)
         {
+            var image = JsonConvert.DeserializeObject<ImageQueued>(img);
             var processor = new Processor(new DataStore(connectionString), versions.Images);
             processor.Process(image).Wait();
         }
