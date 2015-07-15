@@ -8,11 +8,12 @@
     {
         public static void Main()
         {
+            var webJobsStorage = ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ConnectionString;
             var storageAcc = ConfigurationManager.ConnectionStrings["StorageAccount"].ConnectionString;
             
-            if (string.IsNullOrWhiteSpace(storageAcc))
+            if (string.IsNullOrWhiteSpace(webJobsStorage) || string.IsNullOrWhiteSpace(storageAcc))
             {
-                Console.WriteLine("Please add the Azure Storage account credentials ['StorageAccount'] in App.config");
+                Console.WriteLine("Please add the Azure Storage account credentials ['StorageAccount' & 'AzureWebJobsStorage'] in App.config");
                 Console.Read();
                 return;
             }
