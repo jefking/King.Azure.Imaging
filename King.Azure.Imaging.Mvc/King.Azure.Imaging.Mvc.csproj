@@ -181,7 +181,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Imaging\DataController.cs" />
     <Compile Include="Controllers\Imaging\ImageController.cs" />
-    <Compile Include="Controllers\Imaging\SecureImageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
