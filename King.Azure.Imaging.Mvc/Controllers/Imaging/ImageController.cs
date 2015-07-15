@@ -1,6 +1,6 @@
 ﻿namespace King.Azure.Imaging.Mvc.Controllers.api
 {
-    using System.Configuration;
+    using Microsoft.Azure;
 
     /// <summary>
     /// Image Controller

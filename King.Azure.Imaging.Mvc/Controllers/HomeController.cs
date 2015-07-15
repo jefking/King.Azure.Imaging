@@ -1,17 +1,12 @@
 ﻿namespace King.Azure.Imaging.Mvc.Controllers
 {
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
-    using System.Configuration;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
     using Microsoft.Azure;
-
-
-    /// <summary>
-    /// Home Controller
-    /// </summary>
+    
     public class HomeController : Controller
     {
         #region Members

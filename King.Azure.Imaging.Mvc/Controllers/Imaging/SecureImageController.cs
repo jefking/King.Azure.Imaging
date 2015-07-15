@@ -1,9 +1,9 @@
 ﻿namespace King.Azure.Imaging.Mvc.Controllers.api
 {
-    using System.Configuration;
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Microsoft.Azure;
 
     /// <summary>
     /// Secure Image Controller
