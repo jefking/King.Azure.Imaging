@@ -4,7 +4,7 @@
 
     public class DataController : ImageDataApiController
     {
-        private static readonly string connection = ConfigurationManager.AppSettings["StorageAccount"];
+        private static readonly string connection = CloudConfigurationManager.GetSetting("StorageAccount");
 
         public DataController()
             : base(connection)

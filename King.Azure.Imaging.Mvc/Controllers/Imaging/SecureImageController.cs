@@ -15,7 +15,7 @@
     [Authorize(Roles = "Users")]
     public class SecureImageController : ImageApiController
     {
-        private static readonly string connection = ConfigurationManager.AppSettings["StorageAccount"];
+        private static readonly string connection = CloudConfigurationManager.GetSetting("StorageAccount");
 
         public SecureImageController()
             : base(connection)

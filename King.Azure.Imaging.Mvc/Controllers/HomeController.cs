@@ -6,6 +6,8 @@
     using System.Configuration;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Microsoft.Azure;
+
 
     /// <summary>
     /// Home Controller
@@ -21,7 +23,7 @@
         /// <summary>
         /// Connection String
         /// </summary>
-        private static readonly string connection = ConfigurationManager.AppSettings["StorageAccount"];
+        private static readonly string connection = CloudConfigurationManager.GetSetting("StorageAccount");
 
         /// <summary>
         /// Table Storage (Image Meta-Data)
