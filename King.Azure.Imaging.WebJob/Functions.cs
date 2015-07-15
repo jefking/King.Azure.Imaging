@@ -1,9 +1,10 @@
 ﻿namespace King.Azure.Imaging.WebJob
 {
+    using System.Configuration;
     using King.Azure.Imaging.Models;
     using Microsoft.Azure.WebJobs;
     using Newtonsoft.Json;
-
+    
     /// <summary>
     /// Web Job Functions
     /// </summary>
@@ -18,7 +19,7 @@
         /// <summary>
         /// Connection String
         /// </summary>
-        private static readonly string connectionString = new JobHostConfiguration().StorageConnectionString;
+        private static readonly string connectionString = ConfigurationManager.AppSettings["StorageAccount"];
         #endregion
 
         #region Methods
