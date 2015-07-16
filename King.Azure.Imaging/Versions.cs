@@ -5,13 +5,13 @@
     using ImageProcessor.Imaging.Formats;
 
     /// <summary>
-    /// Versions
+    /// Imaging Versions
     /// </summary>
     public class Versions : IVersions
     {
         #region Members
         /// <summary>
-        /// Versions
+        /// Version Dictionary
         /// </summary>
         protected readonly IReadOnlyDictionary<string, IImageVersion> versions = null;
         #endregion

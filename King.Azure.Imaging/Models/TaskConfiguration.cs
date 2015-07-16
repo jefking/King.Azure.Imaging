@@ -1,6 +1,7 @@
-﻿using King.Service.Data;
-namespace King.Azure.Imaging.Models
+﻿namespace King.Azure.Imaging.Models
 {
+    using King.Service.Data;
+
     /// <summary>
     /// Task Configuration
     /// </summary>
