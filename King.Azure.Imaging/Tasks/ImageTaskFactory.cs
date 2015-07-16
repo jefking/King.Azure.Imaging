@@ -19,17 +19,30 @@
         /// <returns>Runnable Tasks</returns>
         public virtual IEnumerable<IRunnable> Tasks(ITaskConfiguration config)
         {
-            var elements = config.StorageElements;
-
-            //Initialization Tasks
-            yield return new InitializeStorageTask(new Container(elements.Container, config.ConnectionString, true));
-            yield return new InitializeStorageTask(new TableStorage(elements.Table, config.ConnectionString));
+            foreach (var init in this.Initialize(config))
+            {
+                yield return init;
+            }
 
             var factory = new DequeueFactory(config.ConnectionString);
             foreach (var t in factory.Tasks<ImageQueued>(new ImageDequeueSetup(config)))
             {
                 yield return t;
             }
+        }
+
+        /// <summary>
+        /// Load Initialize Tasks
+        /// </summary>
+        /// <param name="config">Task Configuration</param>
+        /// <returns>Runnable Tasks</returns>
+        public virtual IEnumerable<IRunnable> Initialize(ITaskConfiguration config)
+        {
+            var elements = config.StorageElements;
+
+            //Initialization Tasks
+            yield return new InitializeStorageTask(new Container(elements.Container, config.ConnectionString, true));
+            yield return new InitializeStorageTask(new TableStorage(elements.Table, config.ConnectionString));
         }
         #endregion
     }
