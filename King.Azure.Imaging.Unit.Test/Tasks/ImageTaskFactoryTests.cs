@@ -64,7 +64,7 @@
             var tasks = factory.Tasks(config);
 
             Assert.IsNotNull(tasks);
-            Assert.AreEqual(4, tasks.Count());
+            Assert.AreEqual(5, tasks.Count());
         }
 
         [Test]
@@ -115,7 +115,7 @@
                         select t;
 
             Assert.IsNotNull(inits);
-            Assert.AreEqual(3, inits.Count());
+            Assert.AreEqual(4, inits.Count());
         }
     }
 }
