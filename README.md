@@ -1,6 +1,6 @@
-### Scalable image uploading and processing for Azure
+### Image uploading and processing for Azure Websites.
 + Upload images to blob storage
-+ Queue images for background processing
++ WebJob for background processing
 + Store structured metadata about images
 + Dynamically resize images
 + Azure CDN images

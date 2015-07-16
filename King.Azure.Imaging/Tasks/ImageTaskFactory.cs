@@ -43,6 +43,7 @@
             //Initialization Tasks
             yield return new InitializeStorageTask(new Container(elements.Container, config.ConnectionString, true));
             yield return new InitializeStorageTask(new TableStorage(elements.Table, config.ConnectionString));
+            yield return new InitializeStorageTask(new StorageQueue(elements.Queue, config.ConnectionString));
         }
         #endregion
     }

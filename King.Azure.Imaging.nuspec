@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>King.Azure.Imaging</id>
-    <version>1.5.0</version>
+    <version>1.5.3</version>
     <title>King.Azure.Imaging</title>
     <authors>Jef King</authors>
     <owners>Jef King</owners>
@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/jefking/King.Azure.Imaging</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/jefking/King.Azure.Imaging/master/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Scalable image uploading and processing for Azure.</description>
-    <summary>Scalable image uploading and processing for Azure</summary>
+    <description>Image uploading and processing for Azure Websites.</description>
+    <summary>Image uploading and processing for Azure Websites.</summary>
     <releaseNotes>.NET 4.5 now supported.</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
