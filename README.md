@@ -7,8 +7,8 @@ King.Azure.Imaging is made for your Azure PaaS environment; deploy to [Azure Web
 + Scalable architecture, all on PaaS
 + Extensible
 + Uses [ImageProcessor](https://github.com/JimBobSquarePants/ImageProcessor) for image maniputlation
-+ Uses [King.Service](https://github.com/jefking/King.Service) for background processing
 + Uses [King.Azure](https://github.com/jefking/King.Azure) for Azure Storage access
++ Integrates with [King.Service](https://github.com/jefking/King.Service) for background processing
 
 ### [NuGet](https://www.nuget.org/packages/King.Azure.Imaging)
 ```
