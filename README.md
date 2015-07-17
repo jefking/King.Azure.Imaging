@@ -1,10 +1,11 @@
 ### Image uploading and processing for Azure Websites.
-+ Upload images to blob storage
-+ WebJob for background processing
-+ Store structured metadata about images
-+ Dynamically resize images
-+ Azure CDN images
-+ Scalable architecture
+King.Azure.Imaging is made for your Azure PaaS environment; deploy to Azure Websites and enable image upload, processing, and delivery!
++ Upload images to BLOB storage
++ WebJob background image processing
++ API for structured metadata about images
++ API dynamically resize images
++ Azure CDN for low latency content delivery
++ Scalable architecture, all on PaaS
 + Extensible
 + Uses [ImageProcessor](https://github.com/JimBobSquarePants/ImageProcessor) for image maniputlation
 + Uses [King.Service](https://github.com/jefking/King.Service) for background processing
