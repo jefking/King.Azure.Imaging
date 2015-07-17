@@ -1,5 +1,5 @@
 ### Image uploading and processing for Azure Websites.
-King.Azure.Imaging is made for your Azure PaaS environment; deploy to Azure Websites and enable image upload, processing, and delivery!
+King.Azure.Imaging is made for your Azure PaaS environment; deploy to [Azure Web App](http://azure.microsoft.com/en-us/services/app-service/web/) and enable image upload, processing, and delivery!
 + Upload images to BLOB storage
 + WebJob background image processing
 + API for structured metadata about images
