@@ -2,7 +2,7 @@ King.Azure.Imaging is made for your Azure PaaS environment; deploy to [Azure Web
 + Upload images to BLOB storage
 + WebJob background image processing
 + API for structured metadata about images
-+ API dynamically resize images
++ API to resize on the fly (and caches!)
 + Azure CDN for low latency content delivery
 + Scalable architecture, all on PaaS
 + Extensible
