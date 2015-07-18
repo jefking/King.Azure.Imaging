@@ -11,7 +11,12 @@
     /// </summary>
     public class ImageDequeueSetup : QueueSetup<ImageQueued>
     {
+        #region Members
+        /// <summary>
+        /// Connection String
+        /// </summary>
         protected readonly string connectionString;
+        #endregion
 
         #region Constructors
         /// <summary>

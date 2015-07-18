@@ -3,9 +3,9 @@
     using Microsoft.Azure;
 
     //[Authorize(Roles = "Users")] Uncomment to secure controller
-    public class ImageController : ImageApiController
+    public partial class ImageController : ImageApiController
     {
-        private static readonly string connection = CloudConfigurationManager.GetSetting("StorageAccount");
+        protected static readonly string connection = CloudConfigurationManager.GetSetting("StorageAccount");
 
         public ImageController()
             : base(connection)
