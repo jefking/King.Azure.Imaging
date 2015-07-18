@@ -6,27 +6,15 @@
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
     using Microsoft.Azure;
-    
+
     public class HomeController : Controller
     {
-        #region Members
-        /// <summary>
-        /// Storage Elements
-        /// </summary>
         private static readonly IStorageElements elements = new StorageElements();
 
-        /// <summary>
-        /// Connection String
-        /// </summary>
         private static readonly string connection = CloudConfigurationManager.GetSetting("StorageAccount");
 
-        /// <summary>
-        /// Table Storage (Image Meta-Data)
-        /// </summary>
         private readonly ITableStorage table = new TableStorage(elements.Table, connection);
-        #endregion
 
-        #region Methods
         public ActionResult Index()
         {
             return View();
@@ -66,6 +54,5 @@
 
             return View(data);
         }
-        #endregion
     }
 }
