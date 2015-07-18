@@ -1,5 +1,6 @@
-﻿King.Azure.Imaging - Scalable Image Uploading Demo
+﻿King.Azure.Imaging Demo - Image uploading and processing for Azure Web Apps.
 
 Jef King
+Vancouver, Canada
 GitHub: jefking
 twitter: JefKingABC
