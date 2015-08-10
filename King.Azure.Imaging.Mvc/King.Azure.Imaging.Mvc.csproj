@@ -58,8 +58,8 @@
       <HintPath>..\packages\King.Azure.1.1.18\lib\net45\King.Azure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="King.Azure.Imaging, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Azure.Imaging.1.5.2\lib\net45\King.Azure.Imaging.dll</HintPath>
+    <Reference Include="King.Azure.Imaging, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Azure.Imaging.1.5.4\lib\net45\King.Azure.Imaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Mapper">
