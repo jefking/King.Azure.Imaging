@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<King.Azure.Imaging.Entities.ImageEntity>
 
 @{
-    var url = "http://127.0.0.1:10000/devstoreaccount1";
+    var url = Microsoft.Azure.CloudConfigurationManager.GetSetting("ImageSourceUrl") ?? "http://127.0.0.1:10000/devstoreaccount1";
 }
 
 <div class="container">
