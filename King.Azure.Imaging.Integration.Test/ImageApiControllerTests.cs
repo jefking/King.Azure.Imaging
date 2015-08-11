@@ -42,7 +42,7 @@
 
             await this.container.Save(file, bytes, "image/jpeg");
 
-            var api = new ImageApiController(connectionString);
+            var api = new ImageApi(connectionString);
             var data = await api.Get(file);
 
             Assert.IsNotNull(data);
@@ -59,7 +59,7 @@
 
             await this.container.Save(file, bytes, "image/png");
 
-            var api = new ImageApiController(connectionString);
+            var api = new ImageApi(connectionString);
             var data = await api.Get(file, 10);
 
             Assert.IsNotNull(data);

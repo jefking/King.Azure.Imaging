@@ -15,7 +15,7 @@
     /// <summary>
     /// Image Api Controller
     /// </summary>
-    public class ImageApiController : ApiController
+    public class ImageApi : ApiController
     {
         #region Members
         /// <summary>
@@ -33,7 +33,7 @@
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public ImageApiController(string connectionString)
+        public ImageApi(string connectionString)
             : this(connectionString, new Preprocessor(connectionString), new StorageElements())
         {
         }
@@ -41,7 +41,7 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(string connectionString, IPreprocessor preprocessor, IStorageElements elements)
+        public ImageApi(string connectionString, IPreprocessor preprocessor, IStorageElements elements)
             : this(preprocessor, new DataStore(connectionString, elements))
         {
         }
@@ -49,7 +49,7 @@
         /// <summary>
         /// Mockable Constructor
         /// </summary>
-        public ImageApiController(IPreprocessor preprocessor, IDataStore store)
+        public ImageApi(IPreprocessor preprocessor, IDataStore store)
         {
             if (null == preprocessor)
             {

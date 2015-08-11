@@ -6,7 +6,7 @@
     using Microsoft.Azure;
 
     //[Authorize(Roles = "Users")] Uncomment to secure controller
-    public partial class DataController : ImageDataApiController
+    public partial class DataController : ImageDataApi
     {
         protected static readonly string connection = CloudConfigurationManager.GetSetting("StorageAccount");
 

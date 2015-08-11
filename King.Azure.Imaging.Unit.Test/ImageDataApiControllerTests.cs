@@ -17,33 +17,33 @@
         [Test]
         public void Constructor()
         {
-            new ImageDataApiController(connectionString);
+            new ImageDataApi(connectionString);
         }
 
         [Test]
         public void ConstructorElements()
         {
-            new ImageDataApiController(connectionString, new StorageElements());
+            new ImageDataApi(connectionString, new StorageElements());
         }
 
         [Test]
         public void ConstructorQueryDataStore()
         {
             var dataStore = Substitute.For<IQueryDataStore>();
-            new ImageDataApiController(dataStore);
+            new ImageDataApi(dataStore);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorQueryDataStoreNull()
         {
-            new ImageDataApiController((IQueryDataStore)null);
+            new ImageDataApi((IQueryDataStore)null);
         }
 
         [Test]
         public void IsApiController()
         {
-            Assert.IsNotNull(new ImageDataApiController(connectionString) as ApiController);
+            Assert.IsNotNull(new ImageDataApi(connectionString) as ApiController);
         }
 
         [Test]
@@ -58,7 +58,7 @@
             var dataStore = Substitute.For<IQueryDataStore>();
             dataStore.Query(id, version, file).Returns(Task.FromResult<IEnumerable<IDictionary<string, object>>>(items));
 
-            var c = new ImageDataApiController(dataStore);
+            var c = new ImageDataApi(dataStore);
             var r = await c.Get(id, version, file);
 
             Assert.IsNotNull(r);
@@ -79,7 +79,7 @@
             var dataStore = Substitute.For<IQueryDataStore>();
             dataStore.Query(id, version, file).Returns(Task.FromResult<IEnumerable<IDictionary<string, object>>>(null));
 
-            var c = new ImageDataApiController(dataStore);
+            var c = new ImageDataApi(dataStore);
             var r = await c.Get(id, version, file);
 
             Assert.IsNotNull(r);

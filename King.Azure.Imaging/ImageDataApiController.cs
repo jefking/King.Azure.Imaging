@@ -13,7 +13,7 @@
     /// <summary>
     /// Image Meta Data Controller
     /// </summary>
-    public class ImageDataApiController : ApiController
+    public class ImageDataApi : ApiController
     {
         #region Members
         /// <summary>
@@ -27,7 +27,7 @@
         /// Constructor
         /// </summary>
         /// <param name="connectionString">Table Storage Connection String</param>
-        public ImageDataApiController(string connectionString)
+        public ImageDataApi(string connectionString)
             : this(new QueryDataStore(connectionString))
         {
         }
@@ -37,7 +37,7 @@
         /// </summary>
         /// <param name="connectionString">Table Storage Connection String</param>
         /// <param name="elements">Storage Elements</param>
-        public ImageDataApiController(string connectionString, IStorageElements elements)
+        public ImageDataApi(string connectionString, IStorageElements elements)
             : this(new QueryDataStore(connectionString, elements))
         {
         }
@@ -46,7 +46,7 @@
         /// Mockable Constructor
         /// </summary>
         /// <param name="table">Data Store</param>
-        public ImageDataApiController(IQueryDataStore dataStore)
+        public ImageDataApi(IQueryDataStore dataStore)
         {
             if (null == dataStore)
             {

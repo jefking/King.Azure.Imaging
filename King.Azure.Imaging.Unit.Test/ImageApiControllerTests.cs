@@ -20,13 +20,13 @@
         [Test]
         public void Constructor()
         {
-            new ImageApiController(connectionString);
+            new ImageApi(connectionString);
         }
 
         [Test]
         public void IsApiController()
         {
-            Assert.IsNotNull(new ImageApiController(connectionString) as ApiController);
+            Assert.IsNotNull(new ImageApi(connectionString) as ApiController);
         }
 
         [Test]
@@ -35,7 +35,7 @@
         {
             var preprocessor = Substitute.For<IPreprocessor>();
             var elements = Substitute.For<IStorageElements>();
-            new ImageApiController(null, preprocessor, elements);
+            new ImageApi(null, preprocessor, elements);
         }
 
         [Test]
@@ -43,7 +43,7 @@
         public void ConstructorImagePreprocessorNull()
         {
             var elements = Substitute.For<IStorageElements>();
-            new ImageApiController(connectionString, null, elements);
+            new ImageApi(connectionString, null, elements);
         }
 
         [Test]
@@ -52,7 +52,7 @@
         {
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
-            new ImageApiController(null, store);
+            new ImageApi(null, store);
         }
 
         [Test]
@@ -61,7 +61,7 @@
         {
             var preprocessor = Substitute.For<IPreprocessor>();
             var imaging = Substitute.For<IImaging>();
-            new ImageApiController(preprocessor, null);
+            new ImageApi(preprocessor, null);
         }
 
         [Test]
@@ -69,7 +69,7 @@
         public void ConstructorStorageElementsNull()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
-            new ImageApiController(connectionString, preprocessor, null);
+            new ImageApi(connectionString, preprocessor, null);
         }
 
         [Test]
@@ -78,7 +78,7 @@
             var preprocessor = Substitute.For<IPreprocessor>();
             var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(preprocessor, store);
+            var api = new ImageApi(preprocessor, store);
             var response = await api.Get(null);
 
             Assert.IsNotNull(response);
@@ -102,7 +102,7 @@
 
             var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(preProcessor, store)
+            var api = new ImageApi(preProcessor, store)
             {
                 Request = new HttpRequestMessage(),
             };
@@ -148,7 +148,7 @@
 
             var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(preProcessor, store)
+            var api = new ImageApi(preProcessor, store)
             {
                 Request = new HttpRequestMessage(),
             };
@@ -176,7 +176,7 @@
             var preProcessor = Substitute.For<IPreprocessor>();
             var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(preProcessor, store)
+            var api = new ImageApi(preProcessor, store)
             {
                 Request = new HttpRequestMessage(),
             };
@@ -195,7 +195,7 @@
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
 
-            var api = new ImageApiController(preProcessor, store)
+            var api = new ImageApi(preProcessor, store)
             {
                 Request = new HttpRequestMessage(),
             };
