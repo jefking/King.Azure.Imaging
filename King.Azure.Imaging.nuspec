@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Image uploading and processing for Azure Web Apps.</description>
     <summary>Image uploading and processing for Azure Web Apps.</summary>
-    <releaseNotes>Runs entierly on Azure Web Apps; WebJob for background processing.</releaseNotes>
+    <releaseNotes>Updated API to include minimal interfaces (Image and Data).</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
     <tags>King.Azure.Imaging Azure Image Jpg jpeg gif Png CDN Cache-Control WebJob image resize crop rotate PaaS Web-Apps apps app web website web-site web-api webapi mvc server-safe-imaging imaging Cloud Blob Imaging ASP Performance Processing Resize AutoRotate Rotate RoundedCorners Flip Crop Filter Effects Quality Watermark Alpha Vignette Saturation Brightness Contrast Gif Jpeg Bitmap WebP Fluent GDI Gaussian Blur Sharpen Tint Quantizer Animated EXIF King.Azure King.Service King.Mapper ImageProcessor</tags>
