@@ -32,8 +32,7 @@
     <!--WebJob-->
     <file src="Build\King.Azure.Imaging\*.*" target="content\App_Data\jobs\continuous\imaging\" />
     <!--API Source Code-->
-    <file src="King.Azure.Imaging.Mvc\Controllers\Imaging\DataController.cs" target="content\Controllers\Imaging\DataController.cs" />
-    <file src="King.Azure.Imaging.Mvc\Controllers\Imaging\ImageController.cs" target="content\Controllers\Imaging\ImageController.cs" />
+    <file src="King.Azure.Imaging.Mvc\Controllers\Imaging\*.cs" target="content\Controllers\Imaging\" />
     <!--Library-->
     <file src="King.Azure.Imaging\bin\Release\King.Azure.Imaging.dll" target="lib\net45\King.Azure.Imaging.dll" />
   </files>
