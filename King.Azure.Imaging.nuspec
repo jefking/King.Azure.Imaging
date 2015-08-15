@@ -30,9 +30,7 @@
   </metadata>
   <files>
     <!--WebJob-->
-    <file src="King.Azure.Imaging.WebJob\bin\Release\*.dll" target="content\App_Data\jobs\continuous\imaging\" />
-    <file src="King.Azure.Imaging.WebJob\bin\Release\*.exe" target="content\App_Data\jobs\continuous\imaging\" />
-    <file src="King.Azure.Imaging.WebJob\bin\Release\*.config" target="content\App_Data\jobs\continuous\imaging\" />
+    <file src="Build\King.Azure.Imaging\*.*" target="content\App_Data\jobs\continuous\imaging\" />
     <!--API Source Code-->
     <file src="King.Azure.Imaging.Mvc\Controllers\Imaging\DataController.cs" target="content\Controllers\Imaging\DataController.cs" />
     <file src="King.Azure.Imaging.Mvc\Controllers\Imaging\ImageController.cs" target="content\Controllers\Imaging\ImageController.cs" />
