@@ -59,7 +59,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Azure.Imaging, Version=1.1.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Azure.Imaging.1.6.0\lib\net45\King.Azure.Imaging.dll</HintPath>
+      <HintPath>..\packages\King.Azure.Imaging.1.6.1\lib\net45\King.Azure.Imaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Mapper">
@@ -202,22 +202,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\jobs\continuous\imaging\ImageProcessor.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\King.Azure.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\King.Azure.Imaging.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\King.Azure.Imaging.WebJob.exe" />
-    <Content Include="App_Data\jobs\continuous\imaging\King.Service.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Microsoft.Azure.WebJobs.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Microsoft.Azure.WebJobs.Host.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Microsoft.Data.Edm.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Microsoft.Data.OData.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Microsoft.Data.Services.Client.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Microsoft.WindowsAzure.Configuration.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Microsoft.WindowsAzure.Storage.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\Newtonsoft.Json.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\System.Net.Http.Formatting.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\System.Spatial.dll" />
-    <Content Include="App_Data\jobs\continuous\imaging\System.Web.Http.dll" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -236,13 +220,13 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\canvas-to-blob.min.js" />
-    <Content Include="App_Data\jobs\continuous\imaging\King.Azure.Imaging.WebJob.exe.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="App_Data\jobs\continuous\King.Azure.Imaging.zip" />
     <None Include="Properties\PublishProfiles\AzureImaging.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
