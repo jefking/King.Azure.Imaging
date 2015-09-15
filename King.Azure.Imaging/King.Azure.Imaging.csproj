@@ -52,8 +52,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Mapper.1.7.15\lib\net45\King.Mapper.dll</HintPath>
     </Reference>
-    <Reference Include="King.Service, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Service.1.11.1\lib\net45\King.Service.dll</HintPath>
+    <Reference Include="King.Service, Version=1.5.5.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Service.1.11.2\lib\net45\King.Service.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
