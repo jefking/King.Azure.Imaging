@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>King.Azure.Imaging</id>
-    <version>1.6.3</version>
+    <version>1.6.4</version>
     <title>King.Azure.Imaging</title>
     <authors>Jef King</authors>
     <owners>Jef King</owners>
@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Image API &amp; processing for Azure Web Apps</description>
     <summary>Image API &amp; processing for Azure Web Apps</summary>
-    <releaseNotes>Unpacked WebJob.</releaseNotes>
+    <releaseNotes>Updating ImageProcessor and Microsoft bits.</releaseNotes>
     <copyright>Jef King</copyright>
     <language>en-US</language>
     <tags>King.Azure.Imaging Azure Image Jpg jpeg gif Png CDN Cache-Control WebJob image resize crop rotate PaaS Web-Apps apps app web website web-site web-api webapi mvc server-safe-imaging imaging Cloud Blob Imaging ASP Performance Processing Resize AutoRotate Rotate RoundedCorners Flip Crop Filter Effects Quality Watermark Alpha Vignette Saturation Brightness Contrast Gif Jpeg Bitmap WebP Fluent GDI Gaussian Blur Sharpen Tint Quantizer Animated EXIF King.Azure King.Service King.Mapper ImageProcessor</tags>
