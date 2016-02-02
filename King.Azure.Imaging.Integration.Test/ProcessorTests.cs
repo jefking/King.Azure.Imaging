@@ -10,6 +10,7 @@
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -39,7 +40,9 @@
         [Test]
         public async Task Process()
         {
-            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
+            var bytes = File.ReadAllBytes(f);
 
             var versions = this.Versions();
             var version = versions.Values.First();
