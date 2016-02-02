@@ -44,6 +44,7 @@
                 Assert.IsNotNull(ms);
                 Assert.AreEqual(bytes, ms.ToArray());
             }
+
             Assert.AreEqual(contentType, streamer.MimeType);
         }
     }

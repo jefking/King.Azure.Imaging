@@ -4,6 +4,7 @@
     using NUnit.Framework;
     using System;
     using System.IO;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -71,13 +72,14 @@
             var ip = new Preprocessor(connectionString);
             Assert.That(async () => await ip.Process(bytes, Guid.NewGuid().ToString(), null), Throws.TypeOf<ArgumentException>());
         }
-
-        private static readonly byte[] image = File.ReadAllBytes(Environment.CurrentDirectory + "\\icon.png");
-
+        
         [Test]
         public async Task Process()
         {
-            var bytes = image;
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
+            var bytes = File.ReadAllBytes(f);
+
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.png", Guid.NewGuid());
             var store = Substitute.For<IDataStore>();
@@ -97,7 +99,10 @@
         [Test]
         public async Task ProcessNoExtension()
         {
-            var bytes = image;
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
+            var bytes = File.ReadAllBytes(f);
+
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();
             var store = Substitute.For<IDataStore>();
