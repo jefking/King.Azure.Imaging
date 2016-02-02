@@ -1,11 +1,12 @@
 ﻿namespace King.Azure.Imaging.Integration.Test
 {
-    using System;
-    using System.IO;
-    using System.Threading.Tasks;
     using King.Azure.Data;
     using King.Azure.Imaging.Models;
     using NUnit.Framework;
+    using System;
+    using System.IO;
+    using System.Reflection;
+    using System.Threading.Tasks;
 
     [TestFixture]
     public class ImageApiControllerTests
@@ -53,7 +54,9 @@
         [Test]
         public async Task Resize()
         {
-            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
+            var bytes = File.ReadAllBytes(f);
 
             var file = Guid.NewGuid().ToString() + "_.png";
 

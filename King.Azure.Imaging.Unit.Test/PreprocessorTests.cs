@@ -10,6 +10,7 @@
     public class PreprocessorTests
     {
         private const string connectionString = "UseDevelopmentStorage=true";
+
         [Test]
         public void Constructor()
         {
