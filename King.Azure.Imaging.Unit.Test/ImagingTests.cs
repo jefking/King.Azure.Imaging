@@ -5,7 +5,7 @@
     using System;
     using System.Drawing;
     using System.IO;
-
+    using System.Reflection;
     [TestFixture]
     public class ImagingTests
     {
@@ -44,7 +44,8 @@
         [Test]
         public void Size()
         {
-            var file = Environment.CurrentDirectory + @"\icon.png";
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var file = dir.Substring(6, dir.Length - 6) + @"\icon.png";
             var bytes = File.ReadAllBytes(file);
 
             var i = new Imaging();
@@ -81,7 +82,9 @@
         [Test]
         public void Resize()
         {
-            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
+            var bytes = File.ReadAllBytes(f);
             var version = new ImageVersion()
             {
                 Format = new GifFormat(),

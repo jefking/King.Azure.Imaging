@@ -9,6 +9,7 @@
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Reflection;
     using System.Threading.Tasks;
     using System.Web.Http;
 
@@ -83,7 +84,9 @@
         [Test]
         public async Task Post()
         {
-            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var file = dir.Substring(6, dir.Length - 6) + @"\icon.png";
+            var bytes = File.ReadAllBytes(file);
             var fileContent = new ByteArrayContent(bytes);
 
             fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
@@ -125,7 +128,9 @@
 
             var content = new MultipartContent();
 
-            var bytes = File.ReadAllBytes(Environment.CurrentDirectory + @"\icon.png");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
+            var bytes = File.ReadAllBytes(f);
             for (var i = 0; i < count; i++)
             {
                 var fileName = Guid.NewGuid().ToString();
