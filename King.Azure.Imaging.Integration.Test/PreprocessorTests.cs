@@ -31,7 +31,7 @@
         }
 
         [TearDown]
-        public void TearDown()
+        public void Teardown()
         {
             this.container.Delete().Wait();
             this.table.Delete().Wait();

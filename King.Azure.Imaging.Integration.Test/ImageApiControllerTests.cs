@@ -15,7 +15,7 @@
         private IContainer container;
         private ITableStorage table;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             var elements = new StorageElements();
@@ -25,7 +25,7 @@
             this.table.CreateIfNotExists().Wait();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             this.container.Delete().Wait();
