@@ -23,58 +23,52 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorConnectionStringNull()
         {
-            new Preprocessor((string)null);
+            Assert.That(() => new Preprocessor((string)null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorDataStoreNull()
         {
             var naming = Substitute.For<INaming>();
-            new Preprocessor(null, naming);
+            Assert.That(() => new Preprocessor(null, naming), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorCNamingNull()
         {
             var store = Substitute.For<IDataStore>();
-            new Preprocessor(store, null);
+            Assert.That(() => new Preprocessor(store, null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public async Task ProcessContentNull()
+        public void ProcessContentNull()
         {
             var ip = new Preprocessor(connectionString);
-            await ip.Process(null, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            Assert.That(async () => await ip.Process(null, Guid.NewGuid().ToString(), Guid.NewGuid().ToString()), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public async Task ProcessContentTypeNull()
+        public void ProcessContentTypeNull()
         {
             var random = new Random();
             var bytes = new byte[64];
             random.NextBytes(bytes);
             
             var ip = new Preprocessor(connectionString);
-            await ip.Process(bytes, null, Guid.NewGuid().ToString());
+            Assert.That(async () => await ip.Process(bytes, null, Guid.NewGuid().ToString()), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public async Task ProcessFileNameNull()
+        public void ProcessFileNameNull()
         {
             var random = new Random();
             var bytes = new byte[64];
             random.NextBytes(bytes);
             
             var ip = new Preprocessor(connectionString);
-            await ip.Process(bytes, Guid.NewGuid().ToString(), null);
+            Assert.That(async () => await ip.Process(bytes, Guid.NewGuid().ToString(), null), Throws.TypeOf<ArgumentException>());
         }
 
         private static readonly byte[] image = File.ReadAllBytes(Environment.CurrentDirectory + "\\icon.png");

@@ -30,38 +30,34 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorImagingNull()
         {
             var store = Substitute.For<IDataStore>();
             var naming = Substitute.For<INaming>();
-            new Processor(store, new Dictionary<string, IImageVersion>(), null, naming);
+            Assert.That(() => new Processor(store, new Dictionary<string, IImageVersion>(), null, naming), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorNamingNull()
         {
             var store = Substitute.For<IDataStore>();
             var imaging = Substitute.For<IImaging>();
-            new Processor(store, new Dictionary<string, IImageVersion>(), imaging, null);
+            Assert.That(() => new Processor(store, new Dictionary<string, IImageVersion>(), imaging, null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorStoreeNull()
         {
             var imaging = Substitute.For<IImaging>();
-            new Processor(null, new Dictionary<string, IImageVersion>());
+            Assert.That(() => new Processor(null, new Dictionary<string, IImageVersion>()), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorVersionsNull()
         {
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
-            new Processor(store, null);
+            Assert.That(() => new Processor(store, null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]

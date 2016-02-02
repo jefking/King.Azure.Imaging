@@ -30,46 +30,41 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorConnectionStringNull()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
             var elements = Substitute.For<IStorageElements>();
-            new ImageApi(null, preprocessor, elements);
+            Assert.That(() => new ImageApi(null, preprocessor, elements), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ConstructorImagePreprocessorNull()
         {
             var elements = Substitute.For<IStorageElements>();
-            new ImageApi(connectionString, null, elements);
+            Assert.That(() => new ImageApi(connectionString, null, elements), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ConstructorImagePreProcessorNull()
         {
             var imaging = Substitute.For<IImaging>();
             var store = Substitute.For<IDataStore>();
-            new ImageApi(null, store);
+            Assert.That(() => new ImageApi(null, store), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ConstructorStoreNull()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
             var imaging = Substitute.For<IImaging>();
-            new ImageApi(preprocessor, null);
+            Assert.That(() => new ImageApi(preprocessor, null), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(NullReferenceException))]
         public void ConstructorStorageElementsNull()
         {
             var preprocessor = Substitute.For<IPreprocessor>();
-            new ImageApi(connectionString, preprocessor, null);
+            Assert.That(() => new ImageApi(connectionString, preprocessor, null), Throws.TypeOf<NullReferenceException>());
         }
 
         [Test]

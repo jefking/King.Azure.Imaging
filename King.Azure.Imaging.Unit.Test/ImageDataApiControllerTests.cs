@@ -34,10 +34,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorQueryDataStoreNull()
         {
-            new ImageDataApi((IQueryDataStore)null);
+            Assert.That(() => new ImageDataApi((IQueryDataStore)null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]

@@ -35,10 +35,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorQueryDataStoreNull()
         {
-            new QueryDataStore((ITableStorage)null);
+            Assert.That(() => new QueryDataStore((ITableStorage)null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]

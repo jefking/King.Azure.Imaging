@@ -17,28 +17,25 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorContainerNull()
         {
-            new Streamer(null);
+            Assert.That(() => new Streamer(null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public async Task GetFileNull()
+        public void GetFileNull()
         {
             var container = Substitute.For<IContainer>();
             var istreamer = new Streamer(container);
-            await istreamer.Stream(null);
+            Assert.That(async () => await istreamer.Stream(null), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public async Task GetBytesNull()
+        public void GetBytesNull()
         {
             var container = Substitute.For<IContainer>();
             var istreamer = new Streamer(container);
-            await istreamer.Bytes(null);
+            Assert.That(async () => await istreamer.Bytes(null), Throws.TypeOf<ArgumentException>());
         }
     }
 }

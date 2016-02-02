@@ -22,19 +22,17 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void SizeDataNull()
         {
             var i = new Imaging();
-            i.Size(null);
+            Assert.That(() => i.Size(null), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void SizeDataEmpty()
         {
             var i = new Imaging();
-            i.Size(new byte[0]);
+            Assert.That(() => i.Size(new byte[0]), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
@@ -60,27 +58,24 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ResizeDataNull()
         {
             var i = new Imaging();
-            i.Resize(null, new ImageVersion());
+            Assert.That(() => i.Resize(null, new ImageVersion()), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ResizeDataEmpty()
         {
             var i = new Imaging();
-            i.Resize(new byte[0], new ImageVersion());
+            Assert.That(() => i.Resize(new byte[0], new ImageVersion()), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ResizeVersionNull()
         {
             var i = new Imaging();
-            i.Resize(new byte[123], null);
+            Assert.That(() => i.Resize(new byte[123], null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]

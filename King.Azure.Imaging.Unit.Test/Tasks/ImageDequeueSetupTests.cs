@@ -23,10 +23,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorConfigNull()
         {
-            new ImageDequeueSetup(null);
+            Assert.That(() => new ImageDequeueSetup(null), Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
