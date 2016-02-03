@@ -19,16 +19,13 @@
         /// <returns>Runnable Tasks</returns>
         public virtual IEnumerable<IRunnable> Tasks(ITaskConfiguration config)
         {
-            foreach (var init in this.Initialize(config))
-            {
-                yield return init;
-            }
+            var tasks = new List<IRunnable>();
+            tasks.AddRange(this.Initialize(config));
 
             var factory = new DequeueFactory(config.ConnectionString);
-            foreach (var t in factory.Tasks<ImageQueued>(new ImageDequeueSetup(config)))
-            {
-                yield return t;
-            }
+            tasks.AddRange(factory.Tasks<ImageQueued>(new ImageDequeueSetup(config)));
+
+            return tasks;
         }
 
         /// <summary>

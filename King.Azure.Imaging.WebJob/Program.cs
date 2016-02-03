@@ -1,10 +1,10 @@
 ﻿namespace King.Azure.Imaging.WebJob
 {
-    using System;
     using King.Azure.Imaging.Models;
     using King.Azure.Imaging.Tasks;
     using Microsoft.Azure;
     using Microsoft.Azure.WebJobs;
+    using System;
 
     public class Program
     {
