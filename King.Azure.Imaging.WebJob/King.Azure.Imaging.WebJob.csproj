@@ -42,16 +42,16 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ImageProcessor, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImageProcessor.2.3.2.0\lib\net45\ImageProcessor.dll</HintPath>
+    <Reference Include="ImageProcessor, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Azure, Version=1.0.1.27, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\King.Azure.1.1.18\lib\net45\King.Azure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="King.Service, Version=1.5.6.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Service.1.12.3\lib\net45\King.Service.dll</HintPath>
+    <Reference Include="King.Service, Version=1.5.6.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Service.1.12.5\lib\net45\King.Service.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -79,7 +79,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.1\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=5.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
