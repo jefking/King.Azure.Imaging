@@ -53,8 +53,8 @@
       <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="King.Azure, Version=1.0.1.33, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Azure.1.1.22\lib\net45\King.Azure.dll</HintPath>
+    <Reference Include="King.Azure, Version=1.0.1.37, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Azure.1.1.25\lib\net45\King.Azure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Azure.Imaging, Version=1.1.1.4, Culture=neutral, processorArchitecture=MSIL">
@@ -64,8 +64,8 @@
     <Reference Include="King.Mapper">
       <HintPath>..\packages\King.Mapper.1.7.15\lib\net45\King.Mapper.dll</HintPath>
     </Reference>
-    <Reference Include="King.Service, Version=1.5.6.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\King.Service.1.12.5\lib\net45\King.Service.dll</HintPath>
+    <Reference Include="King.Service, Version=1.5.6.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\King.Service.1.12.8\lib\net45\King.Service.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -245,9 +245,9 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App_Data\jobs\continuous\imaging\King.Azure.Imaging.WebJob.exe.config" />
     <None Include="Properties\PublishProfiles\AzureImaging.pubxml" />
-    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.0.js" />
-    <Content Include="Scripts\jquery-2.2.0.min.js" />
+    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery.fileupload-image.js" />
     <Content Include="Scripts\jquery.fileupload-jquery-ui.js" />
     <Content Include="Scripts\jquery.fileupload-process.js" />
@@ -257,7 +257,6 @@
     <Content Include="Scripts\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jquery.ui.widget.js" />
-    <Content Include="Scripts\jquery-2.2.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -283,6 +282,7 @@
     <Content Include="Views\Home\Medium.cshtml" />
     <Content Include="Views\Home\Large.cshtml" />
     <Content Include="Views\Home\Dynamic.cshtml" />
+    <Content Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -318,17 +318,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target> -->
 </Project>
