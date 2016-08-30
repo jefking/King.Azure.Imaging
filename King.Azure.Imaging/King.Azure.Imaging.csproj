@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>King.Azure.Imaging</RootNamespace>
     <AssemblyName>King.Azure.Imaging</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -49,8 +49,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="King.Mapper, Version=1.3.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\King.Mapper.1.7.15\lib\net45\King.Mapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="King.Service, Version=1.5.6.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\King.Service.1.12.8\lib\net45\King.Service.dll</HintPath>
