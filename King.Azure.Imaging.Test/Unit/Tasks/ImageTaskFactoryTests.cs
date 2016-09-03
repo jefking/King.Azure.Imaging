@@ -86,7 +86,7 @@
 
             Assert.IsNotNull(tasks);
             var task = (from t in tasks
-                        where t.GetType() == typeof(StorageQueueAutoScaler<ImageQueued>)
+                        where t.GetType() == typeof(QueueAutoScaler<ImageQueued>)
                         select t).FirstOrDefault();
 
             Assert.IsNotNull(task);

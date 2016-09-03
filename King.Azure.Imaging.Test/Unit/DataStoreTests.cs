@@ -133,7 +133,7 @@
             var store = new DataStore(imaging, container, table, queue, naming, duration);
             await store.Save(fileName, content, version, mimeType, identifier, queueForResize, extension, quality, width, height);
 
-            queue.Received(0).Save(Arg.Any<ImageQueued>());
+            queue.Received(0).Send(Arg.Any<ImageQueued>());
             container.Received().Save(fileName, content, mimeType);
             container.Received().SetCacheControl(fileName, duration);
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());
@@ -202,13 +202,13 @@
             var table = Substitute.For<ITableStorage>();
             table.InsertOrReplace(Arg.Any<ImageEntity>());
             var queue = Substitute.For<IStorageQueue>();
-            queue.Save(Arg.Any<ImageQueued>());
+            queue.Send(Arg.Any<ImageQueued>());
             var naming = Substitute.For<INaming>();
 
             var store = new DataStore(imaging, container, table, queue, naming);
             await store.Save(fileName, content, version, mimeType, identifier, queueForResize, extension, quality, width, height);
 
-            queue.Received().Save(Arg.Any<ImageQueued>());
+            queue.Received().Send(Arg.Any<ImageQueued>());
             container.Received().Save(fileName, content, mimeType);
             container.Received().SetCacheControl(fileName, 31536000);
             table.Received().InsertOrReplace(Arg.Any<ImageEntity>());

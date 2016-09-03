@@ -12,6 +12,7 @@
 
   "dependencies": {
     "King.Azure.Imaging": "2.0.0",
+    "System.Runtime": "4.0.20",
     "NUnitLite": "3.4.1",
     "NSubstitute": "2.0.0-rc"
   }
