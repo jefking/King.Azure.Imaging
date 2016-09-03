@@ -1,0 +1,18 @@
+﻿{
+  "version": "2.0.0-*",
+  "description": "King.Azure.Imaging.Test Console Application",
+
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "frameworks": {
+    "net462": {}
+  },
+
+  "dependencies": {
+    "King.Azure.Imaging": "2.0.0",
+    "NUnitLite": "3.4.1",
+    "NSubstitute": "2.0.0-rc"
+  }
+}
