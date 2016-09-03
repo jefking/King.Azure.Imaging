@@ -152,12 +152,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\King.Azure.Imaging\King.Azure.Imaging.csproj">
-      <Project>{b46d9e63-ef4b-4fa7-83e0-babf2249d6eb}</Project>
-      <Name>King.Azure.Imaging</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

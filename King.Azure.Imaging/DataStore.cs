@@ -169,7 +169,7 @@
             
             if (queueForResize)
             {
-                await this.queue.Save(new ImageQueued
+                await this.queue.Send(new ImageQueued
                 {
                     Identifier = identifier,
                     FileNameFormat = this.naming.FileNamePartial(identifier),

@@ -1,0 +1,46 @@
+﻿{
+  "version": "2.0.0",
+  "title": "King.Azure.Imaging",
+  "description": "Image API & processing for Azure Web Apps",
+  "authors": [ "Jef King" ],
+  "packOptions": {
+    "summary": "Image API & processing for Azure Web Apps",
+    "releaseNotes": "Framework support",
+    "tags": [ "King.Azure.Imaging", "Azure", "Image", "Jpg", "jpeg", "gif", "Png", "CDN", "Cache-Control", "WebJob", "image", "resize", "crop", "rotate", "PaaS", "Web-Apps", "apps", "app", "web", "website", "web-site", "web-api", "webapi", "mvc", "server-safe-imaging", "imaging", "Cloud", "Blob", "Imaging", "ASP", "Performance", "Processing", "Resize", "AutoRotate", "Rotate", "RoundedCorners", "Flip", "Crop", "Filter", "Effects", "Quality", "Watermark", "Alpha", "Vignette", "Saturation", "Brightness", "Contrast", "Gif", "Jpeg", "Bitmap", "WebP", "Fluent", "GDI", "Gaussian", "Blur", "Sharpen", "Tint", "Quantizer", "Animated", "EXIF", "King.Azure", "King.Service", "King.Mapper", "ImageProcessor" ],
+    "projectUrl": "https://github.com/jefking/King.Azure",
+    "licenseUrl": "https://github.com/jefking/King.Azure/blob/master/LICENSE",
+    "iconUrl": "https://raw.githubusercontent.com/jefking/King.Azure/master/icon.png",
+    "authors": [ "Jef King" ],
+    "copyright": "Jef King",
+    "language": "en-US",
+    "owners": [ "Jef King" ]
+  },
+
+  "configurations": {
+    "Release": {
+      "buildOptions": {
+        "optimize": true
+      }
+    }
+  },
+
+  "frameworks": {
+    "net46": {
+      "frameworkAssemblies": {
+        "System.Web": {},
+        "System.Drawing": {}
+      }
+    }
+  },
+
+  "dependencies": {
+    "ImageProcessor": "2.4.4",
+    "King.Service": "2.0.4",
+    "System.Collections": "4.0.10",
+    "System.Net.Http": "4.1.0",
+    "System.Runtime": "4.0.20",
+    "System.Threading.Tasks": "4.0.10",
+    "System.IO": "4.0.10",
+    "Microsoft.AspNet.WebApi.Core": "5.2.3"
+  }
+}

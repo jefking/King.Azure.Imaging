@@ -1,0 +1,23 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "configurations": {
+    "Release": {
+      "buildOptions": {
+        "optimize": true
+      }
+    }
+  },
+
+  "frameworks": {
+    "net46": {
+    }
+  },
+
+  "dependencies": {
+    "King.Azure.Imaging": "2.0.0"
+  }
+}
