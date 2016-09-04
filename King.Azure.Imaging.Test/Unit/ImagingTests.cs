@@ -1,11 +1,13 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
+    using Azure.Imaging.Test.Integration;
     using ImageProcessor.Imaging.Formats;
     using NUnit.Framework;
     using System;
     using System.Drawing;
     using System.IO;
     using System.Reflection;
+
     [TestFixture]
     public class ImagingTests
     {
@@ -43,10 +45,9 @@
 
         [Test]
         public void Size()
-        {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var file = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(file);
+        { 
+            var file = TestFile.IconFile;
+            var bytes = TestFile.Icon();
 
             var i = new Imaging();
             var size = i.Size(bytes);
@@ -82,9 +83,7 @@
         [Test]
         public void Resize()
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(f);
+            var bytes = TestFile.Icon();
             var version = new ImageVersion()
             {
                 Format = new GifFormat(),

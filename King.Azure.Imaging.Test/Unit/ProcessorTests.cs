@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
+    using Azure.Imaging.Test.Integration;
     using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
     using King.Azure.Imaging.Models;
@@ -7,8 +8,6 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Reflection;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -64,9 +63,8 @@
         [Test]
         public async Task Process()
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(f);
+            var bytes = TestFile.Icon();
+
             var data = new ImageQueued()
             {
                 Identifier = Guid.NewGuid(),

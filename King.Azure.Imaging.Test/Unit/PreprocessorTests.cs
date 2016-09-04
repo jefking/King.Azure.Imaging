@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
+    using Azure.Imaging.Test.Integration;
     using NSubstitute;
     using NUnit.Framework;
     using System;
@@ -76,9 +77,7 @@
         [Test]
         public async Task Process()
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(f);
+            var bytes = TestFile.Icon();
 
             var contentType = Guid.NewGuid().ToString();
             var fileName = string.Format("{0}.png", Guid.NewGuid());
@@ -99,9 +98,7 @@
         [Test]
         public async Task ProcessNoExtension()
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(f);
+            var bytes = TestFile.Icon();
 
             var contentType = Guid.NewGuid().ToString();
             var fileName = Guid.NewGuid().ToString();

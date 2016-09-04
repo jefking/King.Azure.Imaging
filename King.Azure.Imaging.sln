@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{D0B7DDCB-6F08-4EDE-9676-5C4D9E7DEA25}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{024BCDB8-6711-4DCE-BB36-BAB0AA0F2FFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "King.Azure.Imaging.Mvc", "King.Azure.Imaging.Mvc\King.Azure.Imaging.Mvc.csproj", "{B5C9C3FB-F919-4C83-871F-626EB5042F64}"
@@ -48,6 +46,5 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B5C9C3FB-F919-4C83-871F-626EB5042F64} = {024BCDB8-6711-4DCE-BB36-BAB0AA0F2FFE}
-		{99849722-2A58-4181-8511-74E5397CB73E} = {D0B7DDCB-6F08-4EDE-9676-5C4D9E7DEA25}
 	EndGlobalSection
 EndGlobal

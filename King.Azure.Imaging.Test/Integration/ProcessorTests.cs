@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Integration.Test
 {
+    using Azure.Imaging.Test.Integration;
     using ImageProcessor.Imaging.Formats;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
@@ -8,9 +9,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
 
     [TestFixture]
@@ -40,9 +39,7 @@
         [Test]
         public async Task Process()
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(f);
+            var bytes = TestFile.Icon();
 
             var versions = this.Versions();
             var version = versions.Values.First();

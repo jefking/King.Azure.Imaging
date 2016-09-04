@@ -1,5 +1,6 @@
 ﻿namespace King.Azure.Imaging.Unit.Test
 {
+    using Azure.Imaging.Test.Integration;
     using King.Azure.Imaging.Models;
     using NSubstitute;
     using NUnit.Framework;
@@ -84,9 +85,7 @@
         [Test]
         public async Task Post()
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var file = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(file);
+            var bytes = TestFile.Icon();
             var fileContent = new ByteArrayContent(bytes);
 
             fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
@@ -127,10 +126,8 @@
             var preProcessor = Substitute.For<IPreprocessor>();
 
             var content = new MultipartContent();
-
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var f = dir.Substring(6, dir.Length - 6) + @"\icon.png";
-            var bytes = File.ReadAllBytes(f);
+            
+            var bytes = TestFile.Icon();
             for (var i = 0; i < count; i++)
             {
                 var fileName = Guid.NewGuid().ToString();

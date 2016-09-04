@@ -6,6 +6,7 @@
     using King.Service.Data;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Azure;
     using System;
     using System.Linq;
 
@@ -86,7 +87,7 @@
 
             Assert.IsNotNull(tasks);
             var task = (from t in tasks
-                        where t.GetType() == typeof(QueueAutoScaler<ImageQueued>)
+                        where t.GetType() == typeof(StorageQueueAutoScaler<ImageQueued>)
                         select t).FirstOrDefault();
 
             Assert.IsNotNull(task);
