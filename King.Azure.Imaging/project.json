@@ -25,12 +25,6 @@
   },
 
   "frameworks": {
-    "net461": {
-      "frameworkAssemblies": {
-        "System.Web": "4.0.0.0",
-        "System.Drawing": "4.0.0.0"
-      }
-    },
     "net462": {
       "frameworkAssemblies": {
         "System.Web": "4.0.0.0",
@@ -41,12 +35,10 @@
 
   "dependencies": {
     "ImageProcessor": "2.4.4",
-    "King.Service": "2.1.3",
     "System.Collections": "4.0.10",
     "System.Net.Http": "4.1.0",
-    "System.Runtime": "4.0.20",
-    "System.Threading.Tasks": "4.0.10",
-    "System.IO": "4.0.10",
-    "Microsoft.AspNet.WebApi.Core": "5.2.3"
+    "King.Service": "2.1.3",
+    "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.AspNet.WebApi.Client": "5.2.3"
   }
 }

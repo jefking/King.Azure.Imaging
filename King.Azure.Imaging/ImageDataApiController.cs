@@ -6,14 +6,14 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using System.Web.Http;
+    using Microsoft.AspNetCore.Mvc;
     using King.Azure.Imaging.Models;
     using Newtonsoft.Json;
 
     /// <summary>
     /// Image Meta Data Controller
     /// </summary>
-    public class ImageDataApi : ApiController
+    public class ImageDataApi : Controller
     {
         #region Members
         /// <summary>

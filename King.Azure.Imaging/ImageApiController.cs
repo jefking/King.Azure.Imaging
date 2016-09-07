@@ -10,12 +10,12 @@
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
-    using System.Web.Http;
+    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Image Api Controller
     /// </summary>
-    public class ImageApi : ApiController
+    public class ImageApi : Controller
     {
         #region Members
         /// <summary>

@@ -12,11 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "King.Azure.Imaging", "King.Azure.Imaging\King.Azure.Imaging.xproj", "{6E9CD996-B4B9-4D97-A778-FE9D4C323EAB}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "King.Azure.Imaging.WebJob", "King.Azure.Imaging.WebJob\King.Azure.Imaging.WebJob.xproj", "{E9A3A8B1-D623-4243-A536-A7ECE2869BCD}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "King.Azure.Imaging.Test", "King.Azure.Imaging.Test\King.Azure.Imaging.Test.xproj", "{99849722-2A58-4181-8511-74E5397CB73E}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "King.Azure.Imaging", "King.Azure.Imaging\King.Azure.Imaging.xproj", "{1707B674-0DFA-4977-B916-2FCFDB92E989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,6 @@ Global
 		{B5C9C3FB-F919-4C83-871F-626EB5042F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5C9C3FB-F919-4C83-871F-626EB5042F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5C9C3FB-F919-4C83-871F-626EB5042F64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E9CD996-B4B9-4D97-A778-FE9D4C323EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E9CD996-B4B9-4D97-A778-FE9D4C323EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E9CD996-B4B9-4D97-A778-FE9D4C323EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E9CD996-B4B9-4D97-A778-FE9D4C323EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9A3A8B1-D623-4243-A536-A7ECE2869BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E9A3A8B1-D623-4243-A536-A7ECE2869BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9A3A8B1-D623-4243-A536-A7ECE2869BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -40,6 +36,10 @@ Global
 		{99849722-2A58-4181-8511-74E5397CB73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99849722-2A58-4181-8511-74E5397CB73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99849722-2A58-4181-8511-74E5397CB73E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1707B674-0DFA-4977-B916-2FCFDB92E989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1707B674-0DFA-4977-B916-2FCFDB92E989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1707B674-0DFA-4977-B916-2FCFDB92E989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1707B674-0DFA-4977-B916-2FCFDB92E989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
