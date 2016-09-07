@@ -251,9 +251,11 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\AzureImaging.pubxml" />
-    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.3.js" />
-    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
     <Content Include="Scripts\jquery.fileupload-image.js" />
     <Content Include="Scripts\jquery.fileupload-jquery-ui.js" />
     <Content Include="Scripts\jquery.fileupload-process.js" />
@@ -288,7 +290,8 @@
     <Content Include="Views\Home\Medium.cshtml" />
     <Content Include="Views\Home\Large.cshtml" />
     <Content Include="Views\Home\Dynamic.cshtml" />
-    <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
