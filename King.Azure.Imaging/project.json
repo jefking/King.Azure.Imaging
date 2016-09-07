@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "2.0.0",
   "title": "King.Azure.Imaging",
   "description": "Image API & processing for Azure Web Apps",
@@ -35,7 +35,7 @@
 
   "dependencies": {
     "ImageProcessor": "2.4.4",
-    "King.Service": "2.0.4",
+    "King.Service": "2.1.3",
     "System.Collections": "4.0.10",
     "System.Net.Http": "4.1.0",
     "System.Runtime": "4.0.20",

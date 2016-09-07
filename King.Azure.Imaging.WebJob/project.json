@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true
@@ -19,7 +19,7 @@
 
   "dependencies": {
     "King.Azure.Imaging": "2.0.0",
-    "Microsoft.Azure.WebJobs": "1.0.1",
-    "Microsoft.WindowsAzure.ConfigurationManager": "3.1.0"
+    "Microsoft.Azure.WebJobs": "1.1.2",
+    "Microsoft.WindowsAzure.ConfigurationManager": "3.2.1"
   }
 }
