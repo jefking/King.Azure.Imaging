@@ -72,12 +72,12 @@
           "lib/net40/Microsoft.Azure.KeyVault.Core.dll": {}
         }
       },
-      "Microsoft.Azure.WebJobs/1.0.1": {
+      "Microsoft.Azure.WebJobs/1.1.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.WebJobs.Core": "[1.0.1]",
-          "Newtonsoft.Json": "6.0.4",
-          "WindowsAzure.Storage": "4.0.1"
+          "Microsoft.Azure.WebJobs.Core": "[1.1.2]",
+          "Newtonsoft.Json": "6.0.8",
+          "WindowsAzure.Storage": "4.3.0"
         },
         "compile": {
           "lib/net45/Microsoft.Azure.WebJobs.Host.dll": {}
@@ -86,7 +86,7 @@
           "lib/net45/Microsoft.Azure.WebJobs.Host.dll": {}
         }
       },
-      "Microsoft.Azure.WebJobs.Core/1.0.1": {
+      "Microsoft.Azure.WebJobs.Core/1.1.2": {
         "type": "package",
         "compile": {
           "lib/net45/Microsoft.Azure.WebJobs.dll": {}
@@ -549,23 +549,23 @@
         "lib/portable-net45+wp8+wpa81+win/Microsoft.Azure.KeyVault.Core.xml"
       ]
     },
-    "Microsoft.Azure.WebJobs/1.0.1": {
-      "sha512": "yMv8vV7Pfu4UP9eqOa82CcuKydyTvWc9bO+XgfGpBy53DwHo8729tRs/K/QLeJfIEPFlNaYsfLxAWAlMKJkcAQ==",
+    "Microsoft.Azure.WebJobs/1.1.2": {
+      "sha512": "kb+sAZhlphBZuU+vgNig/u83SL4j3/Cn04KhkoPRpefHszboh1K8otZcVo4FqkXqR2tQ1nqlmaYmw7xt0fI+HA==",
       "type": "package",
-      "path": "Microsoft.Azure.WebJobs/1.0.1",
+      "path": "Microsoft.Azure.WebJobs/1.1.2",
       "files": [
-        "Microsoft.Azure.WebJobs.1.0.1.nupkg.sha512",
+        "Microsoft.Azure.WebJobs.1.1.2.nupkg.sha512",
         "Microsoft.Azure.WebJobs.nuspec",
         "lib/net45/Microsoft.Azure.WebJobs.Host.dll",
         "lib/net45/Microsoft.Azure.WebJobs.Host.xml"
       ]
     },
-    "Microsoft.Azure.WebJobs.Core/1.0.1": {
-      "sha512": "u1Qumx1n/MHnu6iiVRS9EhS0tD6iS7WS44xQir2vKhHpVdpiYB5hPDQgq8pPy3qKswY0JWWzzII9hVR7wqAShA==",
+    "Microsoft.Azure.WebJobs.Core/1.1.2": {
+      "sha512": "9Wcd4IxaV5b3h6pC+sxNikCRn87NtbkvSItnFJt5L4ZZGU7gQvOaQxSUmBhqj70gHWVfJ6/uJaTF2irelbDqTQ==",
       "type": "package",
-      "path": "Microsoft.Azure.WebJobs.Core/1.0.1",
+      "path": "Microsoft.Azure.WebJobs.Core/1.1.2",
       "files": [
-        "Microsoft.Azure.WebJobs.Core.1.0.1.nupkg.sha512",
+        "Microsoft.Azure.WebJobs.Core.1.1.2.nupkg.sha512",
         "Microsoft.Azure.WebJobs.Core.nuspec",
         "lib/net45/Microsoft.Azure.WebJobs.dll",
         "lib/net45/Microsoft.Azure.WebJobs.xml"
@@ -1261,7 +1261,7 @@
   "projectFileDependencyGroups": {
     "": [
       "King.Azure.Imaging >= 2.0.0",
-      "Microsoft.Azure.WebJobs >= 1.0.1",
+      "Microsoft.Azure.WebJobs >= 1.1.2",
       "Microsoft.WindowsAzure.ConfigurationManager >= 3.2.1"
     ],
     ".NETFramework,Version=v4.6": []
