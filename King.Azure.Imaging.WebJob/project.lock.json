@@ -2,7 +2,7 @@
   "locked": false,
   "version": 2,
   "targets": {
-    ".NETFramework,Version=v4.6": {
+    ".NETFramework,Version=v4.6.2": {
       "ImageProcessor/2.4.4": {
         "type": "package",
         "compile": {
@@ -18,10 +18,10 @@
           "WindowsAzure.Storage": "7.2.0"
         },
         "compile": {
-          "lib/net46/King.Azure.dll": {}
+          "lib/net462/King.Azure.dll": {}
         },
         "runtime": {
-          "lib/net46/King.Azure.dll": {}
+          "lib/net462/King.Azure.dll": {}
         }
       },
       "King.Service/2.1.3": {
@@ -30,10 +30,10 @@
           "King.Azure": "2.0.14"
         },
         "compile": {
-          "lib/net46/King.Service.dll": {}
+          "lib/net462/King.Service.dll": {}
         },
         "runtime": {
-          "lib/net46/King.Service.dll": {}
+          "lib/net462/King.Service.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.3": {
@@ -316,13 +316,13 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net46/System.Security.Cryptography.Algorithms.dll": {}
+          "ref/net461/System.Security.Cryptography.Algorithms.dll": {}
         },
         "runtime": {
-          "lib/net46/System.Security.Cryptography.Algorithms.dll": {}
+          "lib/net461/System.Security.Cryptography.Algorithms.dll": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net46/System.Security.Cryptography.Algorithms.dll": {
+          "runtimes/win/lib/net461/System.Security.Cryptography.Algorithms.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -375,13 +375,13 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net46/System.Security.Cryptography.X509Certificates.dll": {}
+          "ref/net461/System.Security.Cryptography.X509Certificates.dll": {}
         },
         "runtime": {
-          "lib/net46/System.Security.Cryptography.X509Certificates.dll": {}
+          "lib/net461/System.Security.Cryptography.X509Certificates.dll": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net46/System.Security.Cryptography.X509Certificates.dll": {
+          "runtimes/win/lib/net461/System.Security.Cryptography.X509Certificates.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -454,7 +454,7 @@
       },
       "King.Azure.Imaging/2.0.0": {
         "type": "project",
-        "framework": "Unsupported,Version=v0.0",
+        "framework": ".NETFramework,Version=v4.6.2",
         "dependencies": {
           "ImageProcessor": "2.4.4",
           "King.Service": "2.1.3",
@@ -464,6 +464,16 @@
           "System.Net.Http": "4.1.0",
           "System.Runtime": "4.0.20",
           "System.Threading.Tasks": "4.0.10"
+        },
+        "frameworkAssemblies": [
+          "System.Drawing",
+          "System.Web"
+        ],
+        "compile": {
+          "net462/King.Azure.Imaging.dll": {}
+        },
+        "runtime": {
+          "net462/King.Azure.Imaging.dll": {}
         }
       }
     }
@@ -1264,7 +1274,7 @@
       "Microsoft.Azure.WebJobs >= 1.1.2",
       "Microsoft.WindowsAzure.ConfigurationManager >= 3.2.1"
     ],
-    ".NETFramework,Version=v4.6": []
+    ".NETFramework,Version=v4.6.2": []
   },
   "tools": {},
   "projectFileToolGroups": {}

@@ -1,4 +1,4 @@
-{
+﻿{
   "version": "2.0.0",
   "title": "King.Azure.Imaging",
   "description": "Image API & processing for Azure Web Apps",
@@ -26,6 +26,12 @@
 
   "frameworks": {
     "net461": {
+      "frameworkAssemblies": {
+        "System.Web": "4.0.0.0",
+        "System.Drawing": "4.0.0.0"
+      }
+    },
+    "net462": {
       "frameworkAssemblies": {
         "System.Web": "4.0.0.0",
         "System.Drawing": "4.0.0.0"
