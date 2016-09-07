@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("King.Azure.Imaging")]
-[assembly: AssemblyDescription("Image API & processing for Azure Web Apps")]
+[assembly: AssemblyDescription("Image processing & API for Azure Web Apps")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("King.Azure.Imaging")]
