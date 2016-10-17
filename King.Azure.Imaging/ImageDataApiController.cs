@@ -1,14 +1,14 @@
 ﻿namespace King.Azure.Imaging
 {
+    using King.Azure.Imaging.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
     using System;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using King.Azure.Imaging.Models;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Image Meta Data Controller

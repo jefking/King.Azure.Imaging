@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging
 {
     using King.Azure.Imaging.Models;
+    using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
@@ -10,7 +11,6 @@
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Image Api Controller

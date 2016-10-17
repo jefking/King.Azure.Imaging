@@ -1,10 +1,10 @@
 ﻿namespace King.Azure.Imaging
 {
-    using System;
-    using System.Threading.Tasks;
     using King.Azure.Data;
     using King.Azure.Imaging.Entities;
     using King.Azure.Imaging.Models;
+    using System;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Image Data Store
@@ -134,8 +134,9 @@
         /// <param name="width">Width</param>
         /// <param name="height">Height</param>
         /// <returns>Relative Path</returns>
-        public virtual async Task<string> Save(string fileName, byte[] content, string version, string mimeType, Guid identifier, bool queueForResize = false, string extension = null
-            , byte quality = Imaging.DefaultImageQuality, ushort width = 0, ushort height = 0)
+        public virtual async Task<string> Save(string fileName, byte[] content, string version, string mimeType, Guid identifier
+            , bool queueForResize = false, string extension = null, byte quality = Imaging.DefaultImageQuality, ushort width = 0
+            , ushort height = 0)
         {
             fileName = fileName.ToLowerInvariant();
             version = version.ToLowerInvariant();
@@ -190,7 +191,8 @@
         /// <param name="quality">Quality</param>
         /// <param name="cache">Cache</param>
         /// <returns>Image Data</returns>
-        public async Task<ImageData> Resize(string file, ushort width, ushort height = 0, string format = Naming.DefaultExtension, byte quality = Imaging.DefaultImageQuality, bool cache = true)
+        public async Task<ImageData> Resize(string file, ushort width, ushort height = 0, string format = Naming.DefaultExtension
+            , byte quality = Imaging.DefaultImageQuality, bool cache = true)
         {
             var wasCached = false;
             var imgFormat = this.imaging.Get(format, quality);
