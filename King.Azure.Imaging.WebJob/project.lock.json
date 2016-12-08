@@ -2007,7 +2007,7 @@
       },
       "King.Azure.Imaging/2.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.6.2",
+        "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
           "ImageProcessor": "2.4.4",
           "King.Service": "2.1.6",
@@ -2021,10 +2021,10 @@
           "System.Web"
         ],
         "compile": {
-          "net462/King.Azure.Imaging.dll": {}
+          "net46/King.Azure.Imaging.dll": {}
         },
         "runtime": {
-          "net462/King.Azure.Imaging.dll": {}
+          "net46/King.Azure.Imaging.dll": {}
         }
       }
     }

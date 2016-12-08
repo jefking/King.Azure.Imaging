@@ -1,6 +1,7 @@
 ﻿namespace King.Azure.Imaging
 {
     using King.Azure.Imaging.Models;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using System;
@@ -71,24 +72,29 @@
         /// </summary>
         /// <returns>Task</returns>
         [HttpPost]
-        public virtual async Task<HttpResponseMessage> Post()
+        public virtual async Task<HttpResponseMessage> Post([FromBody]IList<IFormFile> files)
         {
-            if (!Request.Content.IsMimeMultipartContent())
+            if (null == files)
             {
                 return new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType);
             }
-
-            var provider = new MultipartMemoryStreamProvider();
-            await this.Request.Content.ReadAsMultipartAsync(provider);
-
-            var ids = new List<string>(provider.Contents.Count);
-            foreach (var file in provider.Contents)
+            if (0 == files.Count)
             {
-                var bytes = await file.ReadAsByteArrayAsync();
+                return new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType);
+            }
+           
+            var ids = new List<string>(files.Count);
+            foreach (var file in files)
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    var bytes = new byte[file.Length];
+                    await stream.ReadAsync(bytes, 0, bytes.Length);
 
-                var id = await this.preprocessor.Process(bytes, file.Headers.ContentType.MediaType, file.Headers.ContentDisposition.FileName.Trim('\"'));
+                    var id = await this.preprocessor.Process(bytes, file.ContentType, file.FileName.Trim('\"'));
 
-                ids.Add(id);
+                    ids.Add(id);
+                }
             }
 
             return new HttpResponseMessage(HttpStatusCode.Created)

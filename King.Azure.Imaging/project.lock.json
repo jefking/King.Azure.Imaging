@@ -2,7 +2,7 @@
   "locked": false,
   "version": 2,
   "targets": {
-    ".NETFramework,Version=v4.6.2": {
+    ".NETFramework,Version=v4.6": {
       "ImageProcessor/2.4.4": {
         "type": "package",
         "compile": {
@@ -18,10 +18,10 @@
           "WindowsAzure.Storage": "7.2.0"
         },
         "compile": {
-          "lib/net462/King.Azure.dll": {}
+          "lib/net46/King.Azure.dll": {}
         },
         "runtime": {
-          "lib/net462/King.Azure.dll": {}
+          "lib/net46/King.Azure.dll": {}
         }
       },
       "King.Service/2.1.6": {
@@ -30,10 +30,10 @@
           "King.Azure": "2.0.14"
         },
         "compile": {
-          "lib/net462/King.Service.dll": {}
+          "lib/net46/King.Service.dll": {}
         },
         "runtime": {
-          "lib/net462/King.Service.dll": {}
+          "lib/net46/King.Service.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.3": {
@@ -1304,14 +1304,11 @@
       },
       "System.Diagnostics.Tracing/4.3.0": {
         "type": "package",
-        "frameworkAssemblies": [
-          "mscorlib"
-        ],
         "compile": {
-          "ref/net462/System.Diagnostics.Tracing.dll": {}
+          "ref/net45/_._": {}
         },
         "runtime": {
-          "lib/net462/System.Diagnostics.Tracing.dll": {}
+          "lib/net45/_._": {}
         }
       },
       "System.Dynamic.Runtime/4.0.11": {
@@ -1350,14 +1347,13 @@
       "System.IO/4.3.0": {
         "type": "package",
         "frameworkAssemblies": [
-          "System",
-          "mscorlib"
+          "System"
         ],
         "compile": {
-          "ref/net462/System.IO.dll": {}
+          "ref/net45/_._": {}
         },
         "runtime": {
-          "lib/net462/System.IO.dll": {}
+          "lib/net45/_._": {}
         }
       },
       "System.IO.Compression/4.3.0": {
@@ -1509,14 +1505,11 @@
       },
       "System.Reflection/4.3.0": {
         "type": "package",
-        "frameworkAssemblies": [
-          "mscorlib"
-        ],
         "compile": {
-          "ref/net462/System.Reflection.dll": {}
+          "ref/net45/_._": {}
         },
         "runtime": {
-          "lib/net462/System.Reflection.dll": {}
+          "lib/net45/_._": {}
         }
       },
       "System.Reflection.Extensions/4.3.0": {
@@ -1563,14 +1556,13 @@
         "frameworkAssemblies": [
           "System",
           "System.ComponentModel.Composition",
-          "System.Core",
-          "mscorlib"
+          "System.Core"
         ],
         "compile": {
-          "ref/net462/System.Runtime.dll": {}
+          "ref/net45/_._": {}
         },
         "runtime": {
-          "lib/net462/System.Runtime.dll": {}
+          "lib/net45/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/4.3.0": {
@@ -1585,14 +1577,13 @@
       "System.Runtime.Extensions/4.3.0": {
         "type": "package",
         "frameworkAssemblies": [
-          "System",
-          "mscorlib"
+          "System"
         ],
         "compile": {
-          "ref/net462/System.Runtime.Extensions.dll": {}
+          "ref/net45/_._": {}
         },
         "runtime": {
-          "lib/net462/System.Runtime.Extensions.dll": {}
+          "lib/net45/_._": {}
         }
       },
       "System.Runtime.Handles/4.3.0": {
@@ -1609,19 +1600,15 @@
       },
       "System.Runtime.InteropServices/4.3.0": {
         "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.3.0"
-        },
         "frameworkAssemblies": [
           "System",
-          "System.Core",
-          "mscorlib"
+          "System.Core"
         ],
         "compile": {
-          "ref/net462/System.Runtime.InteropServices.dll": {}
+          "ref/net45/_._": {}
         },
         "runtime": {
-          "lib/net462/System.Runtime.InteropServices.dll": {}
+          "lib/net45/_._": {}
         }
       },
       "System.Runtime.InteropServices.RuntimeInformation/4.3.0": {
@@ -1665,13 +1652,13 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net461/System.Security.Cryptography.Algorithms.dll": {}
+          "ref/net46/System.Security.Cryptography.Algorithms.dll": {}
         },
         "runtime": {
-          "lib/net461/System.Security.Cryptography.Algorithms.dll": {}
+          "lib/net46/System.Security.Cryptography.Algorithms.dll": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net461/System.Security.Cryptography.Algorithms.dll": {
+          "runtimes/win/lib/net46/System.Security.Cryptography.Algorithms.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -1724,13 +1711,13 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net461/System.Security.Cryptography.X509Certificates.dll": {}
+          "ref/net46/System.Security.Cryptography.X509Certificates.dll": {}
         },
         "runtime": {
-          "lib/net461/System.Security.Cryptography.X509Certificates.dll": {}
+          "lib/net46/System.Security.Cryptography.X509Certificates.dll": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net461/System.Security.Cryptography.X509Certificates.dll": {
+          "runtimes/win/lib/net46/System.Security.Cryptography.X509Certificates.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -6234,7 +6221,7 @@
       "System.Collections >= 4.0.10",
       "System.Net.Http >= 4.1.0"
     ],
-    ".NETFramework,Version=v4.6.2": [
+    ".NETFramework,Version=v4.6": [
       "System.Drawing >= 4.0.0",
       "System.Web >= 4.0.0"
     ]
