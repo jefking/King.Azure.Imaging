@@ -1,4 +1,4 @@
-{
+﻿{
   "version": "2.0.0",
   "title": "King.Azure.Imaging",
   "description": "Image API & processing for Azure Web Apps",
@@ -19,7 +19,8 @@
   "configurations": {
     "Release": {
       "buildOptions": {
-        "optimize": true
+        "optimize": true,
+        "define": [ "TRACE" ]
       }
     }
   },
