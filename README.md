@@ -16,8 +16,5 @@ King.Azure.Imaging is made for your Azure PaaS environment; deploy to [Azure Web
 PM> Install-Package King.Azure.Imaging
 ```
 
-### Demo
-Check out the demo [MVC/Web API project](https://github.com/jefking/King.Azure.Imaging/tree/master/King.Azure.Imaging.Mvc) to help you get started! Or [Live Demo](https://azureimaging.azurewebsites.net/)
-
 ### [Wiki](https://github.com/jefking/King.Azure.Imaging/wiki)
 View the wiki to learn how to use this; and check out the architecture [video](https://channel9.msdn.com/Series/onacloud/Cloud-Image-Processing)!
