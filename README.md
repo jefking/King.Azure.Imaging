@@ -18,3 +18,6 @@ PM> Install-Package King.Azure.Imaging
 
 ### [Wiki](https://github.com/jefking/King.Azure.Imaging/wiki)
 View the wiki to learn how to use this; and check out the architecture [video](https://channel9.msdn.com/Series/onacloud/Cloud-Image-Processing)!
+
+### CI
+[![Build status](https://dev.azure.com/jefkin/oss/_apis/build/status/King.Azure.Imaging)](https://dev.azure.com/jefkin/oss/_build/latest?definitionId=20)
